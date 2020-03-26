@@ -19,10 +19,22 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
         Button btnDial = (findViewById(R.id.btn_dial));
+        btnDial.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Uri number = Uri.parse("tel:555-1234");
+                Intent callIntent = new Intent(Intent.ACTION_DIAL, number);
+                startActivity(callIntent);
+            }
+        });
+
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -45,21 +57,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
-        btnDial.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Uri number = Uri.parse("tel:555-1234");
-                Intent callIntent = new Intent(Intent.ACTION_DIAL, number);
-                startActivity(callIntent);
-            }
-        });
-
-
     }
-
-
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
