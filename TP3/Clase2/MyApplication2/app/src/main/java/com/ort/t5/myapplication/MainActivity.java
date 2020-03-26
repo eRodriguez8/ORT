@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
                 emailIntent.putExtra(Intent.EXTRA_TEXT   , "Mi Vieja Mula ya no es lo que era...");
                 emailIntent.setType("plain/text");
                 startActivity(Intent.createChooser(emailIntent, "Choose an Email client :")); //esto me permite elegir si hay mas de una app de correo 
-                }
+            }
         });
 
         Button btnAction = findViewById(R.id.btn_action);

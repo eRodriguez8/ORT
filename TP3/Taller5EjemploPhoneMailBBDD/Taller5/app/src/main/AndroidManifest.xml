@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.ort.t5.myapplication">
-
-    <uses-permission android:name="android.permission.SEND_SMS" />
+    package="com.ort.mirtalapsenzon.taller5">
 
     <application
         android:allowBackup="true"
@@ -11,9 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".PantallaActivity"></activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".activities.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -22,6 +19,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".activities.DetailActivity"
+            android:label="@string/title_activity_pantalla2"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activities.EditarActivity"
+            android:label="@string/title_activity_prueba"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".activities.EmptyActivity" />
+        <activity android:name=".activities.PruebaActivity"></activity>
     </application>
 
 </manifest>
