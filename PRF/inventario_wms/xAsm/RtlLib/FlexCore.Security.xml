@@ -1,0 +1,122 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>FlexCore.Security</name>
+    </assembly>
+    <members>
+        <member name="T:FlexCore.Security.SecUser">
+            <summary>
+            Representa a un usuario conectado a la aplicación
+            </summary>
+            <remarks>La instancia Current representa al usuario que está ejecutando actualmente.</remarks>
+        </member>
+        <member name="M:FlexCore.Security.SecUser.#ctor(System.Security.Principal.IIdentity,System.String)">
+            <summary>
+            Constructor público
+            </summary>
+        </member>
+        <member name="P:FlexCore.Security.SecUser.Name">
+            <summary>
+            Nombre de la cuenta (equivale a Identity.Name), ej. 3P\josem
+            </summary>
+        </member>
+        <member name="P:FlexCore.Security.SecUser.RolesList">
+            <summary>
+            Lista de roles separados por coma, ej. "AD,RE,CO"
+            </summary>
+        </member>
+        <member name="P:FlexCore.Security.SecUser.Identity">
+            <summary>
+            IIdentity asociado a la cuenta (generic o Windows según el caso)
+            </summary>
+        </member>
+        <member name="T:FlexCore.Security.SecProvider">
+            <summary>
+            Clase base de providers para el manejo de seguridad 
+            Implementa lógica comun a todas ellas,
+            y define métodos / props. virtuales para ser completadas en las clases derivadas
+            </summary>
+        </member>
+        <member name="M:FlexCore.Security.SecProvider.GetCurrentUser">
+            <summary>
+            Obtiene información del usuario actual
+            </summary>
+        </member>
+        <member name="M:FlexCore.Security.SecProvider.GetCurrentUserProfile">
+            <summary>
+            Obtiene información del perfil de seguridad correspondiente al usuario actual
+            </summary>
+        </member>
+        <member name="M:FlexCore.Security.SecProvider.CreateSecUser(System.Security.Principal.IIdentity,System.String)">
+            <summary>
+            Instancia la clase que corresponda para datos de un usuario (SecUser o derivada de la misma)
+            </summary>
+        </member>
+        <member name="M:FlexCore.Security.SecProvider.CreateSecProfile(System.Collections.Generic.IDictionary{System.String,System.Int16})">
+            <summary>
+            Instancia la clase que corresponda para un perfil de seguridad (SecProfile o derivada de la misma)
+            </summary>
+            <param name="accessControlList">Lista de permisos asociados a este perfil, obtenida de las clases de negocios</param>
+        </member>
+        <member name="M:FlexCore.Security.SecProvider.GetUserRolesList(System.String)">
+            <summary>
+            Obtiene el conjunto de roles del usuario actual de la base de datos
+            </summary>
+            <remarks>
+            Este método se implementa en la clase derivada específica de cada aplicación
+            </remarks>
+            <param name="userName">DOMAIN\user</param>
+            <returns>ej. "CO,RE"</returns>
+        </member>
+        <member name="M:FlexCore.Security.SecProvider.FillAuthorizedModules(System.Collections.Generic.Dictionary{System.String,System.Int16},System.String)">
+            <summary>
+            Completa en el diccionario especificado el conjunto de permisos asociados a cada módulo para el usuario que se indica
+            </summary>
+            <remarks>
+            Este método se implementa en la clase derivada específica de cada aplicación
+            </remarks>
+        </member>
+        <member name="T:FlexCore.Security.SecProfile">
+            <summary>
+            Perfil de seguridad correspondiente a una combinación de roles
+            Contiene información sobre los permisos de accesos correspondientes al perfil
+            </summary>
+        </member>
+        <member name="F:FlexCore.Security.SecProfile.commandList">
+            <summary>
+            Lista de letras asociadas a cada permiso
+            </summary>
+        </member>
+        <member name="F:FlexCore.Security.SecProfile.accessControlList">
+            <summary>
+            Lista de permisos (marcas de bit) correspondientes a cada módulo de la aplicacion
+            </summary>
+        </member>
+        <member name="M:FlexCore.Security.SecProfile.#ctor(System.Collections.Generic.IDictionary{System.String,System.Int16})">
+            <summary>
+            Constructor público
+            </summary>
+            <param name="accessControlList">Lista de permisos, obtenida previamente</param>
+        </member>
+        <member name="M:FlexCore.Security.SecProfile.IsAuthorized(System.String)">
+            <summary>
+            Verificar autorizacion para el requerimiento especificado (en forma "modulo:requiere")
+            </summary>
+            <param name="restricText">ej. "OPER:ABM"</param>
+            <returns>true / false</returns>
+        </member>
+        <member name="M:FlexCore.Security.SecProfile.IsAuthorized(System.String,System.String)">
+            <summary>
+            Verificar autorizacion para el módulo y requerimientos especificados
+            </summary>
+            <param name="module">ej. "OPER"</param>
+            <param name="requirements">ej. "ABM"</param>
+            <returns>true / false</returns>
+        </member>
+        <member name="M:FlexCore.Security.SecProfile.GetRequiredMask(System.String)">
+            <summary>
+            Método de uso interno
+            </summary>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,12 @@
+﻿<div *ngIf="bussy" class="center">
+  <img src="assets/images/loader.gif" alt="img" title="cargando...">
+</div>
+<div class="container margin-top-80">
+  <div *ngIf="!bussy" class="center">
+    <div *ngFor="let item of menu " class="d-inline p-2">
+      <a routerLink="{{item.url}}" class="{{item.clase}}">
+        <img src="{{item.imagen}}" class="{{item.clase}}"/>
+      </a>
+    </div>
+  </div>
+</div>

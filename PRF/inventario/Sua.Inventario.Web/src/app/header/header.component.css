@@ -1,0 +1,33 @@
+﻿.header {
+    background: #0d47a1;
+    color: #fff;
+    -webkit-transition: all 1s ease-in;
+    -moz-transition: all 1s ease-in;
+    transition: all 1s ease-in;
+    display: flex;
+    position: relative;
+    z-index: 9;
+}
+
+.header .title {
+    font-size: 24px;
+    margin: 16px 0 0 15px !important;
+}
+
+.header .logo {
+    height: 70px;
+    width: 120px;
+    margin-left: 8px;
+}
+
+@media(max-width: 480px) {
+    .header .title {
+        font-size: 14px;
+        margin-top: 22px
+    }
+
+    .header logo {
+        height: 50px;
+        width: 65px
+    }
+}

@@ -1,0 +1,330 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>InvocationFramework.Adapters.ServicePublisher</name>
+    </assembly>
+    <members>
+        <member name="T:InvocationFramework.Adapters.ServicePublisher.Web.MTOMBinaryServicePublisherAdapter">
+            <summary>
+            Adaptador para ejecutar servicios expuestos por el Invocation Framework en un servidor web IIS
+            </summary>
+            <author>Rodolfo Finochietti 01/11/2005 13.18</author>
+        </member>
+        <member name="F:InvocationFramework.Adapters.ServicePublisher.Web.MTOMBinaryServicePublisherAdapter._proxy">
+            <summary>
+            Proxy para comunicarse son el servidor web
+            </summary>
+        </member>
+        <member name="M:InvocationFramework.Adapters.ServicePublisher.Web.MTOMBinaryServicePublisherAdapter.#ctor">
+            <summary>
+            Constructor por defecto
+            </summary>
+        </member>
+        <member name="F:InvocationFramework.Adapters.ServicePublisher.Web.MTOMBinaryServicePublisherAdapter._id">
+            <summary>
+            Variable privada para el manejo de la propiedad
+            </summary>
+        </member>
+        <member name="F:InvocationFramework.Adapters.ServicePublisher.Web.MTOMBinaryServicePublisherAdapter._initialized">
+            <summary>
+            Variable privada para el manejo de la propiedad
+            </summary>
+        </member>
+        <member name="F:InvocationFramework.Adapters.ServicePublisher.Web.MTOMBinaryServicePublisherAdapter._defaultOperation">
+            <summary>
+            Variable privada para el manejo de la propiedad
+            </summary>
+        </member>
+        <member name="M:InvocationFramework.Adapters.ServicePublisher.Web.MTOMBinaryServicePublisherAdapter.Init(System.String,System.String,System.Xml.XmlNode)">
+            <summary>
+            Inicializa el adaptador
+            </summary>
+            <param name="id">Identificador del adaptador</param>
+            <param name="defaultOperation">Nombre de la operacion por defecto</param>
+            <param name="configuration">Configuracion del adaptador</param>
+        </member>
+        <member name="M:InvocationFramework.Adapters.ServicePublisher.Web.MTOMBinaryServicePublisherAdapter.IsServiceAvailable(System.String)">
+            <summary>
+            Permite saber si un servicio esta disponible para ser ejecutado mediante este adaptador
+            </summary>
+            <param name="serviceName">Nombre del servicio</param>
+            <returns>True este adaptador puede ejecutar este servicio, False de lo contrario</returns>
+        </member>
+        <member name="M:InvocationFramework.Adapters.ServicePublisher.Web.MTOMBinaryServicePublisherAdapter.IsServiceOperationAvailable(System.String,System.String)">
+            <summary>
+            Verifica si existe una operacion en un servicio
+            </summary>
+            <param name="serviceName">Nombre del servicio</param>
+            <param name="operationName">Nombre de la operacion</param>
+            <returns>True si la operacion existe en el servicio, de lo contrario False</returns>
+        </member>
+        <member name="M:InvocationFramework.Adapters.ServicePublisher.Web.MTOMBinaryServicePublisherAdapter.GetMostRequestedServices">
+            <summary>
+            Devuelve una lista con los nombres de los servicios mas utilizados
+            </summary>
+            <returns>Una lista con los nombres de los servicios mas utilizados</returns>
+        </member>
+        <member name="M:InvocationFramework.Adapters.ServicePublisher.Web.MTOMBinaryServicePublisherAdapter.Execute(System.String,System.String,InvocationFramework.Common.ContextDictionary,System.Object[])">
+            <summary>
+            Ejecuta la operacion que se encuentra en un determinado servicio
+            </summary>
+            <param name="serviceName">Nombre del servicio</param>
+            <param name="operationName">Nombre de la operacion a ejecutar</param>
+            <param name="context">El contexto que se desea propagar junto con al ejecucion del servicios</param>
+            <param name="parameters">Parametros de la operacion</param>
+            <returns>Resultado de la ejecucion de la operacion</returns>
+        </member>
+        <member name="P:InvocationFramework.Adapters.ServicePublisher.Web.MTOMBinaryServicePublisherAdapter.Id">
+            <summary>
+            Identificador del adaptador
+            </summary>
+        </member>
+        <member name="P:InvocationFramework.Adapters.ServicePublisher.Web.MTOMBinaryServicePublisherAdapter.Initialized">
+            <summary>
+            Indica si el adaptador esta inicializado o no
+            </summary>
+        </member>
+        <member name="P:InvocationFramework.Adapters.ServicePublisher.Web.MTOMBinaryServicePublisherAdapter.DefaultOperation">
+            <summary>
+            Nombre de la operacion por defecto
+            </summary>
+        </member>
+        <member name="T:InvocationFramework.Adapters.ServicePublisher.Web.XmlServicePublisherAdapter">
+            <summary>
+            Adaptador para ejecutar servicios expuestos por el Invocation Framework en un servidor web IIS
+            </summary>
+            <author>Jose Marcenaro 20/02/2006 13.18</author>
+        </member>
+        <member name="F:InvocationFramework.Adapters.ServicePublisher.Web.XmlServicePublisherAdapter._proxy">
+            <summary>
+            Proxy para comunicarse son el servidor web
+            </summary>
+        </member>
+        <member name="M:InvocationFramework.Adapters.ServicePublisher.Web.XmlServicePublisherAdapter.#ctor">
+            <summary>
+            Constructor por defecto
+            </summary>
+        </member>
+        <member name="F:InvocationFramework.Adapters.ServicePublisher.Web.XmlServicePublisherAdapter._id">
+            <summary>
+            Variable privada para el manejo de la propiedad
+            </summary>
+        </member>
+        <member name="F:InvocationFramework.Adapters.ServicePublisher.Web.XmlServicePublisherAdapter._initialized">
+            <summary>
+            Variable privada para el manejo de la propiedad
+            </summary>
+        </member>
+        <member name="F:InvocationFramework.Adapters.ServicePublisher.Web.XmlServicePublisherAdapter._defaultOperation">
+            <summary>
+            Variable privada para el manejo de la propiedad
+            </summary>
+        </member>
+        <member name="M:InvocationFramework.Adapters.ServicePublisher.Web.XmlServicePublisherAdapter.Init(System.String,System.String,System.Xml.XmlNode)">
+            <summary>
+            Inicializa el adaptador
+            </summary>
+            <param name="id">Identificador del adaptador</param>
+            <param name="defaultOperation">Nombre de la operacion por defecto</param>
+            <param name="configuration">Configuracion del adaptador</param>
+        </member>
+        <member name="M:InvocationFramework.Adapters.ServicePublisher.Web.XmlServicePublisherAdapter.IsServiceAvailable(System.String)">
+            <summary>
+            Permite saber si un servicio esta disponible para ser ejecutado mediante este adaptador
+            </summary>
+            <param name="serviceName">Nombre del servicio</param>
+            <returns>True este adaptador puede ejecutar este servicio, False de lo contrario</returns>
+        </member>
+        <member name="M:InvocationFramework.Adapters.ServicePublisher.Web.XmlServicePublisherAdapter.IsServiceOperationAvailable(System.String,System.String)">
+            <summary>
+            Verifica si existe una operacion en un servicio
+            </summary>
+            <param name="serviceName">Nombre del servicio</param>
+            <param name="operationName">Nombre de la operacion</param>
+            <returns>True si la operacion existe en el servicio, de lo contrario False</returns>
+        </member>
+        <member name="M:InvocationFramework.Adapters.ServicePublisher.Web.XmlServicePublisherAdapter.GetMostRequestedServices">
+            <summary>
+            Devuelve una lista con los nombres de los servicios mas utilizados
+            </summary>
+            <returns>Una lista con los nombres de los servicios mas utilizados</returns>
+        </member>
+        <member name="M:InvocationFramework.Adapters.ServicePublisher.Web.XmlServicePublisherAdapter.Execute(System.String,System.String,InvocationFramework.Common.ContextDictionary,System.Object[])">
+            <summary>
+            Ejecuta la operacion que se encuentra en un determinado servicio
+            </summary>
+            <param name="serviceName">Nombre del servicio</param>
+            <param name="operationName">Nombre de la operacion a ejecutar</param>
+            <param name="context">El contexto que se desea propagar junto con al ejecucion del servicios</param>
+            <param name="parameters">Parametros de la operacion</param>
+            <returns>Resultado de la ejecucion de la operacion</returns>
+        </member>
+        <member name="M:InvocationFramework.Adapters.ServicePublisher.Web.XmlServicePublisherAdapter.ExecuteServicePublisher(System.String,System.String)">
+            <summary>
+            Envuelve las invocaciones internas a ServicePublisher con la deserializacion y serializacion 
+            necesarias para pasar por el publicador Xml
+            </summary>
+        </member>
+        <member name="P:InvocationFramework.Adapters.ServicePublisher.Web.XmlServicePublisherAdapter.Id">
+            <summary>
+            Identificador del adaptador
+            </summary>
+        </member>
+        <member name="P:InvocationFramework.Adapters.ServicePublisher.Web.XmlServicePublisherAdapter.Initialized">
+            <summary>
+            Indica si el adaptador esta inicializado o no
+            </summary>
+        </member>
+        <member name="P:InvocationFramework.Adapters.ServicePublisher.Web.XmlServicePublisherAdapter.DefaultOperation">
+            <summary>
+            Nombre de la operacion por defecto
+            </summary>
+        </member>
+        <member name="T:InvocationFramework.Adapters.ServicePublisher.RemotingServicePublisherAdapter">
+            <summary>
+            Adaptador para ejecutar servicios expuestos por el Invocation Framework via remoting
+            </summary>
+            <author>Rodolfo Finochietti 17/01/2005 16.05</author>
+        </member>
+        <member name="F:InvocationFramework.Adapters.ServicePublisher.RemotingServicePublisherAdapter._uri">
+            <summary>
+            Uri donde se encuntra el objeto expuesto por remoting
+            </summary>
+        </member>
+        <member name="F:InvocationFramework.Adapters.ServicePublisher.RemotingServicePublisherAdapter._id">
+            <summary>
+            Variable privada para el manejo de la propiedad
+            </summary>
+        </member>
+        <member name="F:InvocationFramework.Adapters.ServicePublisher.RemotingServicePublisherAdapter._initialized">
+            <summary>
+            Variable privada para el manejo de la propiedad
+            </summary>
+        </member>
+        <member name="F:InvocationFramework.Adapters.ServicePublisher.RemotingServicePublisherAdapter._defaultOperation">
+            <summary>
+            Variable privada para el manejo de la propiedad
+            </summary>
+        </member>
+        <member name="M:InvocationFramework.Adapters.ServicePublisher.RemotingServicePublisherAdapter.Init(System.String,System.String,System.Xml.XmlNode)">
+            <summary>
+            Inicializa el adaptador
+            </summary>
+            <param name="id">Identificador del adaptador</param>
+            <param name="defaultOperation">Nombre de la operacion por defecto</param>
+            <param name="configuration">Configuracion del adaptador</param>
+        </member>
+        <member name="M:InvocationFramework.Adapters.ServicePublisher.RemotingServicePublisherAdapter.IsServiceAvailable(System.String)">
+            <summary>
+            Permite saber si un servicio esta disponible para ser ejecutado mediante este adaptador
+            </summary>
+            <param name="serviceName">Nombre del servicio</param>
+            <returns>True este adaptador puede ejecutar este servicio, False de lo contrario</returns>
+        </member>
+        <member name="M:InvocationFramework.Adapters.ServicePublisher.RemotingServicePublisherAdapter.IsServiceOperationAvailable(System.String,System.String)">
+            <summary>
+            Verifica si existe una operacion en un servicio
+            </summary>
+            <param name="serviceName">Nombre del servicio</param>
+            <param name="operationName">Nombre de la operacion</param>
+            <returns>True si la operacion existe en el servicio, de lo contrario False</returns>
+        </member>
+        <member name="M:InvocationFramework.Adapters.ServicePublisher.RemotingServicePublisherAdapter.GetMostRequestedServices">
+            <summary>
+            Devuelve una lista con los nombres de los servicios mas utilizados
+            </summary>
+            <returns>Una lista con los nombres de los servicios mas utilizados</returns>
+        </member>
+        <member name="M:InvocationFramework.Adapters.ServicePublisher.RemotingServicePublisherAdapter.Execute(System.String,System.String,InvocationFramework.Common.ContextDictionary,System.Object[])">
+            <summary>
+            Ejecuta la operacion que se encuentra en un determinado servicio
+            </summary>
+            <param name="serviceName">Nombre del servicio</param>
+            <param name="operationName">Nombre de la operacion a ejecutar</param>
+            <param name="context">El contexto que se desea propagar junto con al ejecucion del servicios</param>
+            <param name="parameters">Parametros de la operacion</param>
+            <returns>Resultado de la ejecucion de la operacion</returns>
+        </member>
+        <member name="P:InvocationFramework.Adapters.ServicePublisher.RemotingServicePublisherAdapter.Id">
+            <summary>
+            Identificador del adaptador
+            </summary>
+        </member>
+        <member name="P:InvocationFramework.Adapters.ServicePublisher.RemotingServicePublisherAdapter.Initialized">
+            <summary>
+            Indica si el adaptador esta inicializado o no
+            </summary>
+        </member>
+        <member name="P:InvocationFramework.Adapters.ServicePublisher.RemotingServicePublisherAdapter.DefaultOperation">
+            <summary>
+            Nombre de la operacion por defecto
+            </summary>
+        </member>
+        <member name="T:InvocationFramework.Adapters.ServicePublisher.Web.MTOMBinaryServicePublisherProxy">
+            <summary>
+            Proxy para comunicarse con el handler que expone el Invocation Framework en un servidor web
+            </summary>
+        </member>
+        <member name="M:InvocationFramework.Adapters.ServicePublisher.Web.MTOMBinaryServicePublisherProxy.#ctor(System.String)">
+            <summary>
+            </summary>
+            <param name="serviceCalleUri"></param>
+        </member>
+        <member name="M:InvocationFramework.Adapters.ServicePublisher.Web.MTOMBinaryServicePublisherProxy.Execute(System.Byte[])">
+            <summary>
+            </summary>
+            <param name="base64Binary"></param>
+            <returns></returns>
+        </member>
+        <member name="T:InvocationFramework.Adapters.ServicePublisher.Web.XmlServicePublisherProxy">
+            <summary>
+            Proxy para comunicarse con el handler que expone el Invocation Framework en un servidor web
+            </summary>
+        </member>
+        <member name="M:InvocationFramework.Adapters.ServicePublisher.Web.XmlServicePublisherProxy.#ctor(System.String)">
+            <remarks/>
+        </member>
+        <member name="M:InvocationFramework.Adapters.ServicePublisher.Web.XmlServicePublisherProxy.Execute(InvocationFramework.Adapters.ServicePublisher.Web.XmlRequest)">
+            <remarks/>
+        </member>
+        <member name="M:InvocationFramework.Adapters.ServicePublisher.Web.XmlServicePublisherProxy.ExecuteAsync(InvocationFramework.Adapters.ServicePublisher.Web.XmlRequest)">
+            <remarks/>
+        </member>
+        <member name="M:InvocationFramework.Adapters.ServicePublisher.Web.XmlServicePublisherProxy.ExecuteAsync(InvocationFramework.Adapters.ServicePublisher.Web.XmlRequest,System.Object)">
+            <remarks/>
+        </member>
+        <member name="M:InvocationFramework.Adapters.ServicePublisher.Web.XmlServicePublisherProxy.CancelAsync(System.Object)">
+            <remarks/>
+        </member>
+        <member name="E:InvocationFramework.Adapters.ServicePublisher.Web.XmlServicePublisherProxy.ExecuteCompleted">
+            <remarks/>
+        </member>
+        <member name="T:InvocationFramework.Adapters.ServicePublisher.Web.XmlRequest">
+            <remarks/>
+        </member>
+        <member name="P:InvocationFramework.Adapters.ServicePublisher.Web.XmlRequest.ServiceName">
+            <remarks/>
+        </member>
+        <member name="P:InvocationFramework.Adapters.ServicePublisher.Web.XmlRequest.OperationName">
+            <remarks/>
+        </member>
+        <member name="P:InvocationFramework.Adapters.ServicePublisher.Web.XmlRequest.Parameter">
+            <remarks/>
+        </member>
+        <member name="T:InvocationFramework.Adapters.ServicePublisher.Web.XmlResponse">
+            <remarks/>
+        </member>
+        <member name="P:InvocationFramework.Adapters.ServicePublisher.Web.XmlResponse.Result">
+            <remarks/>
+        </member>
+        <member name="T:InvocationFramework.Adapters.ServicePublisher.Web.ExecuteCompletedEventHandler">
+            <remarks/>
+        </member>
+        <member name="T:InvocationFramework.Adapters.ServicePublisher.Web.ExecuteCompletedEventArgs">
+            <remarks/>
+        </member>
+        <member name="P:InvocationFramework.Adapters.ServicePublisher.Web.ExecuteCompletedEventArgs.Result">
+            <remarks/>
+        </member>
+    </members>
+</doc>

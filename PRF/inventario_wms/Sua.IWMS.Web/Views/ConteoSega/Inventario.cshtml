@@ -1,0 +1,112 @@
+﻿@using Corp.Cencosud.Supermercados.Sua.IWMS.Ent
+@model Corp.Cencosud.Supermercados.Sua.IWMS.Web.Models.ConteoSega.ConteoSegaViewModel
+@{
+    ViewBag.Title = "IWMS";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <div class="header">
+        <h3>Conteo Inventario Sega</h3> 
+    </div>
+    <div class="content">
+        <table style="width: 100%">
+            <tr>
+                <td class="col-30 label blue">Documento</td>
+                <td class="col-70">@Html.TextBoxFor(model => model.Documento, new { @readonly = "readonly", @class = "form-control input-sm", onkeydown = "nextTextbox(event, this);" })</td>
+            </tr>
+            <tr>
+                <td class="col-30 label blue">Usuario Inventario</td>
+            @if (Model.UsuarioInventario == "")
+            {
+                <td class="col-70">
+                    @Html.TextBoxFor(model => model.UsuarioInventario, new { @class = "form-control input-sm", onkeydown = "nextTextbox(event, this);" })
+                </td>
+            }
+            else
+            {
+                <td class="col-70">
+                    @Html.TextBoxFor(model => model.UsuarioInventario, new { @readonly = "readonly", @class = "form-control input-sm", onkeydown = "nextTextbox(event, this);" })
+                </td>
+            }
+            </tr>
+            <tr>
+                <td class="col-30 label blue">Ubicacion</td>
+                <td class="col-70">@Html.TextBoxFor(model => model.Ubicacion, new { @readonly = "readonly", @class = "form-control input-sm", onkeydown = "nextTextbox(event, this);" })</td>
+            </tr>
+            <tr>
+                <td class="col-30"></td>
+                <td class="col-70">@Html.DisplayFor(model => Model.RegistroCargado) / @Html.DisplayFor(model => Model.RegistroTotal)</td>
+            </tr>
+            <tr>
+                <td class="col-30 label blue">Digito</td>
+                <td class="col-70">@Html.TextBoxFor(model => model.Digito, new { onkeydown = "validarDigito(event, this);", @class = "form-control input-sm", @maxlength = "20" })
+                    <div>
+                        <label class="help-block"> "." Vacio </label>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label id="Msg" class="label danger">@Html.DisplayFor(model => Model.MsgError)</label>
+                </td>
+            </tr>
+            <tr id="articuloTr">
+                <td class="col-30 label blue">Articulo</td>
+                <td class="col-70">@Html.TextBoxFor(model => model.Articulo, new { @class = "form-control input-sm", onkeydown = "nextTextbox(event, this);" })</td>
+            </tr>
+            <tr>
+                <td class="col-30 label blue" id="tipoInventario">@Html.DisplayFor(model => model.TipoInventario)</td>
+                <td class="col-70">@Html.TextBoxFor(model => model.Camadas, new { @class = "form-control input-sm", onkeydown = "nextTextbox(event, this);" })</td>
+            </tr>
+            <tr>
+                <td class="col-30 label blue">Cajas Sueltas</td>
+                <td class="col-70">
+                    @if (Model.TipoInventario.ToLower() == TipoInventarios.Camadas.ToString().ToLower())
+                    {
+                        @Html.TextBoxFor(model => model.CajasSueltas, new { @class = "form-control input-sm", onkeydown = "nextTextbox(event, this);" })
+                    }
+                    else
+                    {
+                        @Html.TextBoxFor(model => model.CajasSueltas, new { @readonly = "readonly", @class = "form-control input-sm", onkeydown = "nextTextbox(event, this);" })
+                    }
+                </td>
+            </tr>
+            <tr>
+                <td class="col-30 label blue">Observaciones</td>
+                <td class="col-70">@Html.TextBoxFor(model => model.Observaciones, new { @class = "form-control input-sm"})</td>
+            </tr>
+            <tr>
+                <td>
+                    <button class="btn btn-primary btn-sm" type="button" id="btnGrabar">Grabar</button>
+                </td>
+                <td>
+                    <button class="btn btn-primary btn-sm" type="button" id="btnSalir">Salir</button>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.HiddenFor(model => model.Leido)
+                    @Html.HiddenFor(model => model.iCxHActual)
+                    @Html.HiddenFor(model => model.Id)
+                    @Html.HiddenFor(model => model.Indice)
+                    @Html.HiddenFor(model => model.Etiqueta)
+                    @Html.HiddenFor(model => model.Digito)
+                    @Html.HiddenFor(model => model.UsuarioInventario)
+                    @Html.HiddenFor(model => model.TipoInventario)
+                    @Html.HiddenFor(model => model.RegistroCargado)
+                    @Html.HiddenFor(model => model.RegistroTotal)
+                    @Html.HiddenFor(model => model.idDocumento)
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="footer" style="height: 25px">
+        <p>Cencosud @DateTime.Now</p>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="@Url.Content("~/bundles/jquery")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/inventario.js")" type="text/javascript"></script>
+}

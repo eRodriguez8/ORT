@@ -1,0 +1,47 @@
+<div class="widget" id="filtros">
+  <div class="widget-header bordered-bottom bordered-blue">
+    <span class="widget-caption">
+      <i class="widget-icon fa fa-filter"></i> Filtros
+    </span>
+
+    <div class="widget-buttons">
+      <a
+        data-toggle="collapse"
+        href="#widegetFiltro"
+        role="button"
+        aria-expanded="false"
+        aria-controls="widegetFiltro"
+      >
+        <i class="widget-icon fa fa-chevron-up"></i>
+      </a>
+    </div>
+  </div>
+  <div id="widegetFiltro" class="widget-body collapse show padding-10">
+    <form
+      [formGroup]="filtroForm"
+      class="padding-5 form-group"
+      (ngSubmit)="onSubmit()"
+    >
+      <div class="row">
+        <div class="col-sm-3 col-12 center">
+          <label class="label blue padding-5">Fase</label>
+          <select
+            class="width-200"
+            name="faseSelect"
+            formControlName="faseSelect"
+          >
+            <option value=''>Todas</option>
+            <option *ngFor="let fase of fases" value="{{ fase.id }}">{{
+              fase.descripcion
+            }}</option>
+          </select>
+        </div>
+        <div class="col-sm-1 col-12">
+          <button type="submit" class="btn btn-outline-primary btn-sm">
+            <i class="fa fa-search"></i> Filtrar
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

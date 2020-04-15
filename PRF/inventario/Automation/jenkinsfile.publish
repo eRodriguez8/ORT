@@ -1,0 +1,267 @@
+//Jenkinsfile (Scripted Pipeline)
+
+node {
+	def MSBuild = tool name: 'Con Soporte C# 6', type: 'msbuild'
+    def OpenCover = "\"C:\\Program Files (x86)\\OpenCover\\OpenCover.Console.exe\""
+	def MSTest = tool name: 'Visual Studio 2014', type: 'org.jenkinsci.plugins.MsTestInstallation'
+	def ReportGenerator = "\"c:\\Tools\\ReportGenerator\\ReportGenerator.exe\""
+	def OpenCoverToCoberturaConverter = "\"C:\\Tools\\OpenCoverToCoberturaConverter\\OpenCoverToCoberturaConverter.exe\""
+	
+	def APP = "Sua"
+	def MODULO = "Inventario"
+
+	def BuildConfiguration = "Release"
+	def GITOrigen = 'http://gitlab.cencosud.corp/Celula_Logistica_SUA/inventario.git'
+	
+	def SqlCmd = "\"C:\\Program Files\\Microsoft SQL Server\\110\\Tools\\Binn\\SQLCMD.EXE\""
+	def zip = "\"C:\\Program Files\\7-Zip\\7z.EXE\""
+	int idxAmbiente = (BRANCH_NAME == 'develop') ? 0 : (BRANCH_NAME == 'ide') ? 1 : (BRANCH_NAME == 'prod') ? 2 : 0
+
+	String[][] ApiServers = [
+    ["\\\\G100603SV216\\G\$\\${MODULO}\\Api"], 
+    ["\\\\G100603SVBKM\\Sites\\${MODULO}\\Api"],
+	["\\\\D095SRTEC06\\J\$\\${MODULO}\\Api"]
+    ]
+
+	String[][] WebSiteServers = [
+    ["\\\\G100603SV216\\G\$\\${MODULO}\\Web"],
+    ["\\\\G100603SVBKM\\Sites\\${MODULO}\\Web"],
+	["\\\\D095SRTEC06\\J\$\\${MODULO}\\Web"]
+    ]
+
+	String[][] DataBaseServers = [
+    ["G100603SV216"],
+	["G100603SVBKM"],
+	["D095SRTEC06"],
+    ]
+
+	properties([parameters([
+		string(defaultValue: '1.0.0.0', description: 'Nro de version a entregar', name: 'VERSION'),
+		booleanParam(defaultValue: true, description: 'Instalar Api', name: 'API'),
+		booleanParam(defaultValue: true, description: 'Instalar WebSite', name: 'WEBSITE')
+		]), pipelineTriggers([]), disableConcurrentBuilds()
+	])
+
+	stage('Info of delivery') {
+		String msg = "Version a generar ${params.VERSION}\n"
+		msg = msg + "Instalar en: ${BRANCH_NAME}\n"
+		echo msg
+	}
+
+	def ambiente = getAmbiente(BRANCH_NAME)
+
+	stage('Cleaning Folders') {
+		parallel api: {
+		  bat '''IF EXIST Publish RD Publish /S /Q
+						Exit 0 '''
+		},
+		website: {
+			bat """cd ${APP}.${MODULO}.Web
+			  IF EXIST dist RD dist /S /Q
+						Exit 0 """
+		},
+		instalables: {
+			bat '''IF EXIST Instalables RD Instalables /S /Q
+					IF EXIST *.zip DEL /Q /F *.zip
+					Exit 0
+					'''
+		},
+		dblog: {
+			bat '''IF EXIST LogDB RD LogDB /S /Q
+						Exit 0 '''
+		}
+	}
+
+	stage('Checkout') { 
+		def rama = BRANCH_NAME
+		checkout([$class: 'GitSCM', branches: [[name: rama]], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'gitlab-user-pass', url: """${GITOrigen}"""]]])
+	}
+
+	stage('Getting packages') {
+		parallel npm: {
+			nodejs('Node 10.15.1') {
+				bat """rem Getting npm packages
+					cd ${APP}.${MODULO}.Web
+					npm install"""
+			}
+		},
+		nuget: {
+			bat '''rem Getting nuget packages
+				.\\nuget\\nuget.exe sources add -Name CENCOSUD-NuGet-Package-Source -Source \\\\g100603SV9AB\\NugetPackage
+          		.\\nuget\\nuget.exe restore'''
+		}
+	}
+	
+	changeVersionInGlobalAssemblyInfo()
+	 
+	stage('Build') {
+         parallel api: {	
+			bat "\"${MSBuild}\" ${APP}.${MODULO}.Sln.sln /t:clean,build /p:Configuration=${BuildConfiguration} /p:Platform=\"Any CPU\" /p:ProductVersion=${params.VERSION} /p:DeployOnBuild=true /p:PublishProfile=${ambiente}.pubxml /p:VisualStudioVersion=14.0 "			
+		 },
+		 website: {
+			nodejs('Node 10.15.1') {
+				bat """ cd ${APP}.${MODULO}.Web
+				npm run ${ambiente} """
+			}
+		}
+	}
+
+	stage('Post build task') {
+		bat """rem ${APP}.${MODULO}.Web
+				XCOPY ${APP}.${MODULO}.Web\\dist Publish\\${params.AMBIENTE}\\WEB /s /e /i"""
+		
+	}
+
+	stage('Testing') {
+		bat '''RD TestResults /S /Q 
+			MD TestResults'''
+		bat "${OpenCover} -register:user -target:\"${MSTest}\" -targetargs:\"/noisolation /resultsfile:TestResults\\TestResults.trx /testcontainer:${APP}.${MODULO}.Test\\bin\\${BuildConfiguration}\\Corp.Cencosud.Supermercados.${APP}.${MODULO}.Test.dll\"  -mergebyhash -output:projectCoverageReport.xml"
+	}
+
+	stage('Generating Reports') {
+		bat 'IF NOT EXIST Reports MKDIR Reports'
+		bat "${ReportGenerator} -reports:projectCoverageReport.xml -targetDir:Reports"
+		bat "${OpenCoverToCoberturaConverter} -input:projectCoverageReport.xml -output:Cobertura.xml"
+		step([$class: 'CoberturaPublisher', coberturaReportFile: 'Cobertura.xml'])
+		step([$class: 'MSTestPublisher', testResultsFile:"TestResults\\TestResults.trx", failOnError: true, keepLongStdio: true])
+	}
+
+	stage('Deploying') {
+		parallel website: {
+			if (params.WEBSITE) {
+				echo "Deployando Website"
+				for ( int i = 0; i < WebSiteServers[idxAmbiente].size(); i++ ) {
+					copyVersionCleanServer(".\\${APP}.${MODULO}.Web\\dist\\${MODULO}", WebSiteServers[idxAmbiente][i])
+				}
+			}
+		},
+		api: {
+			if (params.API) {
+				echo "Deployando Api"
+				for ( int i = 0; i < ApiServers[idxAmbiente].size(); i++ ) {
+					copyVersionServer(".\\Publish\\${BRANCH_NAME}", ApiServers[idxAmbiente][i])
+				}
+			}
+		}
+	}
+
+	checkout([$class: 'GitSCM', branches: [[name: BRANCH_NAME]], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'gitlab-user-pass', url: """${GITOrigen}"""]]])
+	
+	stage('Sending Notifications') {
+		String deployoApi = ""
+		String deployoWeb = ""
+		if (params.API){
+			deployoApi = "${MODULO}"
+		}
+		if (params.WEBSITE){
+			deployoWeb = "${MODULO}"
+		}
+
+		def mailBody = readFile("Automation\\MailEntregaTemplate.html")
+		String mailSubject = "Entrega version Release ${params.VERSION} - ${MODULO}"
+		mailBody = mailBody.replace("%SCRIPTS%", "Script")
+			.replace("%AMBIENTE%", "${ambiente}")
+			.replace("%API%", "${deployoApi}")
+			.replace("%WEB%", "${deployoWeb}")		
+		emailext body: mailBody,
+			attachmentsPattern: "LogDB\\errorDB.txt",
+			subject: mailSubject,
+			to:  env.SuperNet_SUA_Mails
+	}
+
+	stage('Running Sonar') {
+		if (BRANCH_NAME == 'develop'){
+			sonarScanner()
+		}
+	}
+	
+	stage('Release') {
+		if (params.INSTALAR_DESA) {
+			build job: "SuperNet-${APP}-${MODULO}-Release", 
+				parameters: [string(name: 'VERSION', value: params.VERSION), 
+					string(name: 'AMBIENTE', value: 'DESA'),
+					booleanParam(name: 'WEB', value: true)]
+		} 
+		else {
+			print 'No instalar en DESA'
+		}
+
+		if (params.INSTALAR_IDE) {
+			build job: "SuperNet-${APP}-${MODULO}-Release", 
+				parameters: [string(name: 'VERSION', value: params.VERSION), 
+					string(name: 'AMBIENTE', value: 'IDE'), 
+					booleanParam(name: 'WEB', value: true)]
+		} 
+		else {
+			print 'No instalar en IDE'
+		}
+	}
+}
+
+def sonarScanner() {	
+	withSonarQubeEnv() {
+			def	Sonar= tool name: 'runer01', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
+			String sonarCmd = "\"${Sonar}\\bin\\sonar-scanner.bat\" "
+			sonarCmd = sonarCmd + "-Dsonar.host.url=${SONAR_HOST_URL} "
+			sonarCmd = sonarCmd + "-Dsonar.login=${SONAR_AUTH_TOKEN} "
+			sonarCmd = sonarCmd + "-Dproject.settings=${WORKSPACE} "
+			sonarCmd = sonarCmd + "-Dsonar.sources=. "
+			sonarCmd = sonarCmd + "-Dsonar.exclusions=**/xAsm/**,**/obj/**,**/bin/**,**/Reference.cs,**/*Test.cs,**/*ExcelBiz.cs,**/Reports/**,**/packages/**,**/**.Designer.cs,**/Publish/**,**/Sua.Inventario.Web/**,**/Sua.Inventario.Test/**,**/Sua.Inventario.Dal/**,**/Sua.Inventario.Api/App_Start/**,**/Sua.Inventario.Api/Global.asax.cs "
+			sonarCmd = sonarCmd + "-Dsonar.projectVersion=1 "
+			sonarCmd = sonarCmd + "-Dsonar.cs.opencover.reportsPaths=projectCoverageReport.xml "
+			sonarCmd = sonarCmd + "-Dsonar.cs.vstest.reportsPaths=TestResults/TestResults.trx "
+			sonarCmd = sonarCmd + "-Dsonar.projectKey=SuperNet-Sua-Inventario "
+			sonarCmd = sonarCmd + "-Dsonar.verbose=true "
+			sonarCmd = sonarCmd + "-Dsonar.scm.disabled=true "
+			sonarCmd = sonarCmd + "-Dsonar.projectName=SuperNet-Sua-Inventario "
+			sonarCmd = sonarCmd + "-Dsonar.projectBaseDir=${WORKSPACE}"
+			bat sonarCmd
+	}
+}
+
+def changeVersionInGlobalAssemblyInfo(){
+	stage('Changing version in GlobalAssemblyInfo') {
+		writeFile file: 'GlobalAssemblyInfo.cs', 
+			text: """using System.Reflection;
+			[assembly: AssemblyVersion(\"${params.VERSION}\")]
+			[assembly: AssemblyFileVersion(\"${params.VERSION}\")]
+			[assembly: AssemblyInformationalVersion(\"${params.VERSION}\")]"""
+	}
+}
+
+def getAmbiente(branch){
+	def result
+	switch(branch) {
+	  case 'develop':
+		result = 'desa'
+		break
+	  case 'ide':
+		result = 'ide'
+		break
+	  case 'prepro':
+		result = "prepro"
+		break
+	  case 'prod':
+		result = "prod"
+		break
+	  default:
+		result = "desa"
+		break
+	}
+	return result
+}
+
+def checkVersionServer(server, version) {
+	powershell """\$VersionServer = (Invoke-WebRequest -UseBasicParsing -Uri \"${server}\").Content
+		echo \$VersionServer
+		if (\$VersionServer -eq \"${version}\") { Exit 0 } else { Exit 1} """
+}
+
+def copyVersionServer(source, dest) {
+	bat """XCOPY \"${source}\" \"${dest}\" /s /e /i /Y"""
+}
+
+def copyVersionCleanServer(source, dest) {
+	powershell "Remove-Item -Recurse -Force -path ${dest}\\*"
+  bat """XCOPY \"${source}\" \"${dest}\" /s /e /i /Y"""
+}

@@ -1,0 +1,64 @@
+.card .card-reveal {
+    padding: 24px;
+    position: absolute;
+    background-color: #fff;
+    width: 100%;
+    overflow-y: auto;
+    left: 0;
+    top: 100%;
+    height: 100%;
+    z-index: 3;
+    display: none;
+  }
+  
+  /*Para la animación*/
+  .card .card-reveal {
+      top: 0;
+  }
+  
+  .card .card-reveal .card-title {
+    cursor: pointer;
+    display: block;
+  }
+  
+  .card .card-reveal .card-title i {
+      padding: 0 5px;
+  }
+  
+  
+  
+  .accordion .card .card-header {
+      height: 40px;
+      padding: 8px 15px;
+      background-color: #FFFFFF;
+      box-shadow: 2px 2px 40px #eee;
+      border-bottom: none;
+  }
+  .accordion .card .widget-buttons a {
+      color: #000;
+      padding: 3px;
+  }
+  .accordion .card .widget-buttons {
+      float: right;
+  }
+  
+  .accordion .widget-buttons a:not(.collapsed) .rotate-icon {
+      -webkit-transition: .4s;
+      -moz-transition: .4s;
+      transition: .4s;
+      -webkit-transform: rotate(180deg);
+      -ms-transform: rotate(180deg);
+      transform: rotate(180deg);
+  }
+  .accordion .widget-buttons a .rotate-icon {
+      -webkit-transition: .4s;
+      -moz-transition: .4s;
+      transition: .4s;
+  }
+  
+  .accordion .card .card-footer {
+      background-color: #FFF;
+  }
+  
+
+  

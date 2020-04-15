@@ -1,0 +1,62 @@
+<div class="alert alert-success center" role="alert" *ngIf="guardo">
+  <i class="fa fa-check"></i> El inventario se finalizó con exito
+</div>
+<div *ngIf="!inventarioId">
+  <div class="padding-10"><i class="fa fa-truck"></i> <span> Inventarios</span></div>
+  <app-filtrosConsultar (filtroData)="obtenerFiltros($event)"></app-filtrosConsultar>
+  <div class="widget-header bordered-bottom bordered-blue">
+    <span class="widget-caption">
+      <i class="widget-icon fa fa-filter"></i> Inventarios
+    </span>
+    <div class="widget-buttons">
+      <a data-toggle="collapse" href="#widegetDetalle" role="button" aria-expanded="false"
+        aria-controls="widegetDetalle">
+        <i class="widget-icon fa fa-chevron-up"></i>
+      </a>
+    </div>
+  </div>
+  <div *ngIf="!cargoGrilla" class="center">
+    <img src="assets/images/loader.gif" alt="img" title="cargando...">
+  </div>
+  <div *ngIf="cargoGrilla" id="widegetDetalle" class="widget-body collapse show padding-10">
+    <table datatable [dtOptions]="dtInventarios" class="row-border hover text center">
+      <thead>
+        <tr>
+          <th>CC</th>
+          <th>Nombre</th>
+          <th>Fecha Creacion</th>
+          <th>Fecha Finalizacion</th>
+          <th>Estado</th>
+          <th>Usuario</th>
+          <th> </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let inv of inventarios">
+          <td>{{ inv.cc }}</td>
+          <td>{{ inv.nombre }}</td>
+          <td>{{ inv.fechaCreacion | date: 'dd-MM-yyyy HH:mm:ss' }}</td>
+          <td>{{ inv.fechaFinalizacion | date: 'dd-MM-yyyy HH:mm:ss'}}</td>
+          <td>{{ inv.estado }}</td>
+          <td>{{ inv.usuario }}</td>
+          <td>
+            <img src="assets/images/lupa.png" (click)="consultar(inv.id, inv.estado)" />
+            <div class="inline" *ngIf="inv.estado == 'Iniciado'">
+              <img src="assets/images/close.png" (click)="cerrar(inv.id, inv.nombre)" />
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div>
+  <div *ngIf="inventarioId && padre !== estado">
+    <app-documento [idInventario]='inventarioId' [statusInv]='inventarioEstado' (removeInv)="limpiarInv($event)">
+    </app-documento>
+  </div>
+  <div *ngIf="inventarioId && padre == estado">
+      <app-detalle [idInventario]='inventarioId' [statusInv]='inventarioEstado' (removeInv)="limpiarInv($event)">
+      </app-detalle>
+    </div>
+</div>

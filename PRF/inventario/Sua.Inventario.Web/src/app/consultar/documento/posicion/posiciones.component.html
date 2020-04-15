@@ -1,0 +1,55 @@
+<div class="row">
+  <div class="col-sm-9 col-12 padding-10"><i class="fa fa-file"></i> <span> Posiciones del Documento
+      {{idDocumento}}</span>
+  </div>
+  <div class="col-sm-3 col-12">
+    <button type="submit" class="btn btn-outline-primary btn-sm" (click)="volver()">
+      <i class="fa fa-close"></i> Volver
+    </button>
+  </div>
+</div>
+<app-filtrosDocumentos [padre]="componente" (filtroDataDoc)="obtenerFiltros($event)"></app-filtrosDocumentos>
+<div class="widget-header bordered-bottom bordered-blue">
+    <span class="widget-caption">
+      <i class="widget-icon fa fa-file"></i> Acciones
+    </span>
+</div>
+<div class="row">
+    <div class="col-sm-3 col-12"></div>
+    <div class="col-sm-3 col-12">
+        <button type="button" [ngClass]='{"btn-outline-primary":!VerificarBoton()}' class="btn btn-sm" (click)="ImpactarEnSega(idDocumento)" [disabled]="VerificarBoton()">
+          <i class="fa fa-close"></i> Impactar en Sega
+        </button>
+    </div>
+    <div class="col-sm-3 col-12">
+      <button type="button"[ngClass]='{"btn-outline-primary":esAdmin}' class="btn btn-sm" (click)="ControlManual(idDocumento)" [disabled]='!esAdmin'>
+        <i class="fa fa-close"></i> Control Manual
+      </button>
+    </div>
+    <div class="col-sm-3 col-12">
+      <button type="button" class="btn btn-outline-primary btn-sm" (click)="descargar(idDocumento)">
+        <i class="fa fa-close"></i> Exportar Excel
+      </button>
+    </div>
+</div>
+<div *ngIf="mostrarLoader" class="center">
+  <img src="assets/images/loader.gif" alt="img" title="cargando...">
+</div>
+<div class="widget-header bordered-bottom bordered-blue">
+  <span class="widget-caption">
+    <i class="widget-icon fa fa-file"></i> Posiciones
+  </span>
+  <div class="widget-buttons">
+      <a data-toggle="collapse" href="#widegetDetalle" role="button" aria-expanded="false"
+        aria-controls="widegetDetalle">
+        <i class="widget-icon fa fa-chevron-up"></i>
+      </a>
+    </div>
+</div>
+<div *ngIf="!cargoGrilla" class="center">
+  <img src="assets/images/loader.gif" alt="img" title="cargando...">
+</div>
+<div *ngIf="cargoGrilla" id="widegetDetalle" class="widget-body collapse show padding-10">
+  <table datatable [dtOptions]="dtposiciones" class="row-border hover text center display nowrap" style="width:90%">
+  </table>
+</div>

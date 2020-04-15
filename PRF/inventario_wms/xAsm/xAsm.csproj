@@ -1,0 +1,271 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{20961ED4-0D9F-4B4E-A17C-E2A651603846}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>xAsm</RootNamespace>
+    <AssemblyName>xAsm</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <SccProjectName>Svn</SccProjectName>
+    <SccLocalPath>Svn</SccLocalPath>
+    <SccAuxPath>Svn</SccAuxPath>
+    <SccProvider>SubversionScc</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'desa|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\desa\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ide|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\ide\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'prod|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\prod\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="FlexCore\CrudComplexDSDataHelper.xsd" />
+    <None Include="FlexCore\CrudEntityDataHelper.xsd" />
+    <None Include="FlexCore\CrudSimpleDSDataHelper.xsd" />
+    <None Include="FlexCore\DataComponentList.xsd" />
+    <None Include="FlexCore\GenericDataHelper.xsd" />
+    <None Include="packages.config" />
+    <None Include="_scripts\DeleteAsmOut.js" />
+    <None Include="_scripts\GetSharedAsm.js" />
+    <None Include="_scripts\PublishAsmOut.js" />
+    <None Include="_scripts\xAsm.targets" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="EntLib\Microsoft.Practices.EnterpriseLibrary.Common.dll" />
+    <Content Include="EntLib\Microsoft.Practices.EnterpriseLibrary.Common.xml" />
+    <Content Include="EntLib\Microsoft.Practices.EnterpriseLibrary.Data.dll" />
+    <Content Include="EntLib\Microsoft.Practices.EnterpriseLibrary.Data.xml" />
+    <Content Include="EntLib\Microsoft.Practices.ObjectBuilder2.dll" />
+    <Content Include="EntLib\Microsoft.Practices.ObjectBuilder2.xml" />
+    <Content Include="EntLib\Microsoft.Practices.Unity.Configuration.dll" />
+    <Content Include="EntLib\Microsoft.Practices.Unity.Configuration.xml" />
+    <Content Include="EntLib\Microsoft.Practices.Unity.dll" />
+    <Content Include="EntLib\Microsoft.Practices.Unity.StaticFactory.dll" />
+    <Content Include="EntLib\Microsoft.Practices.Unity.StaticFactory.xml" />
+    <Content Include="EntLib\Microsoft.Practices.Unity.xml" />
+    <Content Include="FlexCore\FlexCore.Common.dll" />
+    <Content Include="FlexCore\FlexCore.Common.pdb" />
+    <Content Include="FlexCore\FlexCore.Common.XML" />
+    <Content Include="FlexCore\FlexCore.Dal.dll" />
+    <Content Include="FlexCore\FlexCore.Dal.pdb" />
+    <Content Include="FlexCore\FlexCore.Dal.XML" />
+    <Content Include="FlexCore\FlexCore.EntityFwk.dll" />
+    <Content Include="FlexCore\FlexCore.EntityFwk.pdb" />
+    <Content Include="FlexCore\FlexCore.ExcelSSGear.dll" />
+    <Content Include="FlexCore\FlexCore.ExcelSSGear.pdb" />
+    <Content Include="FlexCore\FlexCore.Security.dll" />
+    <Content Include="FlexCore\FlexCore.Security.pdb" />
+    <Content Include="FlexCore\FlexCore.Security.XML" />
+    <Content Include="FlexCore\FlexCore.Util.dll" />
+    <Content Include="FlexCore\FlexCore.Util.pdb" />
+    <Content Include="FlexCore\FlexCore.Util.XML" />
+    <Content Include="FlexCore\FlexCore.Web.dll" />
+    <Content Include="FlexCore\FlexCore.Web.pdb" />
+    <Content Include="FlexCore\FlexCore.Web.XML" />
+    <Content Include="FlexCore\FlexCore.WinForms.dll" />
+    <Content Include="FlexCore\FlexCore.WinForms.Mvc.dll" />
+    <Content Include="FlexCore\FlexCore.WinForms.Mvc.pdb" />
+    <Content Include="FlexCore\FlexCore.WinForms.pdb" />
+    <Content Include="FlexCore\Microsoft.Practices.EnterpriseLibrary.Common.dll" />
+    <Content Include="FlexCore\Microsoft.Practices.EnterpriseLibrary.Common.xml" />
+    <Content Include="FlexCore\Microsoft.Practices.EnterpriseLibrary.Data.dll" />
+    <Content Include="FlexCore\Microsoft.Practices.EnterpriseLibrary.Data.xml" />
+    <Content Include="FlexCore\Microsoft.Practices.ObjectBuilder2.dll" />
+    <Content Include="FlexCore\Microsoft.Practices.ObjectBuilder2.xml" />
+    <Content Include="FlexCore\Microsoft.Practices.Unity.dll" />
+    <Content Include="FlexCore\Microsoft.Practices.Unity.xml" />
+    <Content Include="FlexCore\SpreadsheetGear.dll" />
+    <Content Include="FlexCore\SpreadsheetGear.xml" />
+    <Content Include="RtlLib\FlexCore.Common.dll" />
+    <Content Include="RtlLib\FlexCore.Common.pdb" />
+    <Content Include="RtlLib\FlexCore.Common.xml" />
+    <Content Include="RtlLib\FlexCore.Dal.dll" />
+    <Content Include="RtlLib\FlexCore.Dal.pdb" />
+    <Content Include="RtlLib\FlexCore.Dal.xml" />
+    <Content Include="RtlLib\FlexCore.Security.dll" />
+    <Content Include="RtlLib\FlexCore.Security.pdb" />
+    <Content Include="RtlLib\FlexCore.Security.xml" />
+    <Content Include="RtlLib\FlexCore.Util.dll" />
+    <Content Include="RtlLib\FlexCore.Util.pdb" />
+    <Content Include="RtlLib\FlexCore.Util.xml" />
+    <Content Include="RtlLib\FlexCore.Web.dll" />
+    <Content Include="RtlLib\FlexCore.Web.pdb" />
+    <Content Include="RtlLib\FlexCore.Web.xml" />
+    <Content Include="RtlLib\Interop.sgcwrap.dll" />
+    <Content Include="RtlLib\InvocationFramework.Adapters.Pipeline.dll" />
+    <Content Include="RtlLib\InvocationFramework.Adapters.Pipeline.pdb" />
+    <Content Include="RtlLib\InvocationFramework.Adapters.Pipeline.xml" />
+    <Content Include="RtlLib\InvocationFramework.Adapters.ServicePublisher.dll" />
+    <Content Include="RtlLib\InvocationFramework.Adapters.ServicePublisher.pdb" />
+    <Content Include="RtlLib\InvocationFramework.Adapters.ServicePublisher.xml" />
+    <Content Include="RtlLib\InvocationFramework.Common.dll" />
+    <Content Include="RtlLib\InvocationFramework.Common.pdb" />
+    <Content Include="RtlLib\InvocationFramework.Common.xml" />
+    <Content Include="RtlLib\InvocationFramework.Core.dll" />
+    <Content Include="RtlLib\InvocationFramework.Core.pdb" />
+    <Content Include="RtlLib\InvocationFramework.Core.xml" />
+    <Content Include="RtlLib\InvocationFramework.ProxyFactory.dll" />
+    <Content Include="RtlLib\InvocationFramework.ProxyFactory.pdb" />
+    <Content Include="RtlLib\Microsoft.Practices.EnterpriseLibrary.Common.dll" />
+    <Content Include="RtlLib\Microsoft.Practices.EnterpriseLibrary.Common.xml" />
+    <Content Include="RtlLib\Microsoft.Practices.EnterpriseLibrary.Data.dll" />
+    <Content Include="RtlLib\Microsoft.Practices.EnterpriseLibrary.Data.xml" />
+    <Content Include="RtlLib\Microsoft.Practices.ObjectBuilder2.dll" />
+    <Content Include="RtlLib\Microsoft.Practices.ObjectBuilder2.xml" />
+    <Content Include="RtlLib\Microsoft.Practices.Unity.dll" />
+    <Content Include="RtlLib\Microsoft.Practices.Unity.xml" />
+    <Content Include="RtlLib\RtlLibBiz.dll" />
+    <Content Include="RtlLib\RtlLibBiz.pdb" />
+    <Content Include="RtlLib\RtlLibClient.dll" />
+    <Content Include="RtlLib\RtlLibClient.pdb" />
+    <Content Include="RtlLib\RtlLibCom.dll" />
+    <Content Include="RtlLib\RtlLibCom.pdb" />
+    <Content Include="RtlLib\RtlLibCommon.dll" />
+    <Content Include="RtlLib\RtlLibCommon.pdb" />
+    <Content Include="RtlLib\RtlLibDal.dll" />
+    <Content Include="RtlLib\RtlLibDal.pdb" />
+    <Content Include="RtlLib\RtlLibSif.dll" />
+    <Content Include="RtlLib\RtlLibSif.pdb" />
+    <Content Include="RtlLib\RtlLibSvcExt.dll" />
+    <Content Include="RtlLib\RtlLibSvcExt.pdb" />
+    <Content Include="RtlLib\RtlLibWcf.dll" />
+    <Content Include="RtlLib\RtlLibWcf.pdb" />
+    <Content Include="RtlLib\RtlLibWeb.dll" />
+    <Content Include="RtlLib\RtlLibWeb.pdb" />
+    <Content Include="RtlLib\RtlLibWin.dll" />
+    <Content Include="RtlLib\RtlLibWin.pdb" />
+    <Content Include="RtlLib\RtlUserControlsWin.dll" />
+    <Content Include="RtlLib\RtlUserControlsWin.pdb" />
+    <Content Include="ServicesInvocationFramework\InvocationFramework.Adapters.Inproc.dll" />
+    <Content Include="ServicesInvocationFramework\InvocationFramework.Adapters.Inproc.pdb" />
+    <Content Include="ServicesInvocationFramework\InvocationFramework.Adapters.Inproc.xml" />
+    <Content Include="ServicesInvocationFramework\InvocationFramework.Adapters.Pipeline.dll" />
+    <Content Include="ServicesInvocationFramework\InvocationFramework.Adapters.Pipeline.pdb" />
+    <Content Include="ServicesInvocationFramework\InvocationFramework.Adapters.Pipeline.xml" />
+    <Content Include="ServicesInvocationFramework\InvocationFramework.Adapters.ServicePublisher.dll" />
+    <Content Include="ServicesInvocationFramework\InvocationFramework.Adapters.ServicePublisher.pdb" />
+    <Content Include="ServicesInvocationFramework\InvocationFramework.Adapters.ServicePublisher.xml" />
+    <Content Include="ServicesInvocationFramework\InvocationFramework.Common.dll" />
+    <Content Include="ServicesInvocationFramework\InvocationFramework.Common.pdb" />
+    <Content Include="ServicesInvocationFramework\InvocationFramework.Common.xml" />
+    <Content Include="ServicesInvocationFramework\InvocationFramework.Core.dll" />
+    <Content Include="ServicesInvocationFramework\InvocationFramework.Core.pdb" />
+    <Content Include="ServicesInvocationFramework\InvocationFramework.Core.xml" />
+    <Content Include="ServicesInvocationFramework\InvocationFramework.ProxyFactory.dll" />
+    <Content Include="ServicesInvocationFramework\InvocationFramework.ProxyFactory.pdb" />
+    <Content Include="ServicesInvocationFramework\InvocationFramework.ServicePublisher.dll" />
+    <Content Include="ServicesInvocationFramework\InvocationFramework.ServicePublisher.pdb" />
+    <Content Include="ServicesInvocationFramework\InvocationFramework.ServicePublisher.xml" />
+    <Content Include="xAsmSyncLocal.Sample.xml" />
+    <Content Include="xAsmSyncRemote.xml" />
+    <Content Include="xAsmSyncRemoteCommon.xml" />
+    <Content Include="_scripts\CopyAsmSvc.js" />
+    <Content Include="_scripts\DeleteAsmSvc.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- ======== Custom targets - xAsm ============ -->
+  <Import Project="$(ProjectDir)\_scripts\xAsm.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

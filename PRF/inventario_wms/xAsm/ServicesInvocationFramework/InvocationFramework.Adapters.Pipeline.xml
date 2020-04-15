@@ -1,0 +1,243 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>InvocationFramework.Adapters.Pipeline</name>
+    </assembly>
+    <members>
+        <member name="T:InvocationFramework.Adapters.Pipeline.PipelineServiceAdapter">
+            <summary>
+            Esta clase actua como Virtual Proxy (http://www.dofactory.com/Patterns/PatternProxy.aspx) sobre el adapter real configurado
+            para dotarlo de un pipeline
+            </summary>
+            <author>Rodolfo Finochietti 10/11/2005 14.29</author>
+        </member>
+        <member name="F:InvocationFramework.Adapters.Pipeline.PipelineServiceAdapter._targetAdapter">
+            <summary>
+            En esta variable se guarda al que se llama luego de ejecura el pipeline
+            </summary>
+        </member>
+        <member name="F:InvocationFramework.Adapters.Pipeline.PipelineServiceAdapter._inputPipeline">
+            <summary>
+            Coleccion para guardar los filtro del pipeline de entrada ordenadas de acuerdo a la configuracion
+            </summary>
+        </member>
+        <member name="F:InvocationFramework.Adapters.Pipeline.PipelineServiceAdapter._outputPipeline">
+            <summary>
+            Coleccion para guardar los filtro del pipeline de output ordenadas de acuerdo a la configuracion
+            </summary>
+        </member>
+        <member name="F:InvocationFramework.Adapters.Pipeline.PipelineServiceAdapter._exceptionPipeline">
+            <summary>
+            Coleccion para guardar los filtro del pipeline de excepciones ordenadas de acuerdo a la configuracion
+            </summary>
+        </member>
+        <member name="F:InvocationFramework.Adapters.Pipeline.PipelineServiceAdapter._initialized">
+            <summary>
+            Variable privada para el manejo de la propiedad
+            </summary>
+        </member>
+        <member name="M:InvocationFramework.Adapters.Pipeline.PipelineServiceAdapter.Init(System.String,System.String,System.Xml.XmlNode)">
+            <summary>
+            Inicializa el adaptador
+            </summary>
+            <param name="id">Identificador del adaptador</param>
+            <param name="defaultOperation">Nombre de la operacion por defecto</param>
+            <param name="configuration">Configuracion del adaptador</param>
+        </member>
+        <member name="M:InvocationFramework.Adapters.Pipeline.PipelineServiceAdapter.IsServiceAvailable(System.String)">
+            <summary>
+            Permite saber si un servicio esta disponible para ser ejecutado mediante este adaptador
+            </summary>
+            <param name="serviceName">Nombre del servicio</param>
+            <returns>True este adaptador puede ejecutar este servicio, False de lo contrario</returns>
+        </member>
+        <member name="M:InvocationFramework.Adapters.Pipeline.PipelineServiceAdapter.IsServiceOperationAvailable(System.String,System.String)">
+            <summary>
+            Verifica si existe una operacion en un servicio
+            </summary>
+            <param name="serviceName">Nombre del servicio</param>
+            <param name="operationName">Nombre de la operacion</param>
+            <returns>True si la operacion existe en el servicio, de lo contrario False</returns>
+        </member>
+        <member name="M:InvocationFramework.Adapters.Pipeline.PipelineServiceAdapter.GetMostRequestedServices">
+            <summary>
+            Devuelve una lista con los nombres de los servicios mas utilizados
+            </summary>
+            <returns>Una lista con los nombres de los servicios mas utilizados</returns>
+        </member>
+        <member name="M:InvocationFramework.Adapters.Pipeline.PipelineServiceAdapter.Execute(System.String,System.String,InvocationFramework.Common.ContextDictionary,System.Object[])">
+            <summary>
+            Ejecuta la operacion que se encuentra en un determinado servicio
+            </summary>
+            <param name="serviceName">Nombre del servicio</param>
+            <param name="operationName">Nombre de la operacion a ejecutar</param>
+            <param name="context">El contexto que se desea propagar junto con al ejecucion del servicios</param>
+            <param name="parameters">Parametros de la operacion</param>
+            <returns>Resultado de la ejecucion de la operacion</returns>
+        </member>
+        <member name="M:InvocationFramework.Adapters.Pipeline.PipelineServiceAdapter.LoadPipeline(System.Xml.XmlNodeList,InvocationFramework.Adapters.Pipeline.PipelineType,System.Collections.Generic.SortedList{System.Int32,InvocationFramework.Adapters.Pipeline.IFilter})">
+            <summary>
+            Carga un pipeline de acuerdo a su configuracion
+            </summary>
+            <param name="filters">Filtros a cargar</param>
+            <param name="pipelineType">Tipo de pipeline</param>
+            <param name="pipeline">Pipeline donde se cargaran los filtors</param>
+        </member>
+        <member name="M:InvocationFramework.Adapters.Pipeline.PipelineServiceAdapter.ProcessPipeline(InvocationFramework.Adapters.Pipeline.PipelineState,System.Collections.Generic.SortedList{System.Int32,InvocationFramework.Adapters.Pipeline.IFilter})">
+            <summary>
+            Procesa un pipeline
+            </summary>
+            <param name="state">Estado del pipeline</param>
+            <param name="pipeline">Pipeline a procesar</param>
+        </member>
+        <member name="P:InvocationFramework.Adapters.Pipeline.PipelineServiceAdapter.Id">
+            <summary>
+            Identificador del adaptador
+            </summary>
+        </member>
+        <member name="P:InvocationFramework.Adapters.Pipeline.PipelineServiceAdapter.Initialized">
+            <summary>
+            Indica si el adaptador esta inicializado o no
+            </summary>
+        </member>
+        <member name="P:InvocationFramework.Adapters.Pipeline.PipelineServiceAdapter.DefaultOperation">
+            <summary>
+            Nombre de la operacion por defecto
+            </summary>
+        </member>
+        <member name="T:InvocationFramework.Adapters.Pipeline.PipelineState">
+            <summary>
+            Estado de ejecucion del pipeline
+            </summary>
+        </member>
+        <member name="M:InvocationFramework.Adapters.Pipeline.PipelineState.#ctor">
+            <summary>
+            Constructor por defecto
+            </summary>
+        </member>
+        <member name="F:InvocationFramework.Adapters.Pipeline.PipelineState._executionInformation">
+            <summary>
+            Variable privada para el manejo de la propiedad
+            </summary>
+        </member>
+        <member name="F:InvocationFramework.Adapters.Pipeline.PipelineState._pipeline">
+            <summary>
+            Variable privada para el manejo de la propiedad
+            </summary>
+        </member>
+        <member name="P:InvocationFramework.Adapters.Pipeline.PipelineState.ExecutionInformation">
+            <summary>
+            Informacion de la invocacion de un servicio
+            </summary>
+        </member>
+        <member name="P:InvocationFramework.Adapters.Pipeline.PipelineState.Pipeline">
+            <summary>
+            Indica el tipo de pipeline
+            </summary>
+        </member>
+        <member name="T:InvocationFramework.Adapters.Pipeline.Trace.TraceFilter">
+            <summary>
+            Filtro de trazabilidad
+            </summary>
+            <author>Rodolfo Finochietti 14/11/2005 10.20</author>
+        </member>
+        <member name="T:InvocationFramework.Adapters.Pipeline.IFilter">
+            <summary>
+            Interfaz para implementar un filtro para un pipeline
+            </summary>
+            <author>Rodolfo Finochietti 11/10/2005 15.20</author>
+        </member>
+        <member name="M:InvocationFramework.Adapters.Pipeline.IFilter.Init(System.Xml.XmlNode)">
+            <summary>
+            Inicializa el filtro
+            </summary>
+            <param name="configuration">Configuracion del filtro</param>
+        </member>
+        <member name="M:InvocationFramework.Adapters.Pipeline.IFilter.Process(InvocationFramework.Adapters.Pipeline.PipelineState)">
+            <summary>
+            Permite implementar la logica de ejecucion del filtro
+            </summary>
+            <param name="state">Estado del pipeline</param>
+            <returns>Resultado de la ejecucion del filtro</returns>
+        </member>
+        <member name="F:InvocationFramework.Adapters.Pipeline.Trace.TraceFilter._source">
+            <summary>
+            Source utilizado para escribir las entradas de trace
+            </summary>
+        </member>
+        <member name="F:InvocationFramework.Adapters.Pipeline.Trace.TraceFilter._eventId">
+            <summary>
+            Identificador del evento de trace
+            </summary>
+        </member>
+        <member name="M:InvocationFramework.Adapters.Pipeline.Trace.TraceFilter.Init(System.Xml.XmlNode)">
+            <summary>
+            Inicializa el filtro
+            </summary>
+            <param name="configuration">Configuracion del filtro</param>
+        </member>
+        <member name="M:InvocationFramework.Adapters.Pipeline.Trace.TraceFilter.Process(InvocationFramework.Adapters.Pipeline.PipelineState)">
+            <summary>
+            Permite implementar la logica de ejecucion del filtro
+            </summary>
+            <param name="state">Estado del pipeline</param>
+            <returns>Resultado de la ejecucion del filtro</returns>
+        </member>
+        <member name="M:InvocationFramework.Adapters.Pipeline.Trace.TraceFilter.WriteInputTrace(InvocationFramework.Adapters.Pipeline.PipelineState,System.Text.StringBuilder)">
+            <summary>
+            Escribe una entrada de trace de input
+            </summary>
+            <param name="state">Estado donde se encuentra la informacion a tracear</param>
+            <param name="header"><seealso cref="T:System.Text.StringBuilder"/>  con el header de la entrada de trace</param>
+        </member>
+        <member name="M:InvocationFramework.Adapters.Pipeline.Trace.TraceFilter.WriteOutputTrace(InvocationFramework.Adapters.Pipeline.PipelineState,System.Text.StringBuilder)">
+            <summary>
+            Escribe una entrada de trace de output
+            </summary>
+            <param name="state">Estado donde se encuentra la informacion a tracear</param>
+            <param name="header"><seealso cref="T:System.Text.StringBuilder"/> con el header de la entrada de trace</param>
+        </member>
+        <member name="M:InvocationFramework.Adapters.Pipeline.Trace.TraceFilter.WriteExceptionTrace(InvocationFramework.Adapters.Pipeline.PipelineState,System.Text.StringBuilder)">
+            <summary>
+            Escribe una entrada de trace de excepcion
+            </summary>
+            <param name="state">Estado donde se encuentra la informacion a tracear</param>
+            <param name="header"><seealso cref="T:System.Text.StringBuilder"/>  con el header de la entrada de trace</param>
+        </member>
+        <member name="T:InvocationFramework.Adapters.Pipeline.PipelineType">
+            <summary>
+            Indica el tipo de pipeline
+            </summary>
+        </member>
+        <member name="F:InvocationFramework.Adapters.Pipeline.PipelineType.Input">
+            <summary>
+            Pipeline de entrada
+            </summary>
+        </member>
+        <member name="F:InvocationFramework.Adapters.Pipeline.PipelineType.Output">
+            <summary>
+            Pipeline de salida
+            </summary>
+        </member>
+        <member name="F:InvocationFramework.Adapters.Pipeline.PipelineType.Exception">
+            <summary>
+            Pipeline de entrada
+            </summary>
+        </member>
+        <member name="T:InvocationFramework.Adapters.Pipeline.FilterResult">
+            <summary>
+            Indica el resultado de la ejecucion de un filtro del pipeline
+            </summary>
+        </member>
+        <member name="F:InvocationFramework.Adapters.Pipeline.FilterResult.Continue">
+            <summary>
+            Continua la ejecucion
+            </summary>
+        </member>
+        <member name="F:InvocationFramework.Adapters.Pipeline.FilterResult.Stop">
+            <summary>
+            Termina la ejecucion
+            </summary>
+        </member>
+    </members>
+</doc>

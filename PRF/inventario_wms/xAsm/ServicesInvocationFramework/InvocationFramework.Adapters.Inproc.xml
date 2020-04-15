@@ -1,0 +1,719 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>InvocationFramework.Adapters.Inproc</name>
+    </assembly>
+    <members>
+        <member name="T:InvocationFramework.Adapters.Inproc.HotDeployManager">
+            <summary>
+            Esta clase maneja todos los aspectos del la funcionalidad del servicio de "Hot Deploy"
+            </summary>
+            <remarks>
+            Los siguientes métodos privados conforman el "Servicio de Hot Deploy" antes mencionado".
+            Basicamente funciona de la siguiente manera:
+            Cuando el InProcServiceAdapter es inicializado, éste verfica si el atributo de configuracion "enableHotDeploy" se encuentra habilitado.
+            En caso de ser así, la propiedad CatalogManager (responsable por llevar la lista de servicios ejecutables y ejecutar a los mismos)
+            es cargada en un AppDomain diferente.
+            Luego, se activa un FileSystemWatcher que monitorea los eventos de la carpeta donde están los assemblies de servicios
+            En caso de que algún assebly sea sobrescrito, eliminado o agregado en la carpeta, autmáticamente se dispara un evento
+            que descarga el AppDomain, eliminado al CatalogManager para luego reincializarlo con los nuevos valores.
+            </remarks>
+            <author>Rodolfo Finochietti - Sergio Borromei 16/05/2005 13.18</author>
+        </member>
+        <member name="F:InvocationFramework.Adapters.Inproc.HotDeployManager.Retries">
+            <summary>
+            Reintentos por si falla una operacion de IO
+            </summary>
+        </member>
+        <member name="M:InvocationFramework.Adapters.Inproc.HotDeployManager.#ctor(System.String,System.String,System.String,System.Boolean)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="servicesFolder">Carpeta donde se encuentran los servicios</param>
+            <param name="workingFolder">Carpeta temporal de trabajo</param>
+            <param name="applicacionBase">Directorio donde esta contenida la aplicacion</param>
+            <param name="enableHotDeploy">Indica si esta habilitado el hot deploy</param>
+        </member>
+        <member name="F:InvocationFramework.Adapters.Inproc.HotDeployManager._hotDeployDomain">
+            <summary>
+            AppDomain en donde se almacenará el catálogo de servicios en caso de que el Hot Deploy se encuentre activado.
+            El catálogo de servicios contiene la lista de servicios y operaciones que este adaptador puede ejecutar.
+            Adicionalmente provee la funcionalidad de ejecutar operaciones bajo contexto transaccional o no.
+            En caso de usar Hot Deploy, cuando se sobrescribe una .dll con servicios, automaticamente se baja este dominio 
+            y se reinicializa el catalogo.
+            </summary>
+        </member>
+        <member name="F:InvocationFramework.Adapters.Inproc.HotDeployManager._hotDeployServicesFolder">
+            <summary>
+            Esta variable se usa para que el monitor de hot deploy sepa cual es el directorio de servicios
+            </summary>
+        </member>
+        <member name="F:InvocationFramework.Adapters.Inproc.HotDeployManager._hotDeployWorkingFolder">
+            <summary>
+            Esta variable se usa para que el monitor de hot deploy sepa cual es el directorio de trabajo
+            </summary>
+        </member>
+        <member name="F:InvocationFramework.Adapters.Inproc.HotDeployManager._hotDeployApplicacionBase">
+            <summary>
+            Esta variable se usa para que el monitor de hot deploy sepa cual es el donde se ejecuta la aplicacion
+            </summary>
+        </member>
+        <member name="F:InvocationFramework.Adapters.Inproc.HotDeployManager._servicesFolderMonitor">
+            <summary>
+            Monitor para el directorio donde se encuentran los servicios. Solamente se usa si el Hot Deploy está activado.
+            </summary>
+        </member>
+        <member name="F:InvocationFramework.Adapters.Inproc.HotDeployManager._catalogManager">
+            <summary>
+            Variable privada para el manejo de la propiedad
+            </summary>
+        </member>
+        <member name="M:InvocationFramework.Adapters.Inproc.HotDeployManager.SetUpHotDeployFolders(System.String,System.String,System.String)">
+            <summary>
+            Metodo privado para setear las carpetas de trabajo del servicio de Hot Deploy.
+            Es llamado solamente desde el Init()
+            </summary>
+            <param name="servicesFolder"></param>
+            <param name="workingFolder"></param>
+            <param name="applicacionBase"></param>
+        </member>
+        <member name="M:InvocationFramework.Adapters.Inproc.HotDeployManager.StartHotDeployMonitor">
+            <summary>
+            Inicia el monitoreo para hot deploy de servicios
+            </summary>
+        </member>
+        <member name="M:InvocationFramework.Adapters.Inproc.HotDeployManager._servicesFolderMonitor_Created(System.Object,System.IO.FileSystemEventArgs)">
+            <summary>
+            Este evento se dispara cuando se agrega un assembly al directorio de servicios
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:InvocationFramework.Adapters.Inproc.HotDeployManager._servicesFolderMonitor_Changed_Deleted(System.Object,System.IO.FileSystemEventArgs)">
+            <summary>
+            Este evento se dispara cuando se elimina un assembly en el directorio de servicios
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="P:InvocationFramework.Adapters.Inproc.HotDeployManager.Catalog">
+            <summary>
+            El administrador de catálogo de servicios contiene la lista de servicios y operaciones que este adaptador puede ejecutar.
+            Adicionalmente provee la funcionalidad de ejecutar las operaciones de los servicios, ya sea bajo contexto transaccional o no.
+            En caso de usar Hot Deploy, el CatalogManager es creado en otro AppDomain, a efectos de facilitar la actualización 
+            de servicios sin detener al sistema.
+            </summary>
+        </member>
+        <member name="T:InvocationFramework.Adapters.Inproc.Transactions.IsolationLevel">
+            <summary>
+            </summary>
+        </member>
+        <member name="F:InvocationFramework.Adapters.Inproc.Transactions.IsolationLevel.Serializable">
+            <summary>
+            <seealso cref="F:System.Transactions.IsolationLevel.Serializable"/>
+            </summary>
+        </member>
+        <member name="F:InvocationFramework.Adapters.Inproc.Transactions.IsolationLevel.RepeatableRead">
+            <summary>
+            <seealso cref="F:System.Transactions.IsolationLevel.RepeatableRead"/>
+            </summary>
+        </member>
+        <member name="F:InvocationFramework.Adapters.Inproc.Transactions.IsolationLevel.ReadCommitted">
+            <summary>
+            <seealso cref="F:System.Transactions.IsolationLevel.ReadCommitted"/>
+            </summary>
+        </member>
+        <member name="F:InvocationFramework.Adapters.Inproc.Transactions.IsolationLevel.ReadUncommitted">
+            <summary>
+            <seealso cref="F:System.Transactions.IsolationLevel.ReadUncommitted"/>
+            </summary>
+        </member>
+        <member name="F:InvocationFramework.Adapters.Inproc.Transactions.IsolationLevel.Snapshot">
+            <summary>
+            <seealso cref="F:System.Transactions.IsolationLevel.Snapshot"/>
+            </summary>
+        </member>
+        <member name="F:InvocationFramework.Adapters.Inproc.Transactions.IsolationLevel.Chaos">
+            <summary>
+            <seealso cref="F:System.Transactions.IsolationLevel.Chaos"/>
+            </summary>
+        </member>
+        <member name="F:InvocationFramework.Adapters.Inproc.Transactions.IsolationLevel.Unspecified">
+            <summary>
+            <seealso cref="F:System.Transactions.IsolationLevel.Unspecified"/>
+            </summary>
+        </member>
+        <member name="T:InvocationFramework.Adapters.Inproc.Attributes.ServiceRepositoryAttribute">
+            <summary>
+            Atributo utilizado para marcar un assembly que contiene servicios
+            </summary>
+            <author>Rodolfo Finochietti 03/11/2005 14.18</author>
+        </member>
+        <member name="M:InvocationFramework.Adapters.Inproc.Attributes.ServiceRepositoryAttribute.#ctor(System.String)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="description">Descripcion del repositorio</param>
+        </member>
+        <member name="F:InvocationFramework.Adapters.Inproc.Attributes.ServiceRepositoryAttribute._description">
+            <summary>
+            Variable privada para el manejo de la propiedad
+            </summary>
+        </member>
+        <member name="P:InvocationFramework.Adapters.Inproc.Attributes.ServiceRepositoryAttribute.Description">
+            <summary>
+            Descripcion del repositorio
+            </summary>
+        </member>
+        <member name="T:InvocationFramework.Adapters.Inproc.OperationDefinition">
+            <summary>
+            Esta clase se utiliza para guardar los datos de las operaciones (servicios) que puede ejecutar el adaptador inproc
+            </summary>
+            <author>Rodolfo Finochietti 03/11/2005 14.28</author>
+        </member>
+        <member name="M:InvocationFramework.Adapters.Inproc.OperationDefinition.#ctor">
+            <summary>
+            Constructor por defecto
+            </summary>
+        </member>
+        <member name="F:InvocationFramework.Adapters.Inproc.OperationDefinition._serviceName">
+            <summary>
+            Variable privada para el manejo de la propiedad
+            </summary>
+        </member>
+        <member name="F:InvocationFramework.Adapters.Inproc.OperationDefinition._name">
+            <summary>
+            Variable privada para el manejo de la propiedad
+            </summary>
+        </member>
+        <member name="F:InvocationFramework.Adapters.Inproc.OperationDefinition._operationType">
+            <summary>
+            Variable privada para el manejo de la propiedad
+            </summary>
+        </member>
+        <member name="F:InvocationFramework.Adapters.Inproc.OperationDefinition._operationMethod">
+            <summary>
+            Variable privada para el manejo de la propiedad
+            </summary>
+        </member>
+        <member name="F:InvocationFramework.Adapters.Inproc.OperationDefinition._transactionType">
+            <summary>
+            Variable privada para el manejo de la propiedad
+            </summary>
+        </member>
+        <member name="F:InvocationFramework.Adapters.Inproc.OperationDefinition._transactionIsolation">
+            <summary>
+            Variable privada para el manejo de la propiedad
+            </summary>
+        </member>
+        <member name="F:InvocationFramework.Adapters.Inproc.OperationDefinition._transactionTimeout">
+            <summary>
+            Variable privada para el manejo de la propiedad
+            </summary>
+        </member>
+        <member name="M:InvocationFramework.Adapters.Inproc.OperationDefinition.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            </summary>
+            <param name="info"></param>
+            <param name="context"></param>
+        </member>
+        <member name="M:InvocationFramework.Adapters.Inproc.OperationDefinition.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            </summary>
+            <param name="info"></param>
+            <param name="context"></param>
+        </member>
+        <member name="P:InvocationFramework.Adapters.Inproc.OperationDefinition.ServiceName">
+            <summary>
+            Nombre del servicio al que pertenece la operacion
+            </summary>
+        </member>
+        <member name="P:InvocationFramework.Adapters.Inproc.OperationDefinition.Name">
+            <summary>
+            Nombre de la operacion
+            </summary>
+        </member>
+        <member name="P:InvocationFramework.Adapters.Inproc.OperationDefinition.OperationType">
+            <summary>
+            Tipo .Net donde esta implementada la operacion
+            </summary>
+        </member>
+        <member name="P:InvocationFramework.Adapters.Inproc.OperationDefinition.OperationMethod">
+            <summary>
+            Metodo que implementa la operacion
+            </summary>
+        </member>
+        <member name="P:InvocationFramework.Adapters.Inproc.OperationDefinition.TransactionType">
+            <summary>
+            Especifica el tipo de transaccion solicitado por un servicio
+            </summary>
+        </member>
+        <member name="P:InvocationFramework.Adapters.Inproc.OperationDefinition.TransactionIsolation">
+            <summary>
+            Especifica el nivel de lockeo de una transaccion
+            </summary>
+        </member>
+        <member name="P:InvocationFramework.Adapters.Inproc.OperationDefinition.TransactionTimeout">
+            <summary>
+            Especifica el timeout de la transaccion
+            </summary>
+        </member>
+        <member name="T:InvocationFramework.Adapters.Inproc.Attributes.MostRequestedServiceAttribute">
+            <summary>
+            Atributo que indica que una servicio (una clase) es un servicio muy utilizado
+            </summary>
+            <author>Rodolfo Finochietti 03/11/2005 14.18</author>
+        </member>
+        <member name="M:InvocationFramework.Adapters.Inproc.Attributes.MostRequestedServiceAttribute.#ctor">
+            <summary>
+            Consructor por defecto
+            </summary>
+        </member>
+        <member name="T:InvocationFramework.Adapters.Inproc.Attributes.TransactionAttribute">
+            <summary>
+            Atributo utilizado para especificar el nivel de transaccionalidad de un servicio
+            </summary>
+        </member>
+        <member name="M:InvocationFramework.Adapters.Inproc.Attributes.TransactionAttribute.#ctor(InvocationFramework.Adapters.Inproc.Transactions.TransactionScope)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="transaction">Especifica el tipo de transaccion solicitado por un servicio</param>
+        </member>
+        <member name="F:InvocationFramework.Adapters.Inproc.Attributes.TransactionAttribute._transactionType">
+            <summary>
+            Variable privada para el manejo de la propiedad
+            </summary>
+        </member>
+        <member name="F:InvocationFramework.Adapters.Inproc.Attributes.TransactionAttribute._transactionIsolation">
+            <summary>
+            Variable privada para el manejo de la propiedad
+            </summary>
+        </member>
+        <member name="F:InvocationFramework.Adapters.Inproc.Attributes.TransactionAttribute._transactionTimeout">
+            <summary>
+            Variable privada para el manejo de la propiedad
+            </summary>
+        </member>
+        <member name="P:InvocationFramework.Adapters.Inproc.Attributes.TransactionAttribute.TransactionType">
+            <summary>
+            Especifica el tipo de transaccion solicitado por un servicio
+            </summary>
+        </member>
+        <member name="P:InvocationFramework.Adapters.Inproc.Attributes.TransactionAttribute.TransactionIsolation">
+            <summary>
+            Especifica el nivel de lockeo de una transaccion
+            </summary>
+        </member>
+        <member name="P:InvocationFramework.Adapters.Inproc.Attributes.TransactionAttribute.TransactionTimeout">
+            <summary>
+            Especifica el timeout de la transaccion
+            </summary>
+        </member>
+        <member name="T:InvocationFramework.Adapters.Inproc.Transactions.TransactionScope">
+            <summary>
+            Especifica el tipo de transaccion solicitado por un servicio
+            </summary>
+            <remarks>
+            Una descripcion completa de cada opcion en <see cref="T:System.Transactions.TransactionScopeOption"/>
+            </remarks>
+            <author>Rodolfo Finochietti 30/12/2005 09:59</author>
+        </member>
+        <member name="F:InvocationFramework.Adapters.Inproc.Transactions.TransactionScope.Disabled">
+            <summary>
+            Disabled
+            </summary>
+        </member>
+        <member name="F:InvocationFramework.Adapters.Inproc.Transactions.TransactionScope.Suppress">
+            <summary>
+            <seealso cref="F:System.Transactions.TransactionScopeOption.Suppress"/>
+            </summary>
+        </member>
+        <member name="F:InvocationFramework.Adapters.Inproc.Transactions.TransactionScope.Required">
+            <summary>
+            <seealso cref="F:System.Transactions.TransactionScopeOption.Required"/>
+            </summary>
+        </member>
+        <member name="F:InvocationFramework.Adapters.Inproc.Transactions.TransactionScope.RequiresNew">
+            <summary>
+            <seealso cref="F:System.Transactions.TransactionScopeOption.RequiresNew"/>
+            </summary>
+        </member>
+        <member name="T:InvocationFramework.Adapters.Inproc.Transactions.TransactionDispatcher">
+            <summary>
+            Permite ejecutar operaciones en un contexto transacional, ya sea usando COM+ 1.0 o COM+1.5
+            </summary>
+            <author>Rodolfo Finochietti 01/01/2006 11.37</author>
+        </member>
+        <member name="M:InvocationFramework.Adapters.Inproc.Transactions.TransactionDispatcher.Execute(InvocationFramework.Adapters.Inproc.OperationDefinition,System.Object[])">
+            <summary>
+            Ejecuta la operacion pasada por parametro en un contexto transaccional
+            </summary>
+            <param name="operDef">Definicion de la operacion a ejecutar</param>
+            <param name="parameters">Parametros</param>
+            <returns>Resultado de la ejecucion</returns>
+        </member>
+        <member name="T:InvocationFramework.Adapters.Inproc.Attributes.ServiceAttribute">
+            <summary>
+            Atributo utilizado para marcar una clase como servicio
+            </summary>
+        </member>
+        <member name="M:InvocationFramework.Adapters.Inproc.Attributes.ServiceAttribute.#ctor(System.String)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="name">Nombre del servicio</param>
+        </member>
+        <member name="F:InvocationFramework.Adapters.Inproc.Attributes.ServiceAttribute._name">
+            <summary>
+            Variable privada para el manejo de la propiedad
+            </summary>
+        </member>
+        <member name="F:InvocationFramework.Adapters.Inproc.Attributes.ServiceAttribute._description">
+            <summary>
+            Variable privada para el manejo de la propiedad
+            </summary>
+        </member>
+        <member name="P:InvocationFramework.Adapters.Inproc.Attributes.ServiceAttribute.Name">
+            <summary>
+            Nombre del servicio
+            </summary>
+        </member>
+        <member name="P:InvocationFramework.Adapters.Inproc.Attributes.ServiceAttribute.Description">
+            <summary>
+            Descripcion del servicio
+            </summary>
+        </member>
+        <member name="T:InvocationFramework.Adapters.Inproc.CatalogManager">
+            <summary>
+            Catalogo en memoria de los servicios que puede ejecutar el adaptador <seealso cref="T:InvocationFramework.Adapters.Inproc.CatalogManager"/>
+            </summary>
+            <author>Rodolfo Finochietti 01/11/2005 13.18</author>
+        </member>
+        <member name="F:InvocationFramework.Adapters.Inproc.CatalogManager._servicesFolder">
+            <summary>
+            Directorio donde se encuentran los servicios
+            </summary>
+        </member>
+        <member name="F:InvocationFramework.Adapters.Inproc.CatalogManager._workingFolder">
+            <summary>
+            Directorio temporal de ejecucion de los servicios
+            </summary>
+        </member>
+        <member name="F:InvocationFramework.Adapters.Inproc.CatalogManager._servicesCatalog">
+            <summary>
+            Esta coleccion guarda el catalog de servicios. Cada servicio en la colleccion tiene un catalogo de operaciones asociado.
+            </summary>
+        </member>
+        <member name="F:InvocationFramework.Adapters.Inproc.CatalogManager.syncServicesCatalog">
+            <summary>
+            Objeto usado para sincronizacion
+            </summary>
+        </member>
+        <member name="F:InvocationFramework.Adapters.Inproc.CatalogManager.syncRoot">
+            <summary>
+            Objeto usado para sincronizacion
+            </summary>
+        </member>
+        <member name="M:InvocationFramework.Adapters.Inproc.CatalogManager.#ctor">
+            <summary>
+            Constructor por defecto
+            </summary>
+        </member>
+        <member name="F:InvocationFramework.Adapters.Inproc.CatalogManager._mostRequestedServices">
+            <summary>
+            Variable privada para el manejo de la propiedad
+            </summary>
+        </member>
+        <member name="M:InvocationFramework.Adapters.Inproc.CatalogManager.currentDomain_AssemblyResolve(System.Object,System.ResolveEventArgs)">
+            <summary>
+            Este evento permite resolver las dependencias de los servicios (si estas no estan en el directorio 
+            de ejecucion o en la GAC)
+            </summary>
+            <param name="sender"></param>
+            <param name="args"></param>
+            <returns></returns>
+        </member>
+        <member name="M:InvocationFramework.Adapters.Inproc.CatalogManager.ContainsService(System.String)">
+            <summary>
+            Verifica si un servicio esta en el catalogo
+            </summary>
+            <param name="serviceName">Nombre del servicio</param>
+            <returns>True si el servicio se encuentra en el catalogo</returns>
+        </member>
+        <member name="M:InvocationFramework.Adapters.Inproc.CatalogManager.ContainsServiceOperation(System.String,System.String)">
+            <summary>
+            Verifica si existe una operacion en un servicio
+            </summary>
+            <param name="serviceName">Nombre del servicio</param>
+            <param name="operationName">Nombre de la operacion</param>
+            <returns>True si la operacion existe en el servicio, de lo contrario False</returns>
+        </member>
+        <member name="M:InvocationFramework.Adapters.Inproc.CatalogManager.GetServiceOperationDefinition(System.String,System.String)">
+            <summary>
+            Devuelve la definicion de la operacion de un servicio
+            </summary>
+            <param name="serviceName">Nombre del servicio</param>
+            <param name="operationName">Nombre de la operacion</param>
+            <returns>La defincion si pudo ser encontrada, null de lo contrario</returns>
+        </member>
+        <member name="M:InvocationFramework.Adapters.Inproc.CatalogManager.PopulateCatalog(System.String,System.String)">
+            <summary>
+            Carga el catalogo de servicios
+            </summary>
+            <param name="servicesFolder">Directorio donde estan los assemblys con los servicios</param>
+            <param name="workingFolder">Carpeta temporal de trabajo</param>
+        </member>
+        <member name="M:InvocationFramework.Adapters.Inproc.CatalogManager.AddAssemblyToCatalog(System.String)">
+            <summary>
+            Agrega un assembly al catalogo, siempre y cuando el assembly este decorado con los atributos correctos
+            </summary>
+            <param name="assemblyFile">Nombre completo del archivo a agregar</param>
+        </member>
+        <member name="M:InvocationFramework.Adapters.Inproc.CatalogManager.Execute(System.String,System.String,System.Object[])">
+            <summary>
+            Ejecuta un servicio del catalogo
+            </summary>
+            <param name="serviceName">Nombre del servicio</param>
+            <param name="operationName">Nombre de la operacion</param>
+            <param name="parameters">Parametros de la operacion</param>
+            <returns>Resultado de la ejecucion de la operacion</returns>
+        </member>
+        <member name="M:InvocationFramework.Adapters.Inproc.CatalogManager.AddServiceToCatalog(System.Reflection.Assembly)">
+            <summary>
+            Agrega al catalogo los servicios que se encuentran en el assembly pasado por parametro
+            </summary>
+            <param name="servicesRepository">El assembly que contiene los servicios a agregar al catalogo</param>
+        </member>
+        <member name="M:InvocationFramework.Adapters.Inproc.CatalogManager.CheckInterfacesForService(System.Type)">
+            <summary>
+            Cheque si en las interfaces de un tipo esta definido un servicio
+            </summary>
+            <param name="service">Tipo cuyas interfaces se van a chequear</param>
+        </member>
+        <member name="M:InvocationFramework.Adapters.Inproc.CatalogManager.CheckTypeForService(System.Type,System.Type)">
+            <summary>
+            Chequea si un tipo esta marcado como servicio
+            </summary>
+            <param name="typeToCheck">El tipo a chequear</param>
+            <param name="typeToAdd">El tipo a agregar al catalogo de servicios</param>
+        </member>
+        <member name="M:InvocationFramework.Adapters.Inproc.CatalogManager.AddServiceToMostRequestedCatalog(System.String,System.Type)">
+            <summary>
+            Controla si un tipo esta marcado como un servicio muy utilizado y si es asi lo agrega al catalogo de servicios muy utilizados
+            </summary>
+            <param name="serviceName">Nombre del servicio</param>
+            <param name="service">Tipo que contiene al servicio</param>
+            <remarks>
+            Este metodo no chequea la presencia del attributo <seealso cref="T:InvocationFramework.Adapters.Inproc.Attributes.ServiceAttribute"/>
+            </remarks>
+        </member>
+        <member name="M:InvocationFramework.Adapters.Inproc.CatalogManager.AddOperationToCatalog(System.String,System.Type,System.Reflection.MemberInfo)">
+            <summary>
+            Agrega una operacion al catalogo
+            </summary>
+            <param name="serviceName">Nombre del servicio</param>
+            <param name="service">Tipo del servicio</param>
+            <param name="method">Metodo donde esta implementada la operacion</param>
+        </member>
+        <member name="M:InvocationFramework.Adapters.Inproc.CatalogManager.CopyServicesToTemp">
+            <summary>
+            Copia los assemblys que se encuentran en el directorio de servicios al directorio temporal
+            </summary>
+        </member>
+        <member name="P:InvocationFramework.Adapters.Inproc.CatalogManager.MostRequestedServices">
+            <summary>
+            Array con los servicios mas utilizados dentro del catalogo
+            </summary>
+        </member>
+        <member name="T:InvocationFramework.Adapters.Inproc.OperationExecutor">
+            <summary>
+            Helper para ejecutar una operacion
+            </summary>
+            <author>Rodolfo Finochietti 30/12/2005 11.51</author>
+        </member>
+        <member name="M:InvocationFramework.Adapters.Inproc.OperationExecutor.Execute(InvocationFramework.Adapters.Inproc.OperationDefinition,System.Object[])">
+            <summary>
+            Ejecuta la operacion pasada por parametro
+            </summary>
+            <param name="operDef">Definicion de la operacion a ejecutar</param>
+            <param name="parameters">Parametros</param>
+            <returns>Resultado de la ejecucion</returns>
+        </member>
+        <member name="T:InvocationFramework.Adapters.Inproc.Transactions.TransactionManager">
+            <summary>
+            Helper para el manejo de transacciones
+            </summary>
+            <author>Rodolfo Finochietti 30/12/2005 11.37</author>
+        </member>
+        <member name="M:InvocationFramework.Adapters.Inproc.Transactions.TransactionManager.Rollback">
+            <summary>
+            Aborta la transaccion actual
+            </summary>
+        </member>
+        <member name="P:InvocationFramework.Adapters.Inproc.Transactions.TransactionManager.CreationTime">
+            <summary>
+            Devuelve la fecha y hora de creacion de la transaccion
+            </summary>
+        </member>
+        <member name="P:InvocationFramework.Adapters.Inproc.Transactions.TransactionManager.IsInTransaction">
+            <summary>
+            Permita saber si el contexto actual es transacional
+            </summary>
+        </member>
+        <member name="T:InvocationFramework.Adapters.Inproc.Attributes.OperationAttribute">
+            <summary>
+            Atributo utilizado para marcar un metodo como operacion de un servicio
+            </summary>
+            <author>Rodolfo Finochietti 03/11/2005 14.18</author>
+        </member>
+        <member name="M:InvocationFramework.Adapters.Inproc.Attributes.OperationAttribute.#ctor(System.String)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="name">Nombre de la operacion</param>
+        </member>
+        <member name="F:InvocationFramework.Adapters.Inproc.Attributes.OperationAttribute._name">
+            <summary>
+            Variable privada para el manejo de la propiedad
+            </summary>
+        </member>
+        <member name="F:InvocationFramework.Adapters.Inproc.Attributes.OperationAttribute._description">
+            <summary>
+            Variable privada para el manejo de la propiedad
+            </summary>
+        </member>
+        <member name="P:InvocationFramework.Adapters.Inproc.Attributes.OperationAttribute.Name">
+            <summary>
+            Nombre de la operacion
+            </summary>
+        </member>
+        <member name="P:InvocationFramework.Adapters.Inproc.Attributes.OperationAttribute.Description">
+            <summary>
+            Descripcion de la operacion
+            </summary>
+        </member>
+        <member name="T:InvocationFramework.Adapters.Inproc.AssemblyResolver">
+            <summary>
+            Este helper permite resolver referencia de assemblies que no se encuentra en el directorio de 
+            ejecucion ni en la GAC
+            </summary>
+            <author>Rodolfo Finochietti 16/05/2005 16.48</author>
+        </member>
+        <member name="F:InvocationFramework.Adapters.Inproc.AssemblyResolver._started">
+            <summary>
+            Flag para saber si ya se inicio el resolvedor
+            </summary>
+        </member>
+        <member name="F:InvocationFramework.Adapters.Inproc.AssemblyResolver._assembliesFolder">
+            <summary>
+            Variable privada para el manejo de la propiedad
+            </summary>
+        </member>
+        <member name="M:InvocationFramework.Adapters.Inproc.AssemblyResolver.Start">
+            <summary>
+            Inicia el resolvedor de ubicacion de assemblies
+            </summary>
+        </member>
+        <member name="M:InvocationFramework.Adapters.Inproc.AssemblyResolver.Start(System.String)">
+            <summary>
+            Inicia el resolvedor de ubicacion de assemblies
+            </summary>
+            <param name="assembliesFolder">Directorio donde se encuntran los assemblies que el resolvedor debe buscar</param>
+        </member>
+        <member name="P:InvocationFramework.Adapters.Inproc.AssemblyResolver.AssembliesFolder">
+            <summary>
+            Directorio donde se encuntran los assemblies que el resolvedor debe buscar
+            </summary>
+        </member>
+        <member name="T:InvocationFramework.Adapters.Inproc.InprocServiceAdapter">
+            <summary>
+            Adaptador para ejecutar servicios localmente en el mismo proceso del Invocation Framework
+            </summary>
+            <remarks>
+            Los servicios que ejecuta este adaptador se encuentra implementados en clases .Net marcadas con los atributos que se encuentran
+            en el namespace InvocationFramework.Adapters.Inproc.Attributes
+            </remarks>
+            <author>Rodolfo Finochietti 01/11/2005 13.18</author>
+        </member>
+        <member name="F:InvocationFramework.Adapters.Inproc.InprocServiceAdapter._hotDeployManager">
+            <summary>
+            Instancia del manager del servicio de hot deploy
+            </summary>
+        </member>
+        <member name="M:InvocationFramework.Adapters.Inproc.InprocServiceAdapter.#ctor">
+            <summary>
+            Constructor por defecto
+            </summary>
+        </member>
+        <member name="F:InvocationFramework.Adapters.Inproc.InprocServiceAdapter._id">
+            <summary>
+            Variable privada para el manejo de la propiedad
+            </summary>
+        </member>
+        <member name="F:InvocationFramework.Adapters.Inproc.InprocServiceAdapter._initialized">
+            <summary>
+            Variable privada para el manejo de la propiedad
+            </summary>
+        </member>
+        <member name="F:InvocationFramework.Adapters.Inproc.InprocServiceAdapter._defaultOperation">
+            <summary>
+            Variable privada para el manejo de la propiedad
+            </summary>
+        </member>
+        <member name="M:InvocationFramework.Adapters.Inproc.InprocServiceAdapter.Init(System.String,System.String,System.Xml.XmlNode)">
+            <summary>
+            Inicializa el adaptador
+            </summary>
+            <param name="id">Identificador del adaptador</param>
+            <param name="defaultOperation">Nombre de la operacion por defecto</param>
+            <param name="configuration">Configuracion del adaptador</param>
+        </member>
+        <member name="M:InvocationFramework.Adapters.Inproc.InprocServiceAdapter.IsServiceAvailable(System.String)">
+            <summary>
+            Permite saber si un servicio esta disponible para ser ejecutado mediante este adaptador
+            </summary>
+            <param name="serviceName">Nombre del servicio</param>
+            <returns>True este adaptador puede ejecutar este servicio, False de lo contrario</returns>
+        </member>
+        <member name="M:InvocationFramework.Adapters.Inproc.InprocServiceAdapter.IsServiceOperationAvailable(System.String,System.String)">
+            <summary>
+            Verifica si existe una operacion en un servicio
+            </summary>
+            <param name="serviceName">Nombre del servicio</param>
+            <param name="operationName">Nombre de la operacion</param>
+            <returns>True si la operacion existe en el servicio, de lo contrario False</returns>
+        </member>
+        <member name="M:InvocationFramework.Adapters.Inproc.InprocServiceAdapter.GetMostRequestedServices">
+            <summary>
+            Devuelve una lista con los nombres de los servicios mas utilizados
+            </summary>
+            <returns>Una lista con los nombres de los servicios mas utilizados</returns>
+        </member>
+        <member name="M:InvocationFramework.Adapters.Inproc.InprocServiceAdapter.Execute(System.String,System.String,InvocationFramework.Common.ContextDictionary,System.Object[])">
+            <summary>
+            Ejecuta la operacion que se encuentra en un determinado servicio
+            </summary>
+            <param name="serviceName">Nombre del servicio</param>
+            <param name="operationName">Nombre de la operacion a ejecutar</param>
+            <param name="context">El contexto que se desea propagar junto con al ejecucion del servicios</param>
+            <param name="parameters">Parametros de la operacion</param>
+            <returns>Resultado de la ejecucion de la operacion</returns>
+        </member>
+        <member name="P:InvocationFramework.Adapters.Inproc.InprocServiceAdapter.Id">
+            <summary>
+            Identificador del adaptador
+            </summary>
+        </member>
+        <member name="P:InvocationFramework.Adapters.Inproc.InprocServiceAdapter.Initialized">
+            <summary>
+            Indica si el adaptador esta inicializado o no
+            </summary>
+        </member>
+        <member name="P:InvocationFramework.Adapters.Inproc.InprocServiceAdapter.DefaultOperation">
+            <summary>
+            Nombre de la operacion por defecto
+            </summary>
+        </member>
+    </members>
+</doc>

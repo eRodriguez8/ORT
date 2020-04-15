@@ -1,0 +1,25 @@
+﻿@{
+    ViewBag.Title = "IWMS";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <div class="header">
+        <h3>Conteo Inventario Sega</h3> 
+    </div>
+    <div class="content">
+        <h3>¿Desea continuar con la carga?</h3>
+        <div>
+            <button class="btn btn-primary btn-sm" id="btnSi"> SI </button>
+            <button class="btn btn-primary btn-sm" id="btnNo"> NO </button>
+        </div>
+    </div>
+    <div class="footer" style="height: 25px">
+        <p>Cencosud @DateTime.Now</p>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="@Url.Content("~/bundles/jquery")" type="text/javascript"></script>
+    <script src="~/Scripts/continuarCarga.js"></script>
+}

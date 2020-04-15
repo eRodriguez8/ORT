@@ -1,0 +1,92 @@
+<form [formGroup]="formRecep" (ngSubmit)="onSubmit()">
+  <div class="modal-header">
+    <h5 class="modal-title">Asignación de Documento</h5>
+  </div>
+  <div class="modal-body">
+    <div class="widget-header bordered-bottom bordered-blue">
+      <span class="widget-caption">
+        <i class="widget-icon fa fa-filter"></i> Asignación
+      </span>
+      <div class="widget-buttons">
+        <a
+          data-toggle="collapse"
+          href="#widegetDatos"
+          role="button"
+          aria-expanded="false"
+          aria-controls="widegetDatos"
+        >
+          <i class="widget-icon fa fa-chevron-up"></i>
+        </a>
+      </div>
+    </div>
+    <div id="widegetDatos" class="widget-body collapse show padding-10">
+      <div class="form-group form-group-sm">
+        <div class="row col-12">
+          <label class="label blue padding-10 width-120">Documento</label>
+          <input
+            class="text center width-250"
+            id="documento"
+            formControlName="documento"
+            readonly
+          />
+        </div>
+        <div class="row col-12">
+          <label class="label blue padding-10 width-120">Legajo</label>
+          <input
+            class="text center width-250"
+            id="legajo"
+            maxlength="20"
+            formControlName="legajo"
+            (change)="getLegajo($event.target.value)"
+          />
+          <div
+            class="alert alert-danger font-lower align-middle"
+            *ngIf="
+              formRecep.get('legajo').invalid && formRecep.get('legajo').dirty
+            "
+          >
+            El campo <strong>Legajo</strong> es obligatorio.
+          </div>
+        </div>
+        <div *ngIf="cargandoUsuario">
+          <div class="col-md-3 col-12 center" *ngIf="!cargoCC">
+            <img
+              src="assets/images/loading_spinner.gif"
+              alt="img"
+              title="cargando..."
+            />
+          </div>
+        </div>
+        <div *ngIf="!cargandoUsuario">
+          <div class="row col-12">
+            <label class="label blue padding-10 width-120">Usuario</label>
+            <input
+              class="text center width-250"
+              id="usuario"
+              formControlName="usuario"
+              readonly
+            />
+            <div
+              class="alert alert-danger font-lower align-middle"
+              *ngIf="ErrorAsigando"
+            >
+               El <strong>Legajo</strong> ya esta asignado.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="center">
+      <button type="submit" class="btn btn-outline-primary btn-sm">
+        <i class="fa fa-check"></i> Aceptar
+      </button>
+      <button
+        type="button"
+        class="btn btn-outline-primary btn-sm"
+        (click)="Salir()"
+      >
+        <i class="fa fa-close"></i> Cancelar
+      </button>
+    </div>
+  </div>
+</form>

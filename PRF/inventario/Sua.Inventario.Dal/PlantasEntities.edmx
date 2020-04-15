@@ -1,0 +1,482 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="CDsContext.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'CDs.dbo.INV_dCCsActivos' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <EntityType Name="INV_dCCsActivos">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="idRegion" />
+            <PropertyRef Name="cc" />
+            <PropertyRef Name="descripcion" />
+            <PropertyRef Name="idb" />
+            <PropertyRef Name="usuario" />
+            <PropertyRef Name="ts" />
+            <PropertyRef Name="estado" />
+          </Key>
+          <Property Name="id" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idRegion" Type="tinyint" Nullable="false" />
+          <Property Name="cc" Type="numeric" Precision="5" Scale="0" Nullable="false" />
+          <Property Name="descripcion" Type="nvarchar" MaxLength="80" Nullable="false" />
+          <Property Name="idb" Type="numeric" Precision="5" Scale="0" Nullable="false" />
+          <Property Name="usuario" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ts" Type="date" Nullable="false" />
+          <Property Name="estado" Type="char" MaxLength="1" Nullable="false" />
+        </EntityType>
+        <EntityType Name="INV_dDocumentos">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Documento" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="LegajoAsignado" Type="nvarchar" MaxLength="20" />
+          <Property Name="Estado" Type="smallint" Nullable="false" />
+          <Property Name="Fecha" Type="date" Nullable="false" />
+          <Property Name="Usuario" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="idInventario" Type="int" />
+          <Property Name="Fase" Type="int" />
+          <Property Name="idDocumentoPadre" Type="int" />
+          <Property Name="UltimoLegajoAsignado" Type="nvarchar" MaxLength="20" />
+          <Property Name="ImpactadoSega" Type="bit" />
+        </EntityType>
+        <EntityType Name="INV_dInventario">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="Nombre" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="Estado" Type="smallint" Nullable="false" />
+          <Property Name="FechaCreacion" Type="date" />
+          <Property Name="FechaFinalizacion" Type="date" />
+          <Property Name="Usuario" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="cc" Type="smallint" Nullable="false" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="INV_dPosiciones">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idDocumento" Type="int" Nullable="false" />
+          <Property Name="sector" Type="nvarchar" MaxLength="255" />
+          <Property Name="pasillo" Type="nvarchar" MaxLength="3" />
+          <Property Name="columna" Type="float" />
+          <Property Name="nivel" Type="float" />
+          <Property Name="compart" Type="float" />
+          <Property Name="etiqueta" Type="nvarchar" MaxLength="255" />
+          <Property Name="ean13" Type="nvarchar" MaxLength="255" />
+          <Property Name="descripcion" Type="nvarchar" MaxLength="255" />
+          <Property Name="proveedor" Type="nvarchar" MaxLength="255" />
+          <Property Name="id_orden_compra" Type="nvarchar" MaxLength="255" />
+          <Property Name="fecha_hora_recepcion" Type="datetime" />
+          <Property Name="vencimiento" Type="datetime" />
+          <Property Name="vidautil" Type="float" />
+          <Property Name="diasvencer" Type="nvarchar" MaxLength="255" />
+          <Property Name="cxh" Type="float" />
+          <Property Name="hxp" Type="float" />
+          <Property Name="uxb" Type="float" />
+          <Property Name="uxpack" Type="float" />
+          <Property Name="bultos" Type="float" />
+          <Property Name="packs" Type="float" />
+          <Property Name="unidades" Type="float" />
+          <Property Name="recepcionista" Type="nvarchar" MaxLength="255" />
+          <Property Name="almacenador" Type="nvarchar" MaxLength="255" />
+          <Property Name="estadocalidad" Type="nvarchar" MaxLength="255" />
+          <Property Name="cara" Type="float" />
+          <Property Name="usuario" Type="nvarchar" MaxLength="50" />
+          <Property Name="digito" Type="nvarchar" MaxLength="50" />
+          <Property Name="bultosinv" Type="float" />
+          <Property Name="ts" Type="datetime" />
+          <Property Name="fechaact" Type="datetime" />
+          <Property Name="usuarioinventario" Type="nvarchar" MaxLength="100" />
+          <Property Name="tipoinventario" Type="nvarchar" MaxLength="100" />
+          <Property Name="hxpinv" Type="int" />
+          <Property Name="cajassueltasinv" Type="int" />
+          <Property Name="estado" Type="nvarchar" MaxLength="100" />
+          <Property Name="observaciones" Type="nvarchar" MaxLength="100" />
+          <Property Name="codigoarticulo" Type="nvarchar" MaxLength="25" />
+          <Property Name="tipolectura" Type="nvarchar" MaxLength="100" />
+          <Property Name="documentoasociado" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <Association Name="FK_INV_dDocumentos_INV_dInventario">
+          <End Role="INV_dInventario" Type="Self.INV_dInventario" Multiplicity="0..1" />
+          <End Role="INV_dDocumentos" Type="Self.INV_dDocumentos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="INV_dInventario">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="INV_dDocumentos">
+              <PropertyRef Name="idInventario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_INV_dPosiciones_INV_dDocumento">
+          <End Role="INV_dDocumentos" Type="Self.INV_dDocumentos" Multiplicity="1" />
+          <End Role="INV_dPosiciones" Type="Self.INV_dPosiciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="INV_dDocumentos">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="INV_dPosiciones">
+              <PropertyRef Name="idDocumento" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="INV_dPosiciones_AjusteSega" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idDoc" Type="int" Mode="In" />
+        </Function>
+        <Function Name="INV_dPosiciones_CrearControlForzado" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idDoc" Type="int" Mode="In" />
+        </Function>
+        <Function Name="INV_dPosiciones_ValidarYCrearControles" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idDoc" Type="int" Mode="In" />
+        </Function>
+        <Function Name="INV_EstadoActual" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdInventario" Type="int" Mode="In" />
+          <Parameter Name="Fase" Type="int" Mode="In" />
+        </Function>
+        <EntityContainer Name="CDsContextStoreContainer">
+          <EntitySet Name="INV_dDocumentos" EntityType="Self.INV_dDocumentos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="INV_dInventario" EntityType="Self.INV_dInventario" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="INV_dPosiciones" EntityType="Self.INV_dPosiciones" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="INV_dCCsActivos" EntityType="Self.INV_dCCsActivos" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [INV_dCCsActivos].[id] AS [id], 
+    [INV_dCCsActivos].[idRegion] AS [idRegion], 
+    [INV_dCCsActivos].[cc] AS [cc], 
+    [INV_dCCsActivos].[descripcion] AS [descripcion], 
+    [INV_dCCsActivos].[idb] AS [idb], 
+    [INV_dCCsActivos].[usuario] AS [usuario], 
+    [INV_dCCsActivos].[ts] AS [ts], 
+    [INV_dCCsActivos].[estado] AS [estado]
+    FROM [dbo].[INV_dCCsActivos] AS [INV_dCCsActivos]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_INV_dDocumentos_INV_dInventario" Association="Self.FK_INV_dDocumentos_INV_dInventario">
+            <End Role="INV_dInventario" EntitySet="INV_dInventario" />
+            <End Role="INV_dDocumentos" EntitySet="INV_dDocumentos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_INV_dPosiciones_INV_dDocumento" Association="Self.FK_INV_dPosiciones_INV_dDocumento">
+            <End Role="INV_dDocumentos" EntitySet="INV_dDocumentos" />
+            <End Role="INV_dPosiciones" EntitySet="INV_dPosiciones" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="CDsContext" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="CDsEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="INV_dInventario" EntityType="CDsContext.INV_dInventario" />
+          <EntitySet Name="INV_dPosiciones" EntityType="CDsContext.INV_dPosiciones" />
+          <EntitySet Name="INV_dCCsActivos" EntityType="CDsContext.INV_dCCsActivos" />
+          <FunctionImport Name="INV_dPosiciones_ValidarYCrearControles" ReturnType="Collection(String)">
+          <Parameter Name="idDoc" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="INV_dPosiciones_CrearControlForzado" ReturnType="Collection(String)">
+          <Parameter Name="idDoc" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="INV_EstadoActual" ReturnType="Collection(CDsContext.INV_EstadoActual_Result)">
+            <Parameter Name="IdInventario" Mode="In" Type="Int32" />
+            <Parameter Name="Fase" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="INV_dDocumentos" EntityType="CDsContext.INV_dDocumentos" />
+          <AssociationSet Name="FK_INV_dDocumentos_INV_dInventario" Association="CDsContext.FK_INV_dDocumentos_INV_dInventario">
+            <End Role="INV_dInventario" EntitySet="INV_dInventario" />
+            <End Role="INV_dDocumentos" EntitySet="INV_dDocumentos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_INV_dPosiciones_INV_dDocumento" Association="CDsContext.FK_INV_dPosiciones_INV_dDocumento">
+            <End Role="INV_dDocumentos" EntitySet="INV_dDocumentos" />
+            <End Role="INV_dPosiciones" EntitySet="INV_dPosiciones" />
+          </AssociationSet>
+          <FunctionImport Name="INV_dPosiciones_AjusteSega" ReturnType="Collection(Int32)">
+            <Parameter Name="idDoc" Mode="In" Type="Int32" />
+          </FunctionImport>
+        </EntityContainer>
+        <EntityType Name="INV_dInventario">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Estado" Type="Int16" Nullable="false" />
+          <Property Name="FechaCreacion" Type="DateTime" Precision="0" />
+          <Property Name="FechaFinalizacion" Type="DateTime" Precision="0" />
+          <Property Name="Usuario" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="cc" Type="Int16" Nullable="false" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="INV_dDocumentos" Relationship="CDsContext.FK_INV_dDocumentos_INV_dInventario" FromRole="INV_dInventario" ToRole="INV_dDocumentos" />
+        </EntityType>
+        <EntityType Name="INV_dPosiciones">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idDocumento" Type="Int32" Nullable="false" />
+          <Property Name="sector" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="pasillo" Type="String" MaxLength="3" FixedLength="false" Unicode="true" />
+          <Property Name="columna" Type="Double" />
+          <Property Name="nivel" Type="Double" />
+          <Property Name="compart" Type="Double" />
+          <Property Name="etiqueta" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="ean13" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="descripcion" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="proveedor" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="id_orden_compra" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="fecha_hora_recepcion" Type="DateTime" Precision="3" />
+          <Property Name="vencimiento" Type="DateTime" Precision="3" />
+          <Property Name="vidautil" Type="Double" />
+          <Property Name="diasvencer" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="cxh" Type="Double" />
+          <Property Name="hxp" Type="Double" />
+          <Property Name="uxb" Type="Double" />
+          <Property Name="uxpack" Type="Double" />
+          <Property Name="bultos" Type="Double" />
+          <Property Name="packs" Type="Double" />
+          <Property Name="unidades" Type="Double" />
+          <Property Name="recepcionista" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="almacenador" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="estadocalidad" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="cara" Type="Double" />
+          <Property Name="usuario" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="digito" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="bultosinv" Type="Double" />
+          <Property Name="ts" Type="DateTime" Precision="3" />
+          <Property Name="fechaact" Type="DateTime" Precision="3" />
+          <Property Name="usuarioinventario" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="tipoinventario" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="hxpinv" Type="Int32" />
+          <Property Name="cajassueltasinv" Type="Int32" />
+          <Property Name="estado" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="observaciones" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="codigoarticulo" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="tipolectura" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="documentoasociado" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="INV_dDocumentos" Relationship="CDsContext.FK_INV_dPosiciones_INV_dDocumento" FromRole="INV_dPosiciones" ToRole="INV_dDocumentos" />
+        </EntityType>
+        <EntityType Name="INV_dCCsActivos">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="idRegion" />
+            <PropertyRef Name="cc" />
+            <PropertyRef Name="descripcion" />
+            <PropertyRef Name="idb" />
+            <PropertyRef Name="usuario" />
+            <PropertyRef Name="ts" />
+            <PropertyRef Name="estado" />
+          </Key>
+          <Property Name="id" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idRegion" Type="Byte" Nullable="false" />
+          <Property Name="cc" Type="Decimal" Nullable="false" Precision="5" Scale="0" />
+          <Property Name="descripcion" Type="String" Nullable="false" MaxLength="80" FixedLength="false" Unicode="true" />
+          <Property Name="idb" Type="Decimal" Nullable="false" Precision="5" Scale="0" />
+          <Property Name="usuario" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ts" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="estado" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="false" />
+        </EntityType>
+        <ComplexType Name="INV_EstadoActual_Result" >
+          <Property Type="String" Name="Documento" Nullable="false" />
+          <Property Type="Int32" Name="LineasTotales" Nullable="false" />
+          <Property Type="Int32" Name="LineasContadas" Nullable="false" />
+          <Property Type="Decimal" Name="Porcentaje" Nullable="false" />
+          <Property Type="DateTime" Name="PrimerLectura" Nullable="true" />
+          <Property Type="DateTime" Name="UltimaLectura" Nullable="true" />
+          <Property Type="Int32" Name="TiempoOperacionMinutos" Nullable="false" />
+          <Property Type="Int32" Name="TiempoUltimaLecturaMinutos" Nullable="false" />
+          <Property Type="Decimal" Name="PromedioLineasXMinuto" Nullable="false" />
+          <Property Type="Decimal" Name="PromedioDescuadre" Nullable="false" />
+          <Property Type="Int32" Name="TotalSinDescuadre" Nullable="false" />
+          <Property Type="Int32" Name="TotalDiferenciaEtiqueta" Nullable="false" />
+          <Property Type="Int32" Name="TotalDiferenciaBulto" Nullable="false" />
+          <Property Type="Int32" Name="TotalConDescuadre" Nullable="false" />
+          <Property Type="Int32" Name="totalDescuadreArticulo" Nullable="false" />
+          <Property Type="String" Name="UltimoLegajoAsignado" Nullable="false" />
+          <Property Type="Int16" Name="Estado" Nullable="false" />
+        </ComplexType>
+        <EntityType Name="INV_dDocumentos">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Documento" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="LegajoAsignado" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Estado" Type="Int16" Nullable="false" />
+          <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Usuario" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="idInventario" Type="Int32" />
+          <Property Name="Fase" Type="Int32" />
+          <Property Name="idDocumentoPadre" Type="Int32" />
+          <Property Name="UltimoLegajoAsignado" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="INV_dInventario" Relationship="CDsContext.FK_INV_dDocumentos_INV_dInventario" FromRole="INV_dDocumentos" ToRole="INV_dInventario" />
+          <NavigationProperty Name="INV_dPosiciones" Relationship="CDsContext.FK_INV_dPosiciones_INV_dDocumento" FromRole="INV_dDocumentos" ToRole="INV_dPosiciones" />
+          <Property Name="ImpactadoSega" Type="Boolean" />
+        </EntityType>
+        <Association Name="FK_INV_dDocumentos_INV_dInventario">
+          <End Type="CDsContext.INV_dInventario" Role="INV_dInventario" Multiplicity="0..1" />
+          <End Type="CDsContext.INV_dDocumentos" Role="INV_dDocumentos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="INV_dInventario">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="INV_dDocumentos">
+              <PropertyRef Name="idInventario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_INV_dPosiciones_INV_dDocumento">
+          <End Type="CDsContext.INV_dDocumentos" Role="INV_dDocumentos" Multiplicity="1" />
+          <End Type="CDsContext.INV_dPosiciones" Role="INV_dPosiciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="INV_dDocumentos">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="INV_dPosiciones">
+              <PropertyRef Name="idDocumento" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="CDsContextStoreContainer" CdmEntityContainer="CDsEntities">
+          <EntitySetMapping Name="INV_dInventario">
+            <EntityTypeMapping TypeName="CDsContext.INV_dInventario">
+              <MappingFragment StoreEntitySet="INV_dInventario">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="cc" ColumnName="cc" />
+                <ScalarProperty Name="Usuario" ColumnName="Usuario" />
+                <ScalarProperty Name="FechaFinalizacion" ColumnName="FechaFinalizacion" />
+                <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="INV_dPosiciones">
+            <EntityTypeMapping TypeName="CDsContext.INV_dPosiciones">
+              <MappingFragment StoreEntitySet="INV_dPosiciones">
+                <ScalarProperty Name="documentoasociado" ColumnName="documentoasociado" />
+                <ScalarProperty Name="tipolectura" ColumnName="tipolectura" />
+                <ScalarProperty Name="codigoarticulo" ColumnName="codigoarticulo" />
+                <ScalarProperty Name="observaciones" ColumnName="observaciones" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="cajassueltasinv" ColumnName="cajassueltasinv" />
+                <ScalarProperty Name="hxpinv" ColumnName="hxpinv" />
+                <ScalarProperty Name="tipoinventario" ColumnName="tipoinventario" />
+                <ScalarProperty Name="usuarioinventario" ColumnName="usuarioinventario" />
+                <ScalarProperty Name="fechaact" ColumnName="fechaact" />
+                <ScalarProperty Name="ts" ColumnName="ts" />
+                <ScalarProperty Name="bultosinv" ColumnName="bultosinv" />
+                <ScalarProperty Name="digito" ColumnName="digito" />
+                <ScalarProperty Name="usuario" ColumnName="usuario" />
+                <ScalarProperty Name="cara" ColumnName="cara" />
+                <ScalarProperty Name="estadocalidad" ColumnName="estadocalidad" />
+                <ScalarProperty Name="almacenador" ColumnName="almacenador" />
+                <ScalarProperty Name="recepcionista" ColumnName="recepcionista" />
+                <ScalarProperty Name="unidades" ColumnName="unidades" />
+                <ScalarProperty Name="packs" ColumnName="packs" />
+                <ScalarProperty Name="bultos" ColumnName="bultos" />
+                <ScalarProperty Name="uxpack" ColumnName="uxpack" />
+                <ScalarProperty Name="uxb" ColumnName="uxb" />
+                <ScalarProperty Name="hxp" ColumnName="hxp" />
+                <ScalarProperty Name="cxh" ColumnName="cxh" />
+                <ScalarProperty Name="diasvencer" ColumnName="diasvencer" />
+                <ScalarProperty Name="vidautil" ColumnName="vidautil" />
+                <ScalarProperty Name="vencimiento" ColumnName="vencimiento" />
+                <ScalarProperty Name="fecha_hora_recepcion" ColumnName="fecha_hora_recepcion" />
+                <ScalarProperty Name="id_orden_compra" ColumnName="id_orden_compra" />
+                <ScalarProperty Name="proveedor" ColumnName="proveedor" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="ean13" ColumnName="ean13" />
+                <ScalarProperty Name="etiqueta" ColumnName="etiqueta" />
+                <ScalarProperty Name="compart" ColumnName="compart" />
+                <ScalarProperty Name="nivel" ColumnName="nivel" />
+                <ScalarProperty Name="columna" ColumnName="columna" />
+                <ScalarProperty Name="pasillo" ColumnName="pasillo" />
+                <ScalarProperty Name="sector" ColumnName="sector" />
+                <ScalarProperty Name="idDocumento" ColumnName="idDocumento" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="INV_dCCsActivos">
+            <EntityTypeMapping TypeName="CDsContext.INV_dCCsActivos">
+              <MappingFragment StoreEntitySet="INV_dCCsActivos">
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="ts" ColumnName="ts" />
+                <ScalarProperty Name="usuario" ColumnName="usuario" />
+                <ScalarProperty Name="idb" ColumnName="idb" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="cc" ColumnName="cc" />
+                <ScalarProperty Name="idRegion" ColumnName="idRegion" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="INV_dPosiciones_ValidarYCrearControles" FunctionName="CDsContext.Store.INV_dPosiciones_ValidarYCrearControles" />
+          <FunctionImportMapping FunctionImportName="INV_dPosiciones_CrearControlForzado" FunctionName="CDsContext.Store.INV_dPosiciones_CrearControlForzado" />
+          <FunctionImportMapping FunctionImportName="INV_EstadoActual" FunctionName="CDsContext.Store.INV_EstadoActual" >
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CDsContext.INV_EstadoActual_Result">
+                <ScalarProperty Name="Documento" ColumnName="Documento" />
+                <ScalarProperty Name="LineasTotales" ColumnName="LineasTotales" />
+                <ScalarProperty Name="LineasContadas" ColumnName="LineasContadas" />
+                <ScalarProperty Name="Porcentaje" ColumnName="Porcentaje" />
+                <ScalarProperty Name="PrimerLectura" ColumnName="PrimerLectura" />
+                <ScalarProperty Name="UltimaLectura" ColumnName="UltimaLectura" />
+                <ScalarProperty Name="TiempoOperacionMinutos" ColumnName="TiempoOperacionMinutos" />
+                <ScalarProperty Name="TiempoUltimaLecturaMinutos" ColumnName="TiempoUltimaLecturaMinutos" />
+                <ScalarProperty Name="PromedioLineasXMinuto" ColumnName="PromedioLineasXMinuto" />
+                <ScalarProperty Name="PromedioDescuadre" ColumnName="PromedioDescuadre" />
+                <ScalarProperty Name="TotalSinDescuadre" ColumnName="TotalSinDescuadre" />
+                <ScalarProperty Name="TotalDiferenciaEtiqueta" ColumnName="TotalDiferenciaEtiqueta" />
+                <ScalarProperty Name="TotalDiferenciaBulto" ColumnName="TotalDiferenciaBulto" />
+                <ScalarProperty Name="TotalConDescuadre" ColumnName="TotalConDescuadre" />
+                <ScalarProperty Name="totalDescuadreArticulo" ColumnName="totalDescuadreArticulo" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="INV_dDocumentos">
+            <EntityTypeMapping TypeName="CDsContext.INV_dDocumentos">
+              <MappingFragment StoreEntitySet="INV_dDocumentos">
+                <ScalarProperty Name="ImpactadoSega" ColumnName="ImpactadoSega" />
+                <ScalarProperty Name="UltimoLegajoAsignado" ColumnName="UltimoLegajoAsignado" />
+                <ScalarProperty Name="idDocumentoPadre" ColumnName="idDocumentoPadre" />
+                <ScalarProperty Name="Fase" ColumnName="Fase" />
+                <ScalarProperty Name="idInventario" ColumnName="idInventario" />
+                <ScalarProperty Name="Usuario" ColumnName="Usuario" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="LegajoAsignado" ColumnName="LegajoAsignado" />
+                <ScalarProperty Name="Documento" ColumnName="Documento" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="INV_dPosiciones_AjusteSega" FunctionName="CDsContext.Store.INV_dPosiciones_AjusteSega" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

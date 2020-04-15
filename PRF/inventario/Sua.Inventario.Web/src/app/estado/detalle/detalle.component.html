@@ -1,0 +1,142 @@
+<div *ngIf="idInventario">
+  <div class="row">
+    <div class="col-sm-9 col-12 padding-10">
+      <i class="fa fa-truck"></i> <span> Reporte Inventarios</span>
+    </div>
+    <div class="col-sm-3 col-12">
+      <button
+        type="submit"
+        class="btn btn-outline-primary btn-sm"
+        (click)="volver()"
+      >
+        <i class="fa fa-close"></i> Volver
+      </button>
+    </div>
+  </div>
+  <app-filtro-estado
+    (filtroReporte)="obtenerFiltros($event)"
+  ></app-filtro-estado>
+
+  <div class="widget-header bordered-bottom bordered-blue">
+    <span class="widget-caption">
+      <i class="widget-icon fa fa-filter"></i> Estadisiticas
+    </span>
+    <div class="widget-buttons">
+      <a
+        data-toggle="collapse"
+        href="#divTotales"
+        role="button"
+        aria-expanded="false"
+        aria-controls="divTotales"
+      >
+        <i class="widget-icon fa fa-chevron-up"></i>
+      </a>
+    </div>
+  </div>
+  <div class="widget-body collapse show padding-10" id="divTotales">
+    <ul class="col-sm-6 col-12" style="display: inline-block;">
+      <u>Totales</u>
+      <li>Lineas: {{ estadisticasInventario.totalLineas }}</li>
+      <li>Contadas: {{ estadisticasInventario.totalContadas }}</li>
+      <li>
+        Porcentaje:
+        {{ estadisticasInventario.totalPorcentaje | number: "1.0-2" }} %
+      </li>
+      <li>Total Descuadres: {{estadisticasInventario.totalDescuadresGeneral}}</li>
+      <li>Total Sin Descuadre: {{ estadisticasInventario.totalSinDescuadre }}</li>
+    </ul>
+    <ul class="col-sm-6 col-12" style="display: inline-block;">
+      <u>Descuadres</u>
+
+      <li>Con Descuadre: {{ estadisticasInventario.totalConDescuadre }}</li>
+      <li>
+        Descuadre Articulo: {{ estadisticasInventario.totalDescuadreArticulo }}
+      </li>
+      <li>
+        Diferencia Bulto: {{ estadisticasInventario.totalDiferenciaBulto }}
+      </li>
+      <li>
+        Diferencia Etiqueta:
+        {{ estadisticasInventario.totalDiferenciaEtiqueta }}
+      </li>
+      <br>
+    </ul>
+  </div>
+  <div class="widget-header bordered-bottom bordered-blue mt-4">
+    <span class="widget-caption">
+      <i class="widget-icon fa fa-filter"></i> Detalle Inventario
+    </span>
+    <a class='widget-caption ml-4' (click)='descargar()'>
+      <i class='widget-icon fa fa-download'></i>
+      Descargar
+    </a>
+    <div class="widget-buttons">
+      <a
+        data-toggle="collapse"
+        href="#widegetDetalle"
+        role="button"
+        aria-expanded="false"
+        aria-controls="widegetDetalle"
+      >
+        <i class="widget-icon fa fa-chevron-up"></i>
+      </a>
+    </div>
+  </div>
+  <div *ngIf="!cargoGrilla" class="center">
+    <img src="assets/images/loader.gif" alt="img" title="cargando..." />
+  </div>
+  <div
+    *ngIf="cargoGrilla"
+    id="widegetDetalle"
+    class="widget-body collapse show padding-10"
+  >
+    <table
+      datatable
+      [dtOptions]="dtReporte"
+      class="row-border hover text center display nowrap"
+    >
+      <thead>
+        <tr>
+          <th>Documento</th>
+          <th>Legajo</th>
+          <th>Lineas Totales</th>
+          <th>Lineas Contadas</th>
+          <th>Porcentaje</th>
+          <th>Estado</th>
+          <th>Primer Lectura</th>
+          <th>Ultima Lectura</th>
+          <th>Tiempo Operación X Minutos</th>
+          <th>Tiempo Ultima Lectura X Minutos</th>
+          <th>Promedio Lineas X Minuto</th>
+          <th>Porcentaje Descuadre</th>
+          <th>Total Sin Descuadre</th>
+          <th>Total Diferencia Etiqueta</th>
+          <th>Total Diferencia Bulto</th>
+          <th>Total Con Descuadre</th>
+          <th>Total Descuadre Articulo</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let repo of reportes">
+          <td>{{ repo.documento }}</td>
+          <td>{{ repo.ultimoLegajoAsignado }}</td>
+          <td>{{ repo.lineasTotales }}</td>
+          <td>{{ repo.lineasContadas }}</td>
+          <td>{{ repo.porcentaje | number: "1.0-2" }}%</td>
+          <td>{{ repo.estadoString }}</td>
+          <td>{{ repo.primerLectura | date: "dd-MM-yyyy HH:mm:ss" }}</td>
+          <td>{{ repo.ultimaLectura | date: "dd-MM-yyyy HH:mm:ss" }}</td>
+          <td>{{ repo.tiempoOperacionMinutos }}</td>
+          <td>{{ repo.tiempoUltimaLecturaMinutos }}</td>
+          <td>{{ repo.promedioLineasXMinuto | number: "1.0-2" }}</td>
+          <td>{{ repo.promedioDescuadre | number: "1.0-2" }}%</td>
+          <td>{{ repo.totalSinDescuadre }}</td>
+          <td>{{ repo.totalDiferenciaEtiqueta }}</td>
+          <td>{{ repo.totalDiferenciaBulto }}</td>
+          <td>{{ repo.totalConDescuadre }}</td>
+          <td>{{ repo.totalDescuadreArticulo }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -1,0 +1,39 @@
+﻿.info .nav-link {
+    padding:0;
+}
+
+.info .dropdown-menu {
+    width: 350px;
+    padding-bottom: 0px;
+}
+
+.info .dropdown-menu .photo {
+    overflow: hidden;
+    position: relative;
+    border-radius: 50%; 
+    -webkit-border-radius: 50%;
+    width: 90px;
+}
+
+.info .dropdown-menu .photo .caption {
+    font-size: 10px;
+    font-weight: bold;
+    background:rgba(0,0,0,.54);
+    color: #FFF;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    position: absolute;
+    width: 90px;
+    margin: auto;
+    cursor: pointer;
+    padding: 4px;
+}
+
+.info .user {
+    font-size: 13px;
+}
+
+.nav-link.active, .nav-link:hover {
+    background-color: rgba(0, 0, 0, 0.11) !important;
+}

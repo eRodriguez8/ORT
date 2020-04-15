@@ -1,0 +1,72 @@
+<div class="margin-20-left">
+    <div class="alert alert-success center" role="alert" *ngIf="genero">
+        <i class="fa fa-check"></i> El inventario se genero con exito
+    </div>
+  <div class="widget-header bordered-bottom bordered-blue">
+    <span class="widget-caption">
+      <i class="fa fa-file-excel-o blue"></i> Importar excel
+    </span>
+    <div class="widget-buttons">
+      <a data-toggle="collapse" href="#widegetDatos" role="button" aria-expanded="false" aria-controls="widegetDatos">
+        <i class="widget-icon fa fa-chevron-up"></i>
+      </a>
+    </div>
+  </div>
+  <div id="widegetDatos" class="widget-body collapse show padding-10">
+    <form [formGroup]="uploadForm" class="padding-10 margin-5 form-group" (ngSubmit)="onSubmit()">
+      <div class="row medio" [ngBusy]="{busy: busy, message: 'Importando Excel ...'}">
+        <label class="label blue margin-5 width-120">Ruta: </label>
+        <input id="ruta" class="margin-5 width-250" formControlName="ruta" type="text">
+        <label for="file" class="btn btn-outline-primary btn-sm small margin-5 height-22">
+          Examinar
+        </label>
+        <div class="alert alert-danger font-lower align-middle margin-5"
+        *ngIf="uploadForm.get('ruta').invalid && uploadForm.get('ruta').dirty">
+        El campo <strong>Ruta</strong> es requerido.
+      </div>
+        <input type="file" #fileInput (change)="fileUpload()" class="text center width-250 hidden" name="file"
+          id="file" />
+      </div>
+      <div class="row medio">
+        <label class="label blue margin-5 width-120">Region: </label>
+        <select class="margin-5 width-250" name="regiones" formControlName="regiones"
+          (change)="onRegionChange($event.target.value)">
+          <option *ngFor="let region of regiones" value="{{region.id}}">{{region.descripcion}}</option>
+        </select>
+        <div class="alert alert-danger font-lower align-middle margin-5"
+        *ngIf="uploadForm.get('regiones').invalid && uploadForm.get('regiones').dirty">
+        El campo <strong>Region</strong> es requerido.
+      </div>
+      </div>
+      <div class="row medio">
+        <label class="label blue margin-5 width-120">CC: </label>
+        <select class="margin-5 width-250" name="cc" formControlName="cc">
+          <option *ngFor="let cc of ccs" value="{{cc.cc}}">{{cc.cc}} - {{cc.descripcion}}</option>
+        </select>
+        <div class="alert alert-danger font-lower align-middle margin-5"
+        *ngIf="uploadForm.get('cc').invalid && uploadForm.get('cc').dirty">
+        El campo <strong>CC</strong> es requerido.
+      </div>
+      </div>
+      <div class="row medio">
+        <label for="esNuevoInv" class="label blue margin-5 width-120">Es nuevo inventario: </label>
+        <ui-switch formControlName="esNuevoInv" class="margin-5" uncheckedLabel="No" checkedLabel="Si" switchOffColor="red"
+          switchColor="green" size="small" (change)="getInventario($event)" checked></ui-switch>
+      </div>
+      <div class="row medio" *ngIf="esNuevoInv">
+        <label for="nombre" class="label blue margin-5 width-120">Inventario: </label>
+        <input id="nombre" class="margin-5 width-250" formControlName="nombre" type="text">
+        <div class="alert alert-danger font-lower align-middle margin-5"
+        *ngIf="uploadForm.get('nombre').invalid && uploadForm.get('nombre').dirty">
+        El campo <strong>Inventario</strong> es requerido.
+      </div>
+      </div>
+      <br />
+      <div class="row medio margin-center">
+        <button type="submit" class="btn btn-outline-primary btn-sm" [disabled]='!activado'>
+          <i class="fa fa-check"></i> Importar
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,84 @@
+
+.table tr label {
+    margin-bottom: 0;
+} 
+.table > tbody > tr:hover {
+    background-color: #B3E5FC !important;
+    color: #FFF !important;
+    transition: all .2s;
+    cursor: pointer;
+}
+
+.table tbody tr .fa:hover {
+    color: #FFF !important;
+    transition: all .4s;
+}
+
+.table td {
+    font-size: 11px;
+    padding: 2px;
+    font-weight: bold;
+}
+
+.table td img {
+    cursor: pointer;
+}
+
+.table tbody tr a > i.fa {
+    font-size: 18px !important;
+}
+
+.table tbody tr .badge > i.fa {
+    font-size: 12px !important;
+}
+
+.table tbody tr span.badge > i.fa {
+    font-size: 10px !important;
+}
+
+
+.table th {
+    font-size: 13px;
+    padding: 5px;
+}
+
+
+.table-condensed > tfoot > tr > td {
+    padding: 1px;
+}
+
+.pagination {
+    display: inline-flex;
+    margin-top: 5px;
+}
+
+.pull-right li .page-link {
+    border-radius: 20px !important;
+    margin: 1px;
+    -webkit-transition: -webkit-transform 1s ease-out;
+    -moz-transition: -moz-transform 1s ease-out;
+    transition: transform 1s ease-out;
+}
+
+    .pull-right li .page-link:hover {
+        -webkit-transform: rotate(360deg);
+        -moz-transform: rotate(360deg);
+        transform: rotate(360deg);
+        color: #FFF;
+        background: #B3E5FC;
+    }
+
+
+    .table-responsive {
+        display: table !important;
+    }
+
+.pagination-range span {
+    font-size: 12px;
+    color: red;
+}
+
+
+.shadow-table {
+    box-shadow: 2px -1px 50px #eee;
+}

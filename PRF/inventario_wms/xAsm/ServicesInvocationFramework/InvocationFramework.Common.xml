@@ -1,0 +1,1221 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>InvocationFramework.Common</name>
+    </assembly>
+    <members>
+        <member name="T:InvocationFramework.Common.InvocationInformation">
+            <summary>
+            Informacion de la invocacion de un servicio
+            </summary>
+            <author>Rodolfo Finochietti 30/11/2005 14.02</author>
+        </member>
+        <member name="M:InvocationFramework.Common.InvocationInformation.#ctor">
+            <summary>
+            Constructor por defecto
+            </summary>
+        </member>
+        <member name="F:InvocationFramework.Common.InvocationInformation._adapterId">
+            <summary>
+            Variable privada para el manejo de la propiedad
+            </summary>
+        </member>
+        <member name="F:InvocationFramework.Common.InvocationInformation._serviceName">
+            <summary>
+            Variable privada para el manejo de la propiedad
+            </summary>
+        </member>
+        <member name="F:InvocationFramework.Common.InvocationInformation._operationName">
+            <summary>
+            Variable privada para el manejo de la propiedad
+            </summary>
+        </member>
+        <member name="F:InvocationFramework.Common.InvocationInformation._context">
+            <summary>
+            Variable privada para el manejo de la propiedad
+            </summary>
+        </member>
+        <member name="F:InvocationFramework.Common.InvocationInformation._parameters">
+            <summary>
+            Variable privada para el manejo de la propiedad
+            </summary>
+        </member>
+        <member name="F:InvocationFramework.Common.InvocationInformation._result">
+            <summary>
+            Variable privada para el manejo de la propiedad
+            </summary>
+        </member>
+        <member name="F:InvocationFramework.Common.InvocationInformation._invocationException">
+            <summary>
+            Variable privada para el manejo de la propiedad
+            </summary>
+        </member>
+        <member name="P:InvocationFramework.Common.InvocationInformation.AdapterId">
+            <summary>
+            Identificador del adaptador a utilizar cuando se utiliza el metodo ServiceCaller.AsyncExecute
+            </summary>
+        </member>
+        <member name="P:InvocationFramework.Common.InvocationInformation.ServiceName">
+            <summary>
+            Nombre del servicio
+            </summary>
+        </member>
+        <member name="P:InvocationFramework.Common.InvocationInformation.OperationName">
+            <summary>
+            Nombre de la operacion a ejecutar
+            </summary>
+        </member>
+        <member name="P:InvocationFramework.Common.InvocationInformation.Context">
+            <summary>
+            Contexto donde las aplicaciones pueden guadar informacion fuera de banda para que las aplicaciones la transmitan
+            </summary>
+        </member>
+        <member name="P:InvocationFramework.Common.InvocationInformation.Parameters">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:InvocationFramework.Common.InvocationInformation.Result">
+            <summary>
+            Resultado de la ejecucion de la operacion
+            </summary>
+        </member>
+        <member name="P:InvocationFramework.Common.InvocationInformation.InvocationException">
+            <summary>
+            Excepcion que se produjo durante la ejecucion de la operacion (si se hubiera producido)
+            </summary>
+        </member>
+        <member name="T:InvocationFramework.Common.Library.ReflectionHelper">
+            <summary>
+            Helper para trabajar con Reflection
+            </summary>
+        </member>
+        <member name="M:InvocationFramework.Common.Library.ReflectionHelper.CreateObject(System.String)">
+            <summary>
+            Crea un objeto
+            </summary>
+            <param name="type">Tipo del objeto a crear</param>
+            <returns>Una instancia del objeto si este se pudo crear, null de lo contrario</returns>
+        </member>
+        <member name="M:InvocationFramework.Common.Library.ReflectionHelper.CreateObject(System.Type)">
+            <summary>
+            Crea un objeto
+            </summary>
+            <param name="type">Tipo del objeto a crear</param>
+            <returns>Una instancia del objeto si este se pudo crear, null de lo contrario</returns>
+        </member>
+        <member name="M:InvocationFramework.Common.Library.ReflectionHelper.InvokeMember(System.String,System.Type,System.Object[])">
+            <summary>
+            Permite invocar un metodo
+            </summary>
+            <param name="methodName">Nombre del metodo a invocar</param>
+            <param name="methodType">Tipo donde se encuentra el metodo</param>
+            <param name="methodParameters">Parametros del metodo</param>
+            <returns>Resultado de la ejecucion del metodo</returns>
+        </member>
+        <member name="M:InvocationFramework.Common.Library.ReflectionHelper.CreateNewDomain(System.String,System.String,System.String,System.String)">
+            <summary>
+            Crea un nuevo application domain
+            </summary>
+            <param name="domainName">Nombre del application domain</param>
+            <param name="applicationName">Nombre de la aplicacion</param>
+            <param name="applicationBase">Directorio donde esta contenida la aplicacion</param>
+            <param name="configurationFile">Path del archivo de configuracion para el nuevo applicaction domain</param>
+            <returns>El application domain creado</returns>
+        </member>
+        <member name="M:InvocationFramework.Common.Library.ReflectionHelper.CreateObjectInAnotherDomain(System.AppDomain,System.String,System.String)">
+            <summary>
+            Crea una nueva instancia de un objeto dentro del application domain pasado por parametro
+            </summary>
+            <param name="domain">Application Domain donde se creara el objeto</param>
+            <param name="assemblyName">Nombre del assembly</param>
+            <param name="objectType">Tipo del objeto a crear</param>
+            <returns>Una insancia del objeto en el applicacion domain pasado por parametro</returns>
+        </member>
+        <member name="M:InvocationFramework.Common.Library.ReflectionHelper.GetAssemblys(System.String,System.Type)">
+            <summary>
+            Devuelve un array con los assemblys que se encuentran en un directorio
+            </summary>
+            <param name="assemblysFolder">Directorio donde se deben buscar los assemblys</param>
+            <param name="attributeType">Tipo de un attributo que deben contener los assemblys que se devuelvan, si este parametro es null no se chequea la presencia de un attributo</param>
+            <returns>Array con los assemblys que se encuentran el directorio pedido</returns>
+        </member>
+        <member name="M:InvocationFramework.Common.Library.ReflectionHelper.GetAssembly(System.String,System.Type)">
+            <summary>
+            Carga y devuelve el assembly indicado en el parametro
+            </summary>
+            <param name="assemblyFile">Path completo del assembly a obtener</param>
+            <param name="attributeType">Tipo de un attributo que deben contener los assemblys que se devuelvan, si este parametro es null no se chequea la presencia de un attributo</param>
+            <returns></returns>
+        </member>
+        <member name="T:InvocationFramework.Common.Interfaces.IServiceAdapter">
+            <summary>
+            Interfaz para implementar adaptadores de servicios
+            </summary>
+        </member>
+        <member name="M:InvocationFramework.Common.Interfaces.IServiceAdapter.Init(System.String,System.String,System.Xml.XmlNode)">
+            <summary>
+            Inicializa el adaptador
+            </summary>
+            <param name="id">Identificador del adaptador</param>
+            <param name="defaultOperation">Nombre de la operacion por defecto</param>
+            <param name="configuration">Configuracion del adaptador</param>
+        </member>
+        <member name="M:InvocationFramework.Common.Interfaces.IServiceAdapter.IsServiceAvailable(System.String)">
+            <summary>
+            Permite saber si un servicio esta disponible para ser ejecutado mediante este adaptador
+            </summary>
+            <param name="serviceName">Nombre del servicio</param>
+            <returns>True este adaptador puede ejecutar este servicio, False de lo contrario</returns>
+        </member>
+        <member name="M:InvocationFramework.Common.Interfaces.IServiceAdapter.IsServiceOperationAvailable(System.String,System.String)">
+            <summary>
+            Verifica si existe una operacion en un servicio
+            </summary>
+            <param name="serviceName">Nombre del servicio</param>
+            <param name="operationName">Nombre de la operacion</param>
+            <returns>True si la operacion existe en el servicio, de lo contrario False</returns>
+        </member>
+        <member name="M:InvocationFramework.Common.Interfaces.IServiceAdapter.GetMostRequestedServices">
+            <summary>
+            Devuelve una lista con los nombres de los servicios mas utilizados
+            </summary>
+            <returns>Una lista con los nombres de los servicios mas utilizados</returns>
+        </member>
+        <member name="M:InvocationFramework.Common.Interfaces.IServiceAdapter.Execute(System.String,System.String,InvocationFramework.Common.ContextDictionary,System.Object[])">
+            <summary>
+            Ejecuta la operacion que se encuentra en un determinado servicio
+            </summary>
+            <param name="serviceName">Nombre del servicio</param>
+            <param name="operationName">Nombre de la operacion a ejecutar</param>
+            <param name="context">El contexto que se desea propagar junto con al ejecucion del servicios</param>
+            <param name="parameters">Parametros de la operacion</param>
+            <returns>Resultado de la ejecucion de la operacion</returns>
+        </member>
+        <member name="P:InvocationFramework.Common.Interfaces.IServiceAdapter.Id">
+            <summary>
+            Identificador del adaptador
+            </summary>
+        </member>
+        <member name="P:InvocationFramework.Common.Interfaces.IServiceAdapter.Initialized">
+            <summary>
+            Indica si el adaptador esta inicializado o no
+            </summary>
+        </member>
+        <member name="P:InvocationFramework.Common.Interfaces.IServiceAdapter.DefaultOperation">
+            <summary>
+            Nombre de la operacion por defecto
+            </summary>
+        </member>
+        <member name="T:SmartClientShell.Installers.Server.InstrumentationInstaller">
+            <summary>
+            Clase installer para agregar los performance counter utilizados por la aplicación
+            </summary>
+            <author>Rodolfo Finochietti 02/01/2006 12.55</author>
+        </member>
+        <member name="M:SmartClientShell.Installers.Server.InstrumentationInstaller.#ctor">
+            <summary>
+            Constructor
+            </summary>
+        </member>
+        <member name="M:SmartClientShell.Installers.Server.InstrumentationInstaller.Install(System.Collections.IDictionary)">
+            <summary>
+            </summary>
+            <param name="stateSaver"></param>
+        </member>
+        <member name="M:SmartClientShell.Installers.Server.InstrumentationInstaller.Uninstall(System.Collections.IDictionary)">
+            <summary>
+            </summary>
+            <param name="stateSaver"></param>
+        </member>
+        <member name="M:SmartClientShell.Installers.Server.InstrumentationInstaller.Dispose(System.Boolean)">
+            <summary>
+            </summary>
+            <param name="disposing"></param>
+        </member>
+        <member name="T:InvocationFramework.Common.ContextDictionary">
+            <summary>
+            Clase para guardar informacion de contexto que los adaptadores quieran enviar fuera de banda
+            </summary>
+            <author>Rodolfo Finochietti 29/11/2005 21.55</author>
+        </member>
+        <member name="M:InvocationFramework.Common.ContextDictionary.Add(System.String,System.Object)">
+            <summary>
+            </summary>
+            <param name="key"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:InvocationFramework.Common.ContextDictionary.Contains(System.String)">
+            <summary>
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:InvocationFramework.Common.ContextDictionary.Remove(System.String)">
+            <summary>
+            </summary>
+            <param name="key"></param>
+        </member>
+        <member name="P:InvocationFramework.Common.ContextDictionary.Item(System.String)">
+            <summary>
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="P:InvocationFramework.Common.ContextDictionary.Keys">
+            <summary>
+            </summary>
+        </member>
+        <member name="P:InvocationFramework.Common.ContextDictionary.Values">
+            <summary>
+            </summary>
+        </member>
+        <member name="T:InvocationFramework.Common.ServicePublisher.XmlRequest">
+            <summary>
+            Esta clase se utiliza para invocar un servicio via el handler que corre un un servidor web y que invoca servicios que envian y devuelven xml
+            </summary>
+            <author>Rodolfo Finochietti 08/11/2005 11/08/2005 15:11</author>
+        </member>
+        <member name="M:InvocationFramework.Common.ServicePublisher.XmlRequest.#ctor">
+            <summary>
+            Constructor por defecto
+            </summary>
+        </member>
+        <member name="M:InvocationFramework.Common.ServicePublisher.XmlRequest.#ctor(System.String,System.String,System.Xml.XmlNode)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="serviceName">Nombre del servicio</param>
+            <param name="operationName">Nombre de la operacion</param>
+            <param name="parameter">Parametro xml de la operacion</param>
+        </member>
+        <member name="F:InvocationFramework.Common.ServicePublisher.XmlRequest._serviceName">
+            <summary>
+            Variable privada para el manejo de la propiedad
+            </summary>
+        </member>
+        <member name="F:InvocationFramework.Common.ServicePublisher.XmlRequest._operationName">
+            <summary>
+            Variable privada para el manejo de la propiedad
+            </summary>
+        </member>
+        <member name="F:InvocationFramework.Common.ServicePublisher.XmlRequest._parameter">
+            <summary>
+            Variable privada para el manejo de la propiedad
+            </summary>
+        </member>
+        <member name="P:InvocationFramework.Common.ServicePublisher.XmlRequest.ServiceName">
+            <summary>
+            Nombre del servicio a ejecutar
+            </summary>
+        </member>
+        <member name="P:InvocationFramework.Common.ServicePublisher.XmlRequest.OperationName">
+            <summary>
+            Nombre de la operacion a ejecutar
+            </summary>
+        </member>
+        <member name="P:InvocationFramework.Common.ServicePublisher.XmlRequest.Parameter">
+            <summary>
+            Parametro xml de la operacion
+            </summary>
+        </member>
+        <member name="T:InvocationFramework.Common.ServicePublisher.BinaryResponse">
+            <summary>
+            Esta clase se utiliza para devolver la respuesta a la invocacion de un servicio via el handler que corre un un servidor web
+            </summary>
+        </member>
+        <member name="M:InvocationFramework.Common.ServicePublisher.BinaryResponse.#ctor">
+            <summary>
+            Constructor por defecto
+            </summary>
+        </member>
+        <member name="M:InvocationFramework.Common.ServicePublisher.BinaryResponse.#ctor(System.Object)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="result">Resultado de la ejecucion de una operacion</param>
+        </member>
+        <member name="F:InvocationFramework.Common.ServicePublisher.BinaryResponse._result">
+            <summary>
+            Variable privada para el manejo de la propiedad
+            </summary>
+        </member>
+        <member name="F:InvocationFramework.Common.ServicePublisher.BinaryResponse._invocationException">
+            <summary>
+            Variable privada para el manejo de la propiedad
+            </summary>
+        </member>
+        <member name="M:InvocationFramework.Common.ServicePublisher.BinaryResponse.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            </summary>
+            <param name="info"></param>
+            <param name="context"></param>
+        </member>
+        <member name="M:InvocationFramework.Common.ServicePublisher.BinaryResponse.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            </summary>
+            <param name="info"></param>
+            <param name="context"></param>
+        </member>
+        <member name="P:InvocationFramework.Common.ServicePublisher.BinaryResponse.Result">
+            <summary>
+            Resultado de la ejecucion de una operacion
+            </summary>
+        </member>
+        <member name="P:InvocationFramework.Common.ServicePublisher.BinaryResponse.InvocationException">
+            <summary>
+            Excepcion producida en la invocacion de la operacion (si se produce alguna)
+            </summary>
+        </member>
+        <member name="T:InvocationFramework.Common.Exceptions.ServicesInvocationFrameworkInvocationException">
+            <summary>
+            Excepcion que se produce al invocar un servicio
+            </summary>
+            <author>Rodolfo Finochietti 02/11/2005 16:00</author>
+        </member>
+        <member name="T:InvocationFramework.Common.Exceptions.ServicesInvocationFrameworkException">
+            <summary>
+            Excepcion base
+            </summary>
+            <author>Rodolfo Finochietti 02/11/2005 16:00</author>
+        </member>
+        <member name="M:InvocationFramework.Common.Exceptions.ServicesInvocationFrameworkException.#ctor">
+            <summary>
+            Constructor por defecto
+            </summary>
+        </member>
+        <member name="M:InvocationFramework.Common.Exceptions.ServicesInvocationFrameworkException.#ctor(System.String)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="message">Mensaje de la excepcion</param>
+        </member>
+        <member name="M:InvocationFramework.Common.Exceptions.ServicesInvocationFrameworkException.#ctor(System.String,System.Exception)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="message">Mensaje de la excepcion</param>
+            <param name="innerException">Excepcion contenida dentro de esta</param>
+        </member>
+        <member name="M:InvocationFramework.Common.Exceptions.ServicesInvocationFrameworkException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Constructror
+            </summary>
+            <param name="info"></param>
+            <param name="context"></param>
+        </member>
+        <member name="M:InvocationFramework.Common.Exceptions.ServicesInvocationFrameworkInvocationException.#ctor">
+            <summary>
+            Constructor por defecto
+            </summary>
+        </member>
+        <member name="M:InvocationFramework.Common.Exceptions.ServicesInvocationFrameworkInvocationException.#ctor(System.String)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="message">Mensaje de la excepcion</param>
+        </member>
+        <member name="M:InvocationFramework.Common.Exceptions.ServicesInvocationFrameworkInvocationException.#ctor(System.String,System.Exception)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="message">Mensaje de la excepcion</param>
+            <param name="innerException">Excepcion contenida dentro de esta</param>
+        </member>
+        <member name="M:InvocationFramework.Common.Exceptions.ServicesInvocationFrameworkInvocationException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Constructror
+            </summary>
+            <param name="info"></param>
+            <param name="context"></param>
+        </member>
+        <member name="T:InvocationFramework.Common.Library.BinarySerializerHelper">
+            <summary>
+            Helper para serializar objetos en formato binario
+            </summary>
+        </member>
+        <member name="M:InvocationFramework.Common.Library.BinarySerializerHelper.SerializeToBytes(System.Object)">
+            <summary>
+            Serialize an objeto or graph to a byte array.
+            </summary>
+            <remarks>
+             For more information see:
+             http://msdn.microsoft.com/msdnmag/issues/02/04/net/print.asp
+             
+             Remember to add the attribute [Serializable] to all objects/classes to serialize and
+             the attribute [NonSerialized] to those objects that must not be serialized.
+            </remarks>
+            <param name="objGraph">Object to serialize</param>
+            <returns>Serialized bytes</returns>
+        </member>
+        <member name="M:InvocationFramework.Common.Library.BinarySerializerHelper.SerializeToMemory(System.Object,System.Boolean)">
+            <summary>
+            Serialize an objet or graph to a MemoryStream.
+            </summary>
+            <remarks>
+            For more information see:
+            http://msdn.microsoft.com/msdnmag/issues/02/04/net/print.asp
+            http://msdn.microsoft.com/msdnmag/issues/02/07/net/print.asp
+             
+            Remember to add the attribute [Serializable] to all objects/classes to serialize and
+            the attribute [NonSerialized] to those objects that must not be serialized.
+            </remarks>
+            <param name="objGraph">Object to serialize</param>
+            <param name="deep">True for child objects serialization</param>
+            <returns>Serialized MemoryStream</returns>
+        </member>
+        <member name="M:InvocationFramework.Common.Library.BinarySerializerHelper.DeserializeFromBytes(System.Byte[])">
+            <summary>
+            Deserialize an objeto or graph from a byte array.
+            </summary>
+            <remarks>
+            For more information see:
+            http://msdn.microsoft.com/msdnmag/issues/02/04/net/print.asp
+             
+            Remember to add the attribute [Serializable] to all objects/classes to serialize and
+            the attribute [NonSerialized] to those objects that must not be serialized.
+            </remarks>
+            <param name="input">Object to deserialize</param>
+            <returns>Deserialized object</returns>
+        </member>
+        <member name="M:InvocationFramework.Common.Library.BinarySerializerHelper.DeserializeFromBytes(System.Byte[],System.Runtime.Serialization.SerializationBinder)">
+            <summary>
+            Deserialize an objeto or graph from a byte array.
+            </summary>
+            <remarks>
+             For more information see:
+             http://msdn.microsoft.com/msdnmag/issues/02/04/net/print.asp
+             
+             Remember to add the attribute [Serializable] to all objects/classes to serialize and
+             the attribute [NonSerialized] to those objects that must not be serialized.
+            </remarks>
+            <param name="input">Object to deserialize</param>
+            <param name="objBinder"></param>
+            <returns>Deserialized object</returns>
+        </member>
+        <member name="M:InvocationFramework.Common.Library.BinarySerializerHelper.DeserializeFromStream(System.IO.Stream,System.Runtime.Serialization.SerializationBinder,System.Boolean)">
+            <summary>
+            Deserialize an objeto or graph from a MemoryStream.
+            </summary>
+            <remarks>
+            For more information see:
+            http://msdn.microsoft.com/msdnmag/issues/02/04/net/print.asp
+             
+            Remember to add the attribute [Serializable] to all objects/classes to serialize and
+            the attribute [NonSerialized] to those objects that must not be serialized.
+            </remarks>
+            <param name="stream">Object to deserialize</param>
+            <param name="objBinder"></param>
+            <param name="deep">True for child objects serialization</param>
+            <returns>Deserialized object</returns>
+        </member>
+        <member name="T:InvocationFramework.Common.Resources.Texts">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:InvocationFramework.Common.Resources.Texts.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:InvocationFramework.Common.Resources.Texts.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:InvocationFramework.Common.Resources.Texts.AdapterNameRequired">
+            <summary>
+              Looks up a localized string similar to Local catalog is disabled, all proxies should be constructed specifying the adapter Id.
+            </summary>
+        </member>
+        <member name="P:InvocationFramework.Common.Resources.Texts.BinaryServicePublisherAdapterArgumentNull">
+            <summary>
+              Looks up a localized string similar to The argument &apos;{0}&apos; can&apos;t be null.
+            </summary>
+        </member>
+        <member name="P:InvocationFramework.Common.Resources.Texts.BinaryServicePublisherAdapterInitError">
+            <summary>
+              Looks up a localized string similar to An error has ocurr in &apos;MTOMBinaryServicePublisherAdapter&apos; initialization.
+            </summary>
+        </member>
+        <member name="P:InvocationFramework.Common.Resources.Texts.BinaryServicePublisherAdapterInitTrace">
+            <summary>
+              Looks up a localized string similar to The &apos;MTOMBinaryServicePublisherAdapter&apos; has inicialized. Proxy uri &apos;{0}&apos;.
+            </summary>
+        </member>
+        <member name="P:InvocationFramework.Common.Resources.Texts.BinaryServicePublisherAdapterNotInitialized">
+            <summary>
+              Looks up a localized string similar to The adapter is not initialized.
+            </summary>
+        </member>
+        <member name="P:InvocationFramework.Common.Resources.Texts.CatalogManagerAlreadyPopulated">
+            <summary>
+              Looks up a localized string similar to Catalog is already populated.
+            </summary>
+        </member>
+        <member name="P:InvocationFramework.Common.Resources.Texts.CatalogManagerArgumentNull">
+            <summary>
+              Looks up a localized string similar to The argument &apos;{0}&apos; can&apos;t be nul.
+            </summary>
+        </member>
+        <member name="P:InvocationFramework.Common.Resources.Texts.CatalogManagerMostRequestedServiceCatalogTrace">
+            <summary>
+              Looks up a localized string similar to The service &apos;{0}&apos; is added to most requested services catalog.
+            </summary>
+        </member>
+        <member name="P:InvocationFramework.Common.Resources.Texts.CatalogManagerOperationCatalogTrace">
+            <summary>
+              Looks up a localized string similar to The operation &apos;{0}&apos; is added to service &apos;{1}&apos; catalog. Service type &apos;{2}&apos;, Method name &apos;{3}&apos;.
+            </summary>
+        </member>
+        <member name="P:InvocationFramework.Common.Resources.Texts.CatalogManagerPopulateCatalogError">
+            <summary>
+              Looks up a localized string similar to An error has ocurr in &apos;CatalogManager.PopulateCatalog&apos;.
+            </summary>
+        </member>
+        <member name="P:InvocationFramework.Common.Resources.Texts.CatalogManagerServiceCopyFail">
+            <summary>
+              Looks up a localized string similar to The copy of service assemblys has failed.
+            </summary>
+        </member>
+        <member name="P:InvocationFramework.Common.Resources.Texts.CatalogManagerServiceDirectoryNotExist">
+            <summary>
+              Looks up a localized string similar to The service folder &apos;{0}&apos; not exist.
+            </summary>
+        </member>
+        <member name="P:InvocationFramework.Common.Resources.Texts.CatalogManagerWorkingDirectoryNotExist">
+            <summary>
+              Looks up a localized string similar to The working folder &apos;{0}&apos; not exist.
+            </summary>
+        </member>
+        <member name="P:InvocationFramework.Common.Resources.Texts.CatalogManagerWorkingServicesDirectorysAreEquals">
+            <summary>
+              Looks up a localized string similar to The services and working folders can&apos;t be the same (&apos;{0}&apos;, &apos;{1}&apos;).
+            </summary>
+        </member>
+        <member name="P:InvocationFramework.Common.Resources.Texts.ConfigurationHelperInitError">
+            <summary>
+              Looks up a localized string similar to An error has ocurr in &apos;ConfigurationHelper&apos; initialization.
+            </summary>
+        </member>
+        <member name="P:InvocationFramework.Common.Resources.Texts.HotDeployManagerAddTrace">
+            <summary>
+              Looks up a localized string similar to The file &apos;{0}&apos; has added to service folder.
+            </summary>
+        </member>
+        <member name="P:InvocationFramework.Common.Resources.Texts.HotDeployManagerCreateNewDomainStartTrace">
+            <summary>
+              Looks up a localized string similar to New Application Domain created, instance &apos;{0}&apos;.
+            </summary>
+        </member>
+        <member name="P:InvocationFramework.Common.Resources.Texts.HotDeployManagerStartTrace">
+            <summary>
+              Looks up a localized string similar to The hot deploy is started.
+            </summary>
+        </member>
+        <member name="P:InvocationFramework.Common.Resources.Texts.HotDeployManagerUnloadAppDomain">
+            <summary>
+              Looks up a localized string similar to The file &apos;{0}&apos; has removed or changed in service folder. Service Application Domain is restarted.
+            </summary>
+        </member>
+        <member name="P:InvocationFramework.Common.Resources.Texts.InprocServiceAdapterArgumentNull">
+            <summary>
+              Looks up a localized string similar to The argument &apos;{0}&apos; can&apos;t be null.
+            </summary>
+        </member>
+        <member name="P:InvocationFramework.Common.Resources.Texts.InprocServiceAdapterInitError">
+            <summary>
+              Looks up a localized string similar to An error has ocurr in &apos;InprocServiceAdapter&apos; initialization.
+            </summary>
+        </member>
+        <member name="P:InvocationFramework.Common.Resources.Texts.InprocServiceAdapterInitTrace">
+            <summary>
+              Looks up a localized string similar to The &apos;InprocServiceAdapter&apos; has inicialized. Service folder &apos;{0}&apos;, Working Folder &apos;{1}&apos;, Hot deploy enabled &apos;{2}&apos;.
+            </summary>
+        </member>
+        <member name="P:InvocationFramework.Common.Resources.Texts.InprocServiceAdapterNotInitialized">
+            <summary>
+              Looks up a localized string similar to The adapter is not initialized.
+            </summary>
+        </member>
+        <member name="P:InvocationFramework.Common.Resources.Texts.InprocServiceAdapterOperationNotFound">
+            <summary>
+              Looks up a localized string similar to Operation &apos;{0}&apos; not found.
+            </summary>
+        </member>
+        <member name="P:InvocationFramework.Common.Resources.Texts.InprocServiceAdapterServiceNotFound">
+            <summary>
+              Looks up a localized string similar to Service &apos;{0}&apos; not found.
+            </summary>
+        </member>
+        <member name="P:InvocationFramework.Common.Resources.Texts.LocalCatalogNotEnabled">
+            <summary>
+              Looks up a localized string similar to When local catalog is disabled in config, you should use FixAdapterExecute().
+            </summary>
+        </member>
+        <member name="P:InvocationFramework.Common.Resources.Texts.MTOMBinaryServicePublisherError">
+            <summary>
+              Looks up a localized string similar to MTOM invocation handler unexpected error.
+            </summary>
+        </member>
+        <member name="P:InvocationFramework.Common.Resources.Texts.PipelineServiceAdapterArgumentNull">
+            <summary>
+              Looks up a localized string similar to The argument &apos;{0}&apos; can&apos;t be null.
+            </summary>
+        </member>
+        <member name="P:InvocationFramework.Common.Resources.Texts.PipelineServiceAdapterConfigurationError">
+            <summary>
+              Looks up a localized string similar to The node &apos;{0}&apos; of the adapter configuration is missing.
+            </summary>
+        </member>
+        <member name="P:InvocationFramework.Common.Resources.Texts.PipelineServiceAdapterFilterAddTrace">
+            <summary>
+              Looks up a localized string similar to The filter type &apos;{0}&apos; has added to the pipeline &apos;{1}&apos; with order number &apos;{2}&apos;.
+            </summary>
+        </member>
+        <member name="P:InvocationFramework.Common.Resources.Texts.PipelineServiceAdapterInitError">
+            <summary>
+              Looks up a localized string similar to An error has ocurr in &apos;PipelineServiceAdapter&apos; initialization.
+            </summary>
+        </member>
+        <member name="P:InvocationFramework.Common.Resources.Texts.PipelineServiceAdapterInitTrace">
+            <summary>
+              Looks up a localized string similar to The &apos;PipelineServiceAdapter&apos; has inicialized. Proxy adapter type &apos;{0}&apos;.
+            </summary>
+        </member>
+        <member name="P:InvocationFramework.Common.Resources.Texts.PipelineServiceAdapterNotInitialized">
+            <summary>
+              Looks up a localized string similar to The adapter is not initialized.
+            </summary>
+        </member>
+        <member name="P:InvocationFramework.Common.Resources.Texts.PipelineServiceAdapterTargetAdapterNotCreated">
+            <summary>
+              Looks up a localized string similar to The target adapter can&apos;t be created.
+            </summary>
+        </member>
+        <member name="P:InvocationFramework.Common.Resources.Texts.RemotingServicePublisherAdapterArgumentNull">
+            <summary>
+              Looks up a localized string similar to The argument &apos;{0}&apos; can&apos;t be null.
+            </summary>
+        </member>
+        <member name="P:InvocationFramework.Common.Resources.Texts.RemotingServicePublisherAdapterInitError">
+            <summary>
+              Looks up a localized string similar to An error has ocurr in &apos;RemotingServicePublisherAdapter&apos; initialization.
+            </summary>
+        </member>
+        <member name="P:InvocationFramework.Common.Resources.Texts.RemotingServicePublisherAdapterInitTrace">
+            <summary>
+              Looks up a localized string similar to The &apos;RemotingServicePublisherAdapter&apos; has inicialized. Uri &apos;{0}&apos;.
+            </summary>
+        </member>
+        <member name="P:InvocationFramework.Common.Resources.Texts.RemotingServicePublisherAdapterNotInitialized">
+            <summary>
+              Looks up a localized string similar to The adapter is not initialized.
+            </summary>
+        </member>
+        <member name="P:InvocationFramework.Common.Resources.Texts.SectionHandlerAdapterNodeAttributesNull">
+            <summary>
+              Looks up a localized string similar to The &apos;serviceAdapter&apos; node not contain the required attributes.
+            </summary>
+        </member>
+        <member name="P:InvocationFramework.Common.Resources.Texts.SectionHandlerSectionNull">
+            <summary>
+              Looks up a localized string similar to The section &apos;servicesInvocationFramework&apos;&apos; can&apos;t be null.
+            </summary>
+        </member>
+        <member name="P:InvocationFramework.Common.Resources.Texts.ServiceBrokerAdapterCacheAddAdapterTrace">
+            <summary>
+              Looks up a localized string similar to The adapter &apos;{0}&apos; has added to adapters cache.
+            </summary>
+        </member>
+        <member name="P:InvocationFramework.Common.Resources.Texts.ServiceBrokerAdapterNotLoad">
+            <summary>
+              Looks up a localized string similar to The adapter &apos;{0}&apos; can&apos;t be load.
+            </summary>
+        </member>
+        <member name="P:InvocationFramework.Common.Resources.Texts.ServiceBrokerArgumentNull">
+            <summary>
+              Looks up a localized string similar to The argument &apos;{0}&apos; can&apos;t be null.
+            </summary>
+        </member>
+        <member name="P:InvocationFramework.Common.Resources.Texts.ServiceBrokerCallerAdapters">
+            <summary>
+              Looks up a localized string similar to Caller Adapters loaded.
+            </summary>
+        </member>
+        <member name="P:InvocationFramework.Common.Resources.Texts.ServiceBrokerInitError">
+            <summary>
+              Looks up a localized string similar to An error has ocurr in &apos;ServiceBroker&apos; initialization.
+            </summary>
+        </member>
+        <member name="P:InvocationFramework.Common.Resources.Texts.ServiceBrokerInvalidAdapter">
+            <summary>
+              Looks up a localized string similar to Service Adapter &apos;{0}&apos; is invalid.
+            </summary>
+        </member>
+        <member name="P:InvocationFramework.Common.Resources.Texts.ServiceBrokerNotInitialized">
+            <summary>
+              Looks up a localized string similar to The adapter is not initialized.
+            </summary>
+        </member>
+        <member name="P:InvocationFramework.Common.Resources.Texts.ServiceBrokerPublisherAdapters">
+            <summary>
+              Looks up a localized string similar to Publisher Adapters loaded.
+            </summary>
+        </member>
+        <member name="P:InvocationFramework.Common.Resources.Texts.ServiceBrokerServiceNotFound">
+            <summary>
+              Looks up a localized string similar to Service &apos;{0}&apos; not found.
+            </summary>
+        </member>
+        <member name="P:InvocationFramework.Common.Resources.Texts.ServicedComTransactionActivated">
+            <summary>
+              Looks up a localized string similar to Object Activated.
+            </summary>
+        </member>
+        <member name="P:InvocationFramework.Common.Resources.Texts.ServicedComTransactionDeactivated">
+            <summary>
+              Looks up a localized string similar to Object Deactivated.
+            </summary>
+        </member>
+        <member name="P:InvocationFramework.Common.Resources.Texts.ServiceNameNotAllowed">
+            <summary>
+              Looks up a localized string similar to Service &apos;{0}&apos; not allowed for this publisher.
+            </summary>
+        </member>
+        <member name="P:InvocationFramework.Common.Resources.Texts.TraceFilterInitError">
+            <summary>
+              Looks up a localized string similar to An error has ocurr in &apos;TraceFilter&apos; initialization.
+            </summary>
+        </member>
+        <member name="P:InvocationFramework.Common.Resources.Texts.XmlServicePublisherAdapterArgumentNull">
+            <summary>
+              Looks up a localized string similar to The argument &apos;{0}&apos; can&apos;t be null.
+            </summary>
+        </member>
+        <member name="P:InvocationFramework.Common.Resources.Texts.XmlServicePublisherAdapterInitError">
+            <summary>
+              Looks up a localized string similar to An error has ocurr in &apos;XmlServicePublisherAdapter&apos; initialization.
+            </summary>
+        </member>
+        <member name="P:InvocationFramework.Common.Resources.Texts.XmlServicePublisherAdapterInitTrace">
+            <summary>
+              Looks up a localized string similar to The &apos;XmlServicePublisherAdapter&apos; has inicialized. Proxy uri &apos;{0}&apos;.
+            </summary>
+        </member>
+        <member name="P:InvocationFramework.Common.Resources.Texts.XmlServicePublisherAdapterNotInitialized">
+            <summary>
+              Looks up a localized string similar to The adapter is not initialized.
+            </summary>
+        </member>
+        <member name="P:InvocationFramework.Common.Resources.Texts.XmlServicePublisherInvocationError">
+            <summary>
+              Looks up a localized string similar to Xml invocation handler unexpected error.
+            </summary>
+        </member>
+        <member name="P:InvocationFramework.Common.Resources.Texts.XmlServicePublisherWrongParameter">
+            <summary>
+              Looks up a localized string similar to Wrong parameter in &apos;XmlServicePublisherAdapter&apos; call:  should be of type XmlNode.
+            </summary>
+        </member>
+        <member name="T:InvocationFramework.Common.Constants">
+            <summary>
+            SIF system-wide constants.
+            </summary>
+        </member>
+        <member name="F:InvocationFramework.Common.Constants.PublicKey">
+            <summary>
+            SIF Public Key.
+            </summary>
+        </member>
+        <member name="F:InvocationFramework.Common.Constants.SeparatorKey">
+            <summary>
+            Separador cuando se concatenan valores para una clave
+            </summary>
+        </member>
+        <member name="F:InvocationFramework.Common.Constants.ServicesFileFilter">
+            <summary>
+            Filtro para cargar los assemblys con los servicios
+            </summary>
+        </member>
+        <member name="F:InvocationFramework.Common.Constants.LockTimeout">
+            <summary>
+            Timeout para los lock
+            </summary>
+        </member>
+        <member name="T:InvocationFramework.Common.Instrumentation.PerformanceCountersNativeMethods">
+            <summary>
+            Helper para las API relacionadas con performance counters
+            </summary>
+        </member>
+        <member name="M:InvocationFramework.Common.Instrumentation.PerformanceCountersNativeMethods.QueryPerformanceCounter(System.Int64@)">
+            <summary>
+            Esta API sirve para medir el tiempo de ejecucion correctamente
+            </summary>
+            <param name="ticks">Esta variable devuelve el tiempo de ticks</param>
+        </member>
+        <member name="T:InvocationFramework.Common.ServicePublisher.XmlResponse">
+            <summary>
+            Esta clase se utiliza para devolver la respuesta a la invocacion de un servicio via el handler que corre un un servidor web y que invoca servicios que envian y devuelven xml
+            </summary>
+            <author>Rodolfo Finochietti 08/11/2005 11/08/2005 15:11</author>
+        </member>
+        <member name="M:InvocationFramework.Common.ServicePublisher.XmlResponse.#ctor">
+            <summary>
+            Constructor por defecto
+            </summary>
+        </member>
+        <member name="M:InvocationFramework.Common.ServicePublisher.XmlResponse.#ctor(System.Xml.XmlNode)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="result">Resultado xml de la ejecucion de una operacion</param>
+        </member>
+        <member name="F:InvocationFramework.Common.ServicePublisher.XmlResponse._result">
+            <summary>
+            Variable privada para el manejo de la propiedad
+            </summary>
+        </member>
+        <member name="P:InvocationFramework.Common.ServicePublisher.XmlResponse.Result">
+            <summary>
+            Resultado xml de la ejecucion de una operacion
+            </summary>
+        </member>
+        <member name="T:InvocationFramework.Common.ServicePublisher.IRemotingServicePublisher">
+            <summary>
+            Interfaz para publicar el framework por Remoting
+            </summary>
+            <author>Rodolfo Finochietti 17/01/2006 15:20</author>
+        </member>
+        <member name="M:InvocationFramework.Common.ServicePublisher.IRemotingServicePublisher.Execute(InvocationFramework.Common.ServicePublisher.BinaryRequest)">
+            <summary>
+            Ejecuta una operacion
+            </summary>
+            <param name="request">Datos de la operacion a ejecutar</param>
+            <returns>Respuesta de la operacion</returns>
+        </member>
+        <member name="T:InvocationFramework.Common.Instrumentation.TraceHelper">
+            <summary>
+            Helper para escribir informacion de trazabilidad
+            </summary>
+            <author>Rodolfo Finochietti 14/11/2005 14.01</author>
+        </member>
+        <member name="F:InvocationFramework.Common.Instrumentation.TraceHelper._source">
+            <summary>
+            Source utilizado para escribir las entradas de trace
+            </summary>
+        </member>
+        <member name="M:InvocationFramework.Common.Instrumentation.TraceHelper.Information(System.String)">
+            <summary>
+            Escribe una entrada de tipo 'Information'
+            </summary>
+            <param name="message">Mensaje</param>
+        </member>
+        <member name="M:InvocationFramework.Common.Instrumentation.TraceHelper.Information(System.String,System.Object[])">
+            <summary>
+            Escribe una entrada de tipo 'Information'
+            </summary>
+            <param name="message">Mensaje</param>
+            <param name="args">Argumentos del evento</param>
+        </member>
+        <member name="M:InvocationFramework.Common.Instrumentation.TraceHelper.Warning(System.String)">
+            <summary>
+            Escribe una entrada de tipo 'Warning'
+            </summary>
+            <param name="message">Mensaje</param>
+        </member>
+        <member name="M:InvocationFramework.Common.Instrumentation.TraceHelper.Warning(System.String,System.Object[])">
+            <summary>
+            Escribe una entrada de tipo 'Warning'
+            </summary>
+            <param name="message">Mensaje</param>
+            <param name="args">Argumentos del evento</param>
+        </member>
+        <member name="M:InvocationFramework.Common.Instrumentation.TraceHelper.Warning(System.Exception,System.String,System.Object[])">
+            <summary>
+            Escribe una entrada de tipo 'Error'
+            </summary>
+            <param name="ex">Excepcion</param>
+            <param name="message">Mensaje</param>
+            <param name="args">Argumentos del evento</param>
+        </member>
+        <member name="M:InvocationFramework.Common.Instrumentation.TraceHelper.Verbose(System.String)">
+            <summary>
+            Escribe una entrada de tipo 'Verbose'
+            </summary>
+            <param name="message">Mensaje</param>
+        </member>
+        <member name="M:InvocationFramework.Common.Instrumentation.TraceHelper.Verbose(System.String,System.Object[])">
+            <summary>
+            Escribe una entrada de tipo 'Verbose'
+            </summary>
+            <param name="message">Mensaje</param>
+            <param name="args">Argumentos del evento</param>
+        </member>
+        <member name="M:InvocationFramework.Common.Instrumentation.TraceHelper.Error(System.String)">
+            <summary>
+            Escribe una entrada de tipo 'Error'
+            </summary>
+            <param name="message">Mensaje</param>
+        </member>
+        <member name="M:InvocationFramework.Common.Instrumentation.TraceHelper.Error(System.String,System.Object[])">
+            <summary>
+            Escribe una entrada de tipo 'Error'
+            </summary>
+            <param name="message">Mensaje</param>
+            <param name="args">Argumentos del evento</param>
+        </member>
+        <member name="M:InvocationFramework.Common.Instrumentation.TraceHelper.Error(System.Exception,System.String,System.Object[])">
+            <summary>
+            Escribe una entrada de tipo 'Error'
+            </summary>
+            <param name="ex">Excepcion</param>
+            <param name="message">Mensaje</param>
+            <param name="args">Argumentos del evento</param>
+        </member>
+        <member name="M:InvocationFramework.Common.Instrumentation.TraceHelper.Critical(System.String)">
+            <summary>
+            Escribe una entrada de tipo 'Critical'
+            </summary>
+            <param name="message">Mensaje</param>
+        </member>
+        <member name="M:InvocationFramework.Common.Instrumentation.TraceHelper.Critical(System.String,System.Object[])">
+            <summary>
+            Escribe una entrada de tipo 'Critical'
+            </summary>
+            <param name="message">Mensaje</param>
+            <param name="args">Argumentos del evento</param>
+        </member>
+        <member name="M:InvocationFramework.Common.Instrumentation.TraceHelper.Critical(System.Exception,System.String,System.Object[])">
+            <summary>
+            Escribe una entrada de tipo 'Critical'
+            </summary>
+            <param name="ex">Excepcion</param>
+            <param name="message">Mensaje</param>
+            <param name="args">Argumentos del evento</param>
+        </member>
+        <member name="M:InvocationFramework.Common.Instrumentation.TraceHelper.WriteTrace(System.Diagnostics.TraceEventType,System.String,System.Object[])">
+            <summary>
+            Escribe una entrada de trace
+            </summary>
+            <param name="eventType">Tipo de evento</param>
+            <param name="message">mensaje</param>
+            <param name="args">Argumentos del evento</param>
+        </member>
+        <member name="M:InvocationFramework.Common.Instrumentation.TraceHelper.WriteTrace(System.Diagnostics.TraceEventType,System.Exception,System.String,System.Object[])">
+            <summary>
+            Escribe una entrada de trace
+            </summary>
+            <param name="eventType">Tipo de evento</param>
+            <param name="ex">Excepcion</param>
+            <param name="message">mensaje</param>
+            <param name="args">Argumentos del evento</param>
+        </member>
+        <member name="T:InvocationFramework.Common.Library.XmlSerializerHelper">
+            <summary>
+            Helper para serializar objetos a Xml
+            </summary>
+        </member>
+        <member name="M:InvocationFramework.Common.Library.XmlSerializerHelper.SerializeToXml(System.Object)">
+            <summary>
+            Serializa un objeto a Xml
+            </summary>
+            <param name="obj">Objeto a serializar</param>
+            <returns>Xml del objeto serializado</returns>
+        </member>
+        <member name="M:InvocationFramework.Common.Library.XmlSerializerHelper.DeserializeFromXml(System.String,System.Type)">
+            <summary>
+            Crea un objeto a partir de un Xml
+            </summary>
+            <param name="xml">Xml del objeto serializado</param>
+            <param name="type">Tipo del objeto a crear</param>
+            <returns>El objeto deserializado</returns>
+        </member>
+        <member name="T:InvocationFramework.Common.Library.OSHelper">
+            <summary>
+            Helper para obbtener informacion sobre el sistema operativo
+            </summary>
+        </member>
+        <member name="P:InvocationFramework.Common.Library.OSHelper.IsWin2003">
+            <summary>
+            Devuelve true si el sistema operativo es Windows 2003 o superior
+            </summary>
+        </member>
+        <member name="P:InvocationFramework.Common.Library.OSHelper.IsWinXP">
+            <summary>
+            Devuelve true si el sistema operativo es Windows XP o superior
+            </summary>
+        </member>
+        <member name="P:InvocationFramework.Common.Library.OSHelper.IsComPlus15">
+            <summary>
+            Devuelve true si el COM+ es version 1.5 o superior (Windows 2003/XP)
+            </summary>
+        </member>
+        <member name="T:InvocationFramework.Common.ServicePublisher.BinaryRequest">
+            <summary>
+            Esta clase se utiliza para invocar un servicio via el handler que corre un un servidor web
+            </summary>
+        </member>
+        <member name="M:InvocationFramework.Common.ServicePublisher.BinaryRequest.#ctor">
+            <summary>
+            Constructor por defecto
+            </summary>
+        </member>
+        <member name="M:InvocationFramework.Common.ServicePublisher.BinaryRequest.#ctor(System.String,System.String,InvocationFramework.Common.ContextDictionary,System.Object[])">
+            <summary>
+            Constructor
+            </summary>
+            <param name="serviceName">Nombre del servicio</param>
+            <param name="operationName">Nombre de la operacion</param>
+            <param name="context">El contexto que se desea propagar junto con al ejecucion del servicios</param>
+            <param name="parameters">Parametros de la operacion</param>
+        </member>
+        <member name="F:InvocationFramework.Common.ServicePublisher.BinaryRequest._serviceName">
+            <summary>
+            Variable privada para el manejo de la propiedad
+            </summary>
+        </member>
+        <member name="F:InvocationFramework.Common.ServicePublisher.BinaryRequest._operationName">
+            <summary>
+            Variable privada para el manejo de la propiedad
+            </summary>
+        </member>
+        <member name="F:InvocationFramework.Common.ServicePublisher.BinaryRequest._context">
+            <summary>
+            Variable privada para el manejo de la propiedad
+            </summary>
+        </member>
+        <member name="F:InvocationFramework.Common.ServicePublisher.BinaryRequest._parameters">
+            <summary>
+            Variable privada para el manejo de la propiedad
+            </summary>
+        </member>
+        <member name="M:InvocationFramework.Common.ServicePublisher.BinaryRequest.SetParametersValues(System.Object[])">
+            <summary>
+            Permite cargar los parametros de invocacion de una operacion
+            </summary>
+            <param name="parameters">Parametros de la operacion</param>
+        </member>
+        <member name="M:InvocationFramework.Common.ServicePublisher.BinaryRequest.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            </summary>
+            <param name="info"></param>
+            <param name="context"></param>
+        </member>
+        <member name="M:InvocationFramework.Common.ServicePublisher.BinaryRequest.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            </summary>
+            <param name="info"></param>
+            <param name="context"></param>
+        </member>
+        <member name="P:InvocationFramework.Common.ServicePublisher.BinaryRequest.ServiceName">
+            <summary>
+            Nombre del servicio a ejecutar
+            </summary>
+        </member>
+        <member name="P:InvocationFramework.Common.ServicePublisher.BinaryRequest.OperationName">
+            <summary>
+            Nombre de la operacion a ejecutar
+            </summary>
+        </member>
+        <member name="P:InvocationFramework.Common.ServicePublisher.BinaryRequest.Context">
+            <summary>
+            Contexto donde las aplicaciones pueden guadar informacion fuera de banda para que las aplicaciones la transmitan
+            </summary>
+        </member>
+        <member name="P:InvocationFramework.Common.ServicePublisher.BinaryRequest.Parameters">
+            <summary>
+            Parametros de la operacion
+            </summary>
+        </member>
+        <member name="T:InvocationFramework.Common.Instrumentation.PerformanceCountersManager">
+            <summary>
+            Esta clase es un helper para registrar performance counters relacionados con el Shell
+            </summary>
+            <author>Rodolfo Finochietti 11/10/2005 10.14</author>
+        </member>
+        <member name="F:InvocationFramework.Common.Instrumentation.PerformanceCountersManager._instance">
+            <summary>
+            Variable privada para el manejo de la propiedad
+            </summary>
+        </member>
+        <member name="M:InvocationFramework.Common.Instrumentation.PerformanceCountersManager.#ctor">
+            <summary>
+            Este constructor crea las categorias necesaria para los performance counters del Invocation Framework
+            </summary>
+            <remarks>
+            El constructor es provado por que los clinetes de esta case solo acceden a una instancia atravez de la propiedad <seealso cref="P:InvocationFramework.Common.Instrumentation.PerformanceCountersManager.Instance"/>
+            </remarks>
+        </member>
+        <member name="F:InvocationFramework.Common.Instrumentation.PerformanceCountersManager._enablePerformanceCounters">
+            <summary>
+            Variable privada para el manejo de la propiedad
+            </summary>
+        </member>
+        <member name="M:InvocationFramework.Common.Instrumentation.PerformanceCountersManager.IncrementInvocationExecutionCounterByOne(System.String,System.Int64)">
+            <summary>
+            Incrementa los contadores de ejecucion de una invovacion a un servicios
+            </summary>
+            <param name="instanceName">Nombre de la intancia del contador</param>
+            <param name="ticks">El numero de ticks que demoro la operacion</param>
+        </member>
+        <member name="M:InvocationFramework.Common.Instrumentation.PerformanceCountersManager.IncrementBinaryServicePublisherRequestCounterByOne(System.String)">
+            <summary>
+            Incrementa los contadores de ejecucion para el mtom binary service publisher
+            </summary>
+            <param name="instanceName">Nombre de la intancia del contador</param>
+        </member>
+        <member name="M:InvocationFramework.Common.Instrumentation.PerformanceCountersManager.IncrementXmlServicePublisherRequestCounterByOne(System.String)">
+            <summary>
+            Incrementa los contadores de ejecucion para el xml service publisher
+            </summary>
+            <param name="instanceName">Nombre de la intancia del contador</param>
+        </member>
+        <member name="M:InvocationFramework.Common.Instrumentation.PerformanceCountersManager.IncrementRemotingServicePublisherRequestCounterByOne(System.String)">
+            <summary>
+            Incrementa los contadores de ejecucion para el remoting service publisher
+            </summary>
+            <param name="instanceName">Nombre de la intancia del contador</param>
+        </member>
+        <member name="M:InvocationFramework.Common.Instrumentation.PerformanceCountersManager.IncrementInprocTransactionsCounterByOne(System.String,System.Int64)">
+            <summary>
+            Incrementa los contadores de ejecucion de una invovacion a un servicios
+            </summary>
+            <param name="ticks">El numero de ticks que demoro la operacion</param>
+            <param name="instanceName">Nombre de la intancia del contador</param>
+        </member>
+        <member name="M:InvocationFramework.Common.Instrumentation.PerformanceCountersManager.GetTicks">
+            <summary>
+            Mide el tiempo en ticks con mayor precision que la clase <see cref="T:System.DateTime"/>
+            </summary>
+        </member>
+        <member name="M:InvocationFramework.Common.Instrumentation.PerformanceCountersManager.Dispose">
+            <summary>
+            Cuando se llama a ese metodo se produce la eliminacion del objeto en memoria
+            </summary>
+        </member>
+        <member name="M:InvocationFramework.Common.Instrumentation.PerformanceCountersManager.Dispose(System.Boolean)">
+            <summary>
+            Cuando se llama a ese metodo se produce la eliminacion del objeto en memoria
+            </summary>
+            <param name="disposing">Si es True elimina de memoria los recursos no manejados y llama GC.SuppressFinalize( this )</param>
+        </member>
+        <member name="M:InvocationFramework.Common.Instrumentation.PerformanceCountersManager.Finalize">
+            <summary>
+            Destructor de la clase
+            </summary>
+        </member>
+        <member name="P:InvocationFramework.Common.Instrumentation.PerformanceCountersManager.Instance">
+            <summary>
+            Singleton para manejar una sola instancia
+            </summary>
+        </member>
+        <member name="P:InvocationFramework.Common.Instrumentation.PerformanceCountersManager.EnablePerformanceCounters">
+            <summary>
+            Indica si publican o no los performance counters
+            </summary>
+        </member>
+    </members>
+</doc>

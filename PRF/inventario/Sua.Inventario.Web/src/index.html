@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>inventario</title>
+  <base href="/inventario/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/jpg" href="assets/images/inventario.png">
+</head>
+<body>
+  <div id="noangular" style="visibility: hidden">
+      <img src="assets/images/ups.png" />
+  </div>
+  <div id="angular" style="visibility: hidden">
+    <app-root></app-root>
+  </div>
+</body>
+</html>
+<script>
+    var isOpera = (!!window.opr && !!opr.addons) || !!window.opera || navigator.userAgent.indexOf(' OPR/') >= 0;
+    var isFirefox = typeof InstallTrigger !== 'undefined';
+    var isSafari = /constructor/i.test(window.HTMLElement) || (function (p) { return p.toString() === "[object SafariRemoteNotification]"; })(!window['safari'] || safari.pushNotification);
+    var isIE = /*@cc_on!@*/false || !!document.documentMode;
+    var isEdge = !isIE && !!window.StyleMedia;
+    var isChrome = !!window.chrome;
+    var isBlink = (isChrome || isOpera) && !!window.CSS;
+
+    if(isOpera || isFirefox || isSafari || isEdge || isChrome || isBlink)
+    {
+      document.getElementById('angular').style.visibility = "";
+      document.getElementById('noangular').style.display = "none";
+    }
+    else
+    {
+      document.getElementById('noangular').style.visibility = "";
+      document.getElementById('angular').style.display = "none";
+    }
+
+</script>

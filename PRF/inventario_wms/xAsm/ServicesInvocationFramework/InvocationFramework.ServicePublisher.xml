@@ -1,0 +1,89 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>InvocationFramework.ServicePublisher</name>
+    </assembly>
+    <members>
+        <member name="T:InvocationFramework.ServicePublisher.RemotingServicePublisher">
+            <summary>
+            Esta clase permite acceder al framework por remoting
+            </summary>
+            <author>Rodolfo Finochietti 17/01/2006 15:44</author>
+        </member>
+        <member name="M:InvocationFramework.ServicePublisher.RemotingServicePublisher.Execute(InvocationFramework.Common.ServicePublisher.BinaryRequest)">
+            <summary>
+            Ejecuta una operacion
+            </summary>
+            <param name="request">Datos de la operacion a ejecutar</param>
+            <returns>Respuesta de la operacion</returns>
+        </member>
+        <member name="T:InvocationFramework.ServicePublisher.Web.XmlServicePublisher">
+            <summary>
+            Handler para ejecutar via el Invocation Framework servicio que reciben y devuleve xml
+            </summary>
+            <remarks>
+            Este handler no funciona con si con el se invocan servicios mediante el adapter inproc con hot deploy activado.
+            Esto se debe que el mecanismo de multiples application domains utilizado en el hot deploy requiere que los objetos 
+            que se pasan sean serializables y un objeto <seealso cref="T:System.Xml.XmlNode"/> contiene objetos <seealso cref="T:System.Xml.XmlElement"/> 
+            que no son serializables.
+            </remarks>
+            <author>Rodolfo Finochietti 08/11/2005 15.00</author>
+        </member>
+        <member name="F:InvocationFramework.ServicePublisher.Web.XmlServicePublisher.serviceNameFilterRegExp">
+            <summary>
+            Filtro opcional de los service names publicados
+            </summary>
+        </member>
+        <member name="M:InvocationFramework.ServicePublisher.Web.XmlServicePublisher.#ctor">
+            <summary>
+            Constructor por defecto
+            </summary>
+            <remarks>
+            En este constructor se configura la policy
+            </remarks>
+        </member>
+        <member name="M:InvocationFramework.ServicePublisher.Web.XmlServicePublisher.Execute(InvocationFramework.Common.ServicePublisher.XmlRequest)">
+            <summary>
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="M:InvocationFramework.ServicePublisher.Web.XmlServicePublisher.ExecuteServicePublisher(System.String,System.Xml.XmlNode)">
+            <summary>
+            Envuelve las invocaciones internas a ServicePublisher con la deserializacion y serializacion necesarias para pasar por el publicador Xml
+            </summary>
+        </member>
+        <member name="T:InvocationFramework.ServicePublisher.Web.XmlServicePublisher2">
+            <summary>
+            Clase derivada de XmlServicePublisher, idéntica.
+            Permite asignar atributos distintos a los dos tipos de XmlServicePublisher
+            en la configuración - elementos <servicePublishers/>
+            </summary>
+        </member>
+        <member name="T:InvocationFramework.ServicePublisher.Web.MTOMBinaryServicePublisher">
+            <summary>
+            Handler para exponer el Invocation Framework en un servidor web IIS
+            </summary>
+            <author>Rodolfo Finochietti 01/11/2005 13.18</author>
+        </member>
+        <member name="F:InvocationFramework.ServicePublisher.Web.MTOMBinaryServicePublisher.serviceNameFilterRegExp">
+            <summary>
+            Filtro opcional de los service names publicados
+            </summary>
+        </member>
+        <member name="M:InvocationFramework.ServicePublisher.Web.MTOMBinaryServicePublisher.#ctor">
+            <summary>
+            Constructor por defecto
+            </summary>
+            <remarks>
+            En este constructor se configura la policy
+            </remarks>
+        </member>
+        <member name="M:InvocationFramework.ServicePublisher.Web.MTOMBinaryServicePublisher.Execute(System.Byte[])">
+            <summary>
+            </summary>
+            <param name="binRequest"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

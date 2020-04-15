@@ -1,0 +1,26 @@
+<div class="modal-header">
+  <h5 class="modal-title">{{title}}</h5>
+</div>
+<div class="modal-body">
+  <div class="row" *ngIf="!imagen">
+      <div class="col-12">
+          <p>{{message}}</p>
+          <p><a data-toggle="collapse" href="#masInfo">Más info...</a></p>
+          <div class="collapse" id="masInfo">
+              <p>{{exceptionMessage}}</p>
+          </div>
+
+      </div>
+  </div>
+  <div class="row col-12" *ngIf="imagen">
+    <div class="col-12">
+        <img src={{imagen}}>
+
+    </div>
+  </div>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-danger btn-sm" (click)="Aceptar()">
+      <i class="fa fa-check"></i> Aceptar
+  </button>
+</div>

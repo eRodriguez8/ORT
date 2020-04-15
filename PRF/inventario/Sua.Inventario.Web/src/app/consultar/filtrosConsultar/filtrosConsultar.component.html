@@ -1,0 +1,48 @@
+<div class="widget" id="filtros">
+  <div class="widget-header bordered-bottom bordered-blue">
+    <span class="widget-caption">
+      <i class="widget-icon fa fa-filter"></i> Filtros
+    </span>
+
+    <div class="widget-buttons">
+      <a data-toggle="collapse" href="#widegetFiltro" role="button" aria-expanded="false" aria-controls="widegetFiltro">
+        <i class="widget-icon fa fa-chevron-up"></i>
+      </a>
+    </div>
+  </div>
+  <div id="widegetFiltro" class="widget-body collapse show padding-10">
+
+      <form [formGroup]="filtroForm" class="padding-10 margin-5 form-group" (ngSubmit)="onSubmit()">
+          <div class="row">
+        <div class="col-md-3 col-12">
+          <label class="label blue padding-10">Region</label>
+          <select class="margin-5 width-200" name="regiones" formControlName="region"
+            (change)="onRegionChange($event.target.value)">
+            <option *ngFor="let region of regiones" value="{{region.id}}">{{region.descripcion}}</option>
+          </select>
+        </div>
+        <div class="col-md-3 col-12" *ngIf="cargoCC">
+          <label class="label blue padding-10">CC</label>
+          <select class="margin-5 width-200" name="cc" formControlName="cc">
+            <option *ngFor="let cc of ccs" value="{{cc.cc}}">{{cc.cc}} - {{cc.descripcion}}</option>
+          </select>
+        </div>
+        <div class="col-md-3 col-12 center" *ngIf="!cargoCC">
+            <img src="assets/images/loading_spinner.gif" alt="img" title="cargando...">
+        </div>
+        <div class="col-md-3 col-12">
+          <label class="label blue padding-10">Fecha</label>
+          <input type="text" name="daterangeCInput" class="text center" daterangepicker [options]="options"
+            (selected)="selectedDate($event,'C')" [value]="filtro.fecha" />
+          <img src="assets/images/icono-clearDate.png" (click)="selectedDate(null, 'C')" />
+        </div>
+        <div class="col-md-3 col-12">
+          <button type="submit" class="btn btn-outline-primary btn-sm">
+            <i class="fa fa-search"></i> Buscar
+          </button>
+        </div>
+      </div>
+      </form>
+
+  </div>
+</div>

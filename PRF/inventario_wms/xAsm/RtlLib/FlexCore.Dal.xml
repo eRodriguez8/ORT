@@ -1,0 +1,243 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>FlexCore.Dal</name>
+    </assembly>
+    <members>
+        <member name="T:FlexCore.Dal.DataHelpers.BaseDataHelper">
+            <summary>
+            Base class for Data Helpers
+            </summary>
+        </member>
+        <member name="M:FlexCore.Dal.DataHelpers.BaseDataHelper.#ctor(FlexCore.Dal.DataComponent)">
+            <summary>
+            Constructs an instance of the BaseDal object.
+            </summary>
+            <param name="db"></param>
+            <param name="entityName"></param>
+        </member>
+        <member name="M:FlexCore.Dal.DataHelpers.BaseDataHelper.FindComponentInDalXml(System.Xml.Linq.XElement,System.String)">
+            <summary>
+            Gets the node for the specified component name in the "DataComponents" section of a dal.xml 
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:FlexCore.Dal.DatabaseWrapper">
+            <summary>
+            Clase base para los wrappers sobre la clase Database (Enterprise Library)
+            Cada DatabaseWrapper maneja todo el acceso a una DB específica, definida por su string de conexion y su prefijo de los stored procedures.
+            </summary>
+            <remarks>Puede definirse más de un DatabaseWrapper para una misma DB física, si quieren utilizarse distintos prefijos.</remarks>
+        </member>
+        <member name="F:FlexCore.Dal.DatabaseWrapper.Db">
+            <summary>
+            The EntLib Database instance to use for persistence.
+            </summary>
+        </member>
+        <member name="M:FlexCore.Dal.DatabaseWrapper.#ctor(Microsoft.Practices.EnterpriseLibrary.Data.Database)">
+            <summary>
+            Constructs an instance of the BaseDal object.
+            </summary>
+        </member>
+        <member name="M:FlexCore.Dal.DatabaseWrapper.ExecuteDataSet(FlexCore.Dal.DataComponent,System.String,FlexCore.Dal.ArgumentList)">
+            <summary>
+            Executes a stored procedure and returns a generic dataset.
+            </summary>
+            <returns>a System.Data.DataSet with the results of the execution.</returns>
+        </member>
+        <member name="M:FlexCore.Dal.DatabaseWrapper.ExecuteDataSet(FlexCore.Dal.DataComponent,System.String,System.Object[])">
+            <summary>
+            Executes a stored procedure and returns a generic dataset.
+            </summary>
+            <returns>a System.Data.DataSet with the results of the execution.</returns>
+        </member>
+        <member name="M:FlexCore.Dal.DatabaseWrapper.ExecuteDataSet(FlexCore.Dal.DataComponent,System.Data.Common.DbCommand)">
+            <summary>
+            Executes a stored procedure and returns a generic dataset.
+            </summary>
+            <returns>a System.Data.DataSet with the results of the execution.</returns>
+        </member>
+        <member name="M:FlexCore.Dal.DatabaseWrapper.ExecuteDataSetFromText(FlexCore.Dal.DataComponent,System.Data.CommandType,System.String)">
+            <summary>
+            Executes the commandText interpreted as specified by the commandType.
+            </summary>
+            <param name="commandType"></param>
+            <param name="commandText"></param>
+            <returns>a System.Data.DataSet with the results of the execution.</returns>
+        </member>
+        <member name="M:FlexCore.Dal.DatabaseWrapper.ExecuteNonQuery(FlexCore.Dal.DataComponent,System.String,FlexCore.Dal.ArgumentList)">
+            <summary>
+            Executes a stored procedure returning the number of rows affected.
+            </summary>
+            <param name="spAlias"></param>
+            <param name="arguments"></param>
+            <returns></returns>
+        </member>
+        <member name="M:FlexCore.Dal.DatabaseWrapper.ExecuteNonQuery(FlexCore.Dal.DataComponent,System.String,System.Object[])">
+            <summary>
+            Executes a stored procedure returning the number of rows affected.
+            </summary>
+            <param name="spAlias"></param>
+            <param name="arguments"></param>
+            <returns></returns>
+        </member>
+        <member name="M:FlexCore.Dal.DatabaseWrapper.ExecuteNonQuery(FlexCore.Dal.DataComponent,System.Data.Common.DbCommand)">
+            <summary>
+            Executes a stored procedure returning the number of rows affected.
+            </summary>
+            <param name="spAlias"></param>
+            <param name="arguments"></param>
+            <returns></returns>
+        </member>
+        <member name="M:FlexCore.Dal.DatabaseWrapper.ExecuteReader(FlexCore.Dal.DataComponent,System.String,FlexCore.Dal.ArgumentList)">
+            <summary>
+            Executes a stored procedure and returns an System.Data.IDataReader through which 
+            the result can be read. It is the responsibility of the caller to close 
+            the connection and reader when finished.     
+            </summary>
+            <param name="spAlias"></param>
+            <param name="arguments"></param>
+            <returns></returns>
+        </member>
+        <member name="M:FlexCore.Dal.DatabaseWrapper.ExecuteReader(FlexCore.Dal.DataComponent,System.String,System.Object[])">
+            <summary>
+            Executes a stored procedure and returns an System.Data.IDataReader through which 
+            the result can be read. It is the responsibility of the caller to close 
+            the connection and reader when finished.     
+            </summary>
+            <param name="spAlias"></param>
+            <param name="arguments"></param>
+            <returns></returns>
+        </member>
+        <member name="M:FlexCore.Dal.DatabaseWrapper.ExecuteReader(FlexCore.Dal.DataComponent,System.Data.Common.DbCommand)">
+            <summary>
+            Executes a stored procedure and returns an System.Data.IDataReader through which 
+            the result can be read. It is the responsibility of the caller to close 
+            the connection and reader when finished.     
+            </summary>
+            <param name="spAlias"></param>
+            <param name="arguments"></param>
+            <returns></returns>
+        </member>
+        <member name="M:FlexCore.Dal.DatabaseWrapper.ExecuteScalar(FlexCore.Dal.DataComponent,System.String,FlexCore.Dal.ArgumentList)">
+            <summary>
+            Executes a stored procedure and returns the first column of the first row in the result set.
+            </summary>
+            <param name="spAlias"></param>
+            <param name="arguments"></param>
+            <returns></returns>
+        </member>
+        <member name="M:FlexCore.Dal.DatabaseWrapper.ExecuteScalar(FlexCore.Dal.DataComponent,System.String,System.Object[])">
+            <summary>
+            Executes a stored procedure and returns the first column of the first row in the result set.
+            </summary>
+            <param name="spAlias"></param>
+            <param name="arguments"></param>
+            <returns></returns>
+        </member>
+        <member name="M:FlexCore.Dal.DatabaseWrapper.ExecuteScalar(FlexCore.Dal.DataComponent,System.Data.Common.DbCommand)">
+            <summary>
+            Executes a stored procedure and returns the first column of the first row in the result set.
+            </summary>
+            <param name="spAlias"></param>
+            <param name="arguments"></param>
+            <returns></returns>
+        </member>
+        <member name="M:FlexCore.Dal.DatabaseWrapper.LoadDataSet(FlexCore.Dal.DataComponent,System.String,System.Data.DataSet,System.String[],FlexCore.Dal.ArgumentList)">
+            <summary>
+            Executes a stored procedure that returns result sets. Loading the results in specific tables of a given DataSet.
+            </summary>
+            <param name="spAlias"></param>
+            <param name="ds">The DataSet in which the data will be added</param>
+            <param name="tableNames">The tables to load in the same order as returned by the stored procedure.</param>
+            <param name="arguments"></param>
+        </member>
+        <member name="M:FlexCore.Dal.DatabaseWrapper.LoadDataSet(FlexCore.Dal.DataComponent,System.String,System.Data.DataSet,System.String[],System.Object[])">
+            <summary>
+            Executes a stored procedure that returns result sets. Loading the results in specific tables of a given DataSet.
+            </summary>
+            <param name="spAlias"></param>
+            <param name="ds">The DataSet in which the data will be added</param>
+            <param name="tableNames">The tables to load in the same order as returned by the stored procedure.</param>
+            <param name="arguments"></param>
+        </member>
+        <member name="M:FlexCore.Dal.DatabaseWrapper.LoadDataSet(FlexCore.Dal.DataComponent,System.Data.Common.DbCommand,System.Data.DataSet,System.String[])">
+            <summary>
+            Executes a stored procedure that returns result sets. Loading the results in specific tables of a given DataSet.
+            </summary>
+            <param name="spAlias"></param>
+            <param name="ds">The DataSet in which the data will be added</param>
+            <param name="tableNames">The tables to load in the same order as returned by the stored procedure.</param>
+            <param name="arguments"></param>
+        </member>
+        <member name="M:FlexCore.Dal.DatabaseWrapper.GetSpName(System.String,System.String)">
+            <summary>
+            Constructs an stored procedure name given an alias.
+            </summary>
+            <param name="entity"></param>
+            <param name="spAlias"></param>
+            <returns>the stored procedure name</returns>
+        </member>
+        <member name="M:FlexCore.Dal.DatabaseWrapper.PrepareCommand(FlexCore.Dal.DataComponent,System.String,System.Object[])">
+            <summary>
+            Prepare command for the specified Stored Procedure
+            </summary>
+            <param name="dac">Data Access Component</param>
+            <param name="spAlias">Alias or verb for the SP. The actual name is built using the component name as well</param>
+            <param name="arguments">Optional parameter value list</param>
+            <returns>A DbCommand object, ready for execution</returns>
+            <remarks>When useParameters is specified, this method matches the SP arguments with the default fixed arguments and the specified list of values</remarks>
+        </member>
+        <member name="M:FlexCore.Dal.DatabaseWrapper.PrepareCommand(FlexCore.Dal.DataComponent,System.String,FlexCore.Dal.ArgumentList)">
+            <summary>
+            Prepare command for the specified Stored Procedure
+            </summary>
+            <param name="dac">Data Access Component</param>
+            <param name="spAlias">Alias or verb for the SP. The actual name is built using the component name as well</param>
+            <param name="argumentList">Argument list object</param>
+            <returns>A DbCommand object, ready for execution</returns>
+            <remarks>When useParameters is specified, this method matches the SP arguments with the default fixed arguments and the specified list of values</remarks>
+        </member>
+        <member name="M:FlexCore.Dal.DatabaseWrapper._Validate_Defs(FlexCore.Dal.DataComponent,System.String,System.String,System.Xml.Linq.XElement,FlexCore.Dal.DataHelpers.ValidateOption)">
+            <summary>
+            Valida o completa la definicion de un metodo (SP) en el .dal.xml
+            Sólo se invoca desde los metodos de test en el entorno de desarrollo
+            </summary>
+        </member>
+        <member name="M:FlexCore.Dal.ArgumentList.GetExplicitParameterList(System.Data.Common.DbCommand)">
+            <summary>
+            Utilizada en la validacion de parametros (en modo TEST)
+            </summary>
+        </member>
+        <member name="T:FlexCore.Dal.DataComponent">
+            <summary>
+            Clase base para los DataComponent generados a partir del archivo .dal.xml
+            </summary>
+        </member>
+        <member name="M:FlexCore.Dal.DataComponent.#ctor(System.String,System.String,FlexCore.Dal.CommandSettings)">
+            <summary>
+            Constructor habitual, invocado al inicializar la capa de datos
+            </summary>
+        </member>
+        <member name="M:FlexCore.Dal.DataComponent.#ctor(System.String,FlexCore.Dal.DatabaseWrapper,FlexCore.Dal.CommandSettings)">
+            <summary>
+            Constructor adicional, recibe una instancia de DatabaseWrapper
+            </summary>
+        </member>
+        <member name="P:FlexCore.Dal.DataComponent.ComponentName">
+            <summary>
+            Nombre del componente
+            </summary>
+        </member>
+        <member name="P:FlexCore.Dal.DataComponent.Db">
+            <summary>
+            Database wrapper
+            </summary>
+        </member>
+        <member name="P:FlexCore.Dal.DataComponent.CommandSettings">
+            <summary>
+            Settings para el DbCommand
+            </summary>
+        </member>
+    </members>
+</doc>

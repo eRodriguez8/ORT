@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<config>
+  <updateFolders>
+    <!--
+    <folder name="ServicesInvocationFramework" path="D:\01-Codigo\trunk\CompComunes\SIF\SifSln\xBin" />
+    <folder name="RtlLib" path="D:\01-Codigo\trunk\CompComunes\RtlLib\RtlLibSln\xAsmOut" />
+    <folder name="FlexCore" path="D:\01-Codigo\trunk\FlexFwk\FlexCore\FlexCoreSln\xAsmOut" />
+    -->
+  </updateFolders>
+</config>

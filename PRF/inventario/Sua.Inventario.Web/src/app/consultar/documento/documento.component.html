@@ -1,0 +1,104 @@
+<div *ngIf="!documentoId">
+  <div class="row">
+    <div class="col-sm-9 col-12 padding-10"><i class="fa fa-file"></i> <span> Documentos del Inventario
+        {{idInventario}}</span></div>
+    <div class="col-sm-3 col-12">
+      <button type="submit" class="btn btn-outline-primary btn-sm" (click)="volver()">
+        <i class="fa fa-close"></i> Volver
+      </button>
+    </div>
+  </div>
+  <app-filtrosDocumentos [padre]="componente" (filtroDataDoc)="obtenerFiltrosDoc($event)"></app-filtrosDocumentos>
+  <div class="widget-header bordered-bottom bordered-blue">
+    <span class="widget-caption">
+      <i class="widget-icon fa fa-file"></i> Documentos
+    </span>
+    <a class='widget-caption ml-4' (click)='descargarInventario(idInventario)'>
+      <i class='widget-icon fa fa-download'></i>
+      Descargar
+    </a>
+    <div class="widget-buttons">
+      <a data-toggle="collapse" href="#widegetDetalle" role="button" aria-expanded="false"
+        aria-controls="widegetDetalle">
+        <i class="widget-icon fa fa-chevron-up"></i>
+      </a>
+    </div>
+  </div>
+  <div *ngIf="!cargoGrilla" class="center">
+    <img src="assets/images/loader.gif" alt="img" title="cargando...">
+  </div>
+  <div *ngIf="cargoGrilla" id="widegetDetalle" class="widget-body collapse show padding-10">
+    <table datatable [dtOptions]="dtdocumentos" class="row-border hover text center">
+      <thead>
+        <tr>
+          <th> </th>
+          <th> </th>
+          <th> </th>
+          <th>Nombre</th>
+          <th>Asignado</th>
+          <th>Estado Documento</th>
+          <th>Lineas Totales</th>
+          <th>Lineas Contadas</th>
+          <th>%</th>
+          <th>Primera Lectura</th>
+          <th>Ultima Lectura</th>
+          <th>T. Operacion Min</th>
+          <th>T. Ultima Lectura</th>
+          <th>Prom. Lineas x Min</th>
+          <th>Prom. Descuadre</th>
+          <th>Fase</th>
+          <th>Padre</th>
+          <th>Imp. Sega</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let doc of documentos">
+          <td>
+            <img src="assets/images/documento.png" title="Consultar" alt="Consultar" (click)="consultarDoc(doc.id, doc.impactadoSega, doc.fase)" />
+          </td>
+          <td>
+            <a class='widget-caption' (click)='descargarPosicion(doc.id)'>
+              <i class='widget-icon fa fa-download'></i>
+            </a>
+          </td>
+          <td>
+            <div *ngIf="!doc.legajoAsignado && statusInv == 'Iniciado' && doc.estado != 'Cancelado' && doc.estado != 'Finalizado'">
+                <img src="assets/images/asignarIcon.png" title="Asignar" alt="Asignar" (click)="asignarDoc(doc.id, doc.documento)" />
+            </div>
+            <div *ngIf="doc.legajoAsignado && statusInv == 'Iniciado' && doc.estado != 'Cancelado' && doc.estado != 'Finalizado'">
+              <img src="assets/images/desasignarIcon.png" title="Desasignar" alt="Desasignar" (click)="desasignarDoc(doc.id)" />
+            </div>
+            <div *ngIf="!doc.legajoAsignado && statusInv == 'Iniciado' && doc.estado != 'Cancelado' && doc.estado != 'Finalizado'">
+              <img src="assets/images/cancelarIcon.png" title="Cancelar" alt="Cancelar" (click)="cancelarDoc(doc.id)"/>
+            </div>
+          </td>
+          <td>{{ doc.documento }}</td>
+          <td>{{ doc.legajoAsignado }}</td>
+          <td>{{ doc.estado }}</td>
+          <td>{{ doc.lTotales }}</td>
+          <td>{{ doc.lContadas }}</td>
+          <td>{{ doc.porcentaje }}</td>
+          <td>{{ doc.pLectura | date: 'dd-MM-yyyy HH:mm:ss' }}</td>
+          <td>{{ doc.uLectura | date: 'dd-MM-yyyy HH:mm:ss' }}</td>
+          <td>{{ doc.tOperacionMin }}</td>
+          <td>{{ doc.tUltimaLectura }}</td>
+          <td>{{ doc.promLineasxMin }}</td>
+          <td>{{ doc.promLineasDescuadre }}</td>
+          <td>{{ doc.fase }}</td>
+          <td>
+              <div *ngIf="doc.documentoPadre">{{ doc.documentoPadre.documento }}</div>
+              <div *ngIf="!doc.documentoPadre">-</div>
+          </td>
+          <td>
+            <div *ngIf="doc.impactadoSega">Si</div>
+            <div *ngIf="!doc.impactadoSega && doc.fase !='Inventario'">No</div>
+            <div *ngIf="!doc.impactadoSega && doc.fase =='Inventario'">No Aplica</div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div *ngIf="documentoId">
+  <app-posiciones [idDocumento]='documentoId' [impactadoSega]='impactadoSega' [fase]='fase' (removeDoc)="limpiarDoc($event)"></app-posiciones>
+</div>
