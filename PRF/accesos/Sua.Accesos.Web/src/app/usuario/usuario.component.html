@@ -1,0 +1,197 @@
+<div class="container padding-top">
+  <div class="row">
+    <div *ngIf="accion != undefined; then poraccion; else principal"></div>
+    <ng-template #poraccion>
+      <div class="col-lg-1">
+        <div class="vertical-text">
+          {{ titulo }}
+        </div>
+      </div>
+      <div class="col-lg-6 border-left">
+        <form
+          [formGroup]="formulario"
+          (ngSubmit)="onSubmit()"
+          [ngBusy]="{ busy: busy, message: 'Buscando Usuario...' }"
+        >
+          <div class="h-80">
+            <div class="form-group form-group-sm">
+              <div class="row">
+                <div class="col-3">
+                  <label class="label">Legajo </label>
+                </div>
+                <div class="col-5">
+                  <input
+                    class="input"
+                    id="legajo"
+                    formControlName="legajo"
+                    (change)="getUsuarioxLegajo()"
+                  />
+                  <div
+                    class="alert alert-danger font-lower"
+                    *ngIf="
+                      formulario.get('legajo').invalid &&
+                      formulario.get('legajo').dirty
+                    "
+                  >
+                    El campo <strong>Legajo</strong> es requerido.
+                  </div>
+                </div>
+              </div>
+              <div class="row" *ngIf="accion == 'alta' || accion == 'modif'">
+                <div class="col-3">
+                  <label class="label">Usuario de Red </label>
+                </div>
+                <div class="col-5">
+                  <input
+                    class="input"
+                    id="usuarioAD"
+                    formControlName="usuarioAD"
+                  />
+                  <div
+                    class="alert alert-danger font-lower"
+                    *ngIf="
+                      formulario.get('usuarioAD').invalid &&
+                      formulario.get('usuarioAD').dirty
+                    "
+                  >
+                    El campo <strong>Usuario AD</strong> es requerido.
+                  </div>
+                </div>
+              </div>
+              <div class="row" *ngIf="accion == 'alta' || accion == 'modif'">
+                <div class="col-3">
+                  <label class="label">Apellido </label>
+                </div>
+                <div class="col-5">
+                  <input
+                    class="input"
+                    id="apellido"
+                    formControlName="apellido"
+                  />
+                  <div
+                    class="alert alert-danger font-lower"
+                    *ngIf="
+                      formulario.get('apellido').invalid &&
+                      formulario.get('apellido').dirty
+                    "
+                  >
+                    El campo <strong>Apellido</strong> es requerido.
+                  </div>
+                </div>
+              </div>
+              <div class="row" *ngIf="accion == 'alta' || accion == 'modif'">
+                <div class="col-3">
+                  <label class="label">Nombres </label>
+                </div>
+                <div class="col-5">
+                  <input class="input" id="nombre" formControlName="nombre" />
+                  <div
+                    class="alert alert-danger font-lower"
+                    *ngIf="
+                      formulario.get('nombre').invalid &&
+                      formulario.get('nombre').dirty
+                    "
+                  >
+                    El campo <strong>Nombres</strong> es requerido.
+                  </div>
+                </div>
+              </div>
+              <div class="row" *ngIf="accion == 'alta' || accion == 'modif'">
+                <div class="col-3">
+                  <label class="label">Email </label>
+                </div>
+                <div class="col-5">
+                  <input class="input" id="email" formControlName="email" />
+                  <div
+                    class="alert alert-danger font-lower"
+                    *ngIf="
+                      formulario.get('email').invalid &&
+                      formulario.get('email').dirty
+                    "
+                  >
+                    El campo <strong>Email</strong> es requerido.
+                  </div>
+                </div>
+              </div>
+              <div class="row">&nbsp;</div>
+            </div>
+          </div>
+          <div class="h-20 text-center col-lg-6 bottom">
+            <button
+              type="button"
+              class="btn btn-secondary btn-sm margin-right-10"
+              routerLink="/Usuario"
+            >
+              <i class="fa fa-close"></i> Cancelar
+            </button>
+            <button
+              type="submit"
+              class="btn btn-primary btn-sm"
+              *ngIf="accion == 'consulta'"
+            >
+              <i class="fa fa-search"></i> Consultar
+            </button>
+            <button
+              type="submit"
+              class="btn btn-primary btn-sm"
+              *ngIf="accion != 'consulta'"
+            >
+              <i class="fa fa-save"></i> Guardar
+            </button>
+          </div>
+        </form>
+      </div>
+    </ng-template>
+    <ng-template #principal>
+      <div class="containerUser">
+        <div class="margin-top-40">
+          <a
+            routerLink="{{ item.url }}"
+            routerLinkActive="active"
+            *ngFor="let item of subMenu"
+          >
+            <img
+              src="{{ item.imagen }}"
+              class="jumping"
+              alt="{{ item.tooltip }}"
+              title="{{ item.tooltip }}"
+          /></a>
+        </div>
+      </div>
+    </ng-template>
+  </div>
+  <div *ngIf="usuario != undefined && usuario.id > 0 && accion == 'consulta'">
+    <table
+      class="table table-striped table-responsive table-condensed table-hover table-ContectCenter"
+    >
+      <thead>
+        <tr>
+          <td>Usuario</td>
+          <td>Legajo</td>
+          <td>Apellido</td>
+          <td>Nombre</td>
+          <td>Email</td>
+          <td>Fecha de Alta</td>
+          <td>Fecha de Baja</td>
+          <td>Creado por</td>
+          <td>Fecha de Modificacion</td>
+          <td>Estado</td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>{{ usuario.usuarioAD }}</td>
+          <td>{{ usuario.legajo }}</td>
+          <td>{{ usuario.apellido }}</td>
+          <td>{{ usuario.nombre }}</td>
+          <td>{{ usuario.email }}</td>
+          <td>{{ usuario.fhAlta }}</td>
+          <td>{{ usuario.fhBaja }}</td>
+          <td>{{ usuario.usuario }}</td>
+          <td>{{ usuario.ts }}</td>
+          <td>{{ usuario.estado }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

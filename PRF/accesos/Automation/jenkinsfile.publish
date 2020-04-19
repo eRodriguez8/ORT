@@ -1,0 +1,218 @@
+//Jenkinsfile (Scripted Pipeline)
+
+node {
+	def MSBuild = tool name: 'Con Soporte C# 6', type: 'msbuild'
+    def OpenCover = "\"C:\\Program Files (x86)\\OpenCover\\OpenCover.Console.exe\""
+	def MSTest = tool name: 'Visual Studio 2014', type: 'org.jenkinsci.plugins.MsTestInstallation'
+	def ReportGenerator = "\"c:\\Tools\\ReportGenerator\\ReportGenerator.exe\""
+	def OpenCoverToCoberturaConverter = "\"C:\\Tools\\OpenCoverToCoberturaConverter\\OpenCoverToCoberturaConverter.exe\""
+	def APP_NAME = "Sua.Accesos.Api"
+
+	def BuildConfiguration = "Release"
+	def GITOrigen = 'http://gitlab.cencosud.corp/Celula_Logistica_SUA/accesos_sua.git'
+	def SVNEntrega = 'https://subversion.cencosud.corp/svn/CENCOSUD/CORPORATIVO_CENCOSUD/ARGENTINA/Centros_de_Distribucion_ARG/Aplicacion_Federativa-(APF)/2.Mantenciones/1.Jenkins/Accesos/Version '
+	def SVNFuentes = "/Fuentes/Accesos/"
+	def SVNInstalables = "/Instalables/Componentes/" 
+	def SVNManual = "/Instalables/Manuales de implementacion/"
+	def SVNScripts = "/Instalables/Scripts/"
+	def SVNMessage = "Entrega ${APP_NAME} ${params.VERSION}"
+	def SVNComponentes = "/Instalables/Componentes/"
+
+	
+	properties([parameters([string(defaultValue: '3.17.1.0', description: 'Nro de version a entregar', name: 'VERSION'), 
+		booleanParam(defaultValue: false, description: 'Usar version ya publicada', name: 'HOT_FIX'),
+		choice(choices: 'desa\nide\nprod', description: 'En que ambiente?', name: 'AMBIENTE'),
+		]), pipelineTriggers([])])
+
+	stage('Info of delivery') {
+		String msg = "Version a generar ${params.VERSION}\n"
+		msg = msg + "Usar version ya publicada: ${params.HOT_FIX}\n"																	  
+		msg = msg + "Instalar en DESA: ${params.INSTALAR_DESA}\n"
+		msg = msg + "Instalar en IDE: ${params.INSTALAR_IDE}\n"
+		echo msg
+	}
+	
+	stage('Checking version in SVN folders') {
+		withCredentials([usernamePassword(credentialsId: 'cencosudSvnCredentials', passwordVariable: 'SVNPass', usernameVariable: 'SVNUser')]) {
+			if (!params.HOT_FIX) {
+				def existVersion = true
+				try {
+					bat "svn ls --username ${SVNUser} --password ${SVNPass} \"${SVNEntrega}${params.VERSION}${SVNFuentes}\" "
+				} catch(Exception ex) {
+					existVersion = false
+				}
+				if (existVersion) {
+					input message:"Ya existe la version ${VERSION}", ok: "Continuar"
+				}
+			}
+		}
+	}
+	stage('Checkout') { 
+		def rama = params.COMMIT != '' && params.TAG == '' ? params.COMMIT : params.TAG != '' && params.COMMIT == '' ? params.TAG : '*/Develop'
+		checkout([$class: 'GitSCM', branches: [[name: rama]], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'gitlab-user-pass', url: 'http://gitlab.cencosud.corp/Celula_Logistica_SUA/accesos_sua.git']]])
+	}
+	
+	stage('Getting packages') {
+		parallel npm: {
+			nodejs('Node 10.10.0') {
+				bat '''rem Getting npm packages
+					cd Sua.Accesos.Web
+					npm install'''
+			}
+		},
+		nuget: {
+			bat '''rem Getting nuget packages
+				.\\nuget\\nuget restore'''
+		}
+	}
+	
+	
+	changeVersionInGlobalAssemblyInfo()
+	 
+	stage('Rebuild sass') {
+		nodejs('Node 10.10.0') {
+				bat '''cd Sua.Accesos.Web
+					npm rebuild node-sass'''
+			}
+	}
+	
+	stage('Building  ') {
+		parallel api: {
+			bat '''IF EXIST Publish RD Publish /S /Q
+				Exit 0 '''
+			bat "\"${MSBuild}\" ${APP_NAME}.sln /t:clean,build /p:Configuration=${BuildConfiguration} /p:Platform=\"Any CPU\" /p:ProductVersion=${params.VERSION} /p:DeployOnBuild=true /p:PublishProfile=${params.AMBIENTE}.pubxml /p:VisualStudioVersion=14.0 "
+		},
+		website: {
+		  bat '''cd Sua.Accesos.Web/dist/
+		  IF EXIST Accesos RD Accesos /S /Q
+				Exit 0 '''
+		  nodejs('Node 10.10.0') {
+		  		if (params.AMBIENTE == 'desa') {
+					bat '''cd Sua.Accesos.Web
+						ng build --prod --configuration=desa --base-href=/Accesos/ '''
+				} else if (params.AMBIENTE == 'ide') {
+					bat '''cd Sua.Accesos.Web
+						ng build --prod --configuration=ide --base-href=/Accesos/ '''
+				} else {
+					bat '''cd Sua.Accesos.Web
+						ng build --prod --configuration=prod --base-href=/Accesos/ '''
+				} 
+
+			}
+
+      bat '''move Sua.Accesos.Web'''
+    }
+	}
+	
+
+	stage('Post build task') {
+		parallel delWebConfig: {
+			bat """rem Deleting web.config
+				IF EXIST Publish\\Sua.Accesos.Web\\web.config DEL /F Publish\\Sua.Accesos.Web\\web.config"""
+		},
+		copyAngularApp: {
+			bat """rem Sua.Accesos.Web
+				XCOPY Sua.Accesos.Web\\dist Publish\\${APP_NAME} /s /e /i"""
+		}
+	}
+
+	stage('Testing') {
+		bat '''RD TestResults /S /Q 
+			MD TestResults'''
+		bat "${OpenCover} -register:user -target:\"${MSTest}\" -targetargs:\"/noisolation /resultsfile:TestResults\\TestResults.trx /testcontainer:Sua.Accesos.Test\\bin\\${BuildConfiguration}\\Sua.Accesos.Test.dll\"  -mergebyhash -output:projectCoverageReport.xml"
+	}
+	stage('Generating Reports') {
+		bat 'IF NOT EXIST Reports MKDIR Reports'
+		bat "${ReportGenerator} -reports:projectCoverageReport.xml -targetDir:Reports"
+		bat "${OpenCoverToCoberturaConverter} -input:projectCoverageReport.xml -output:Cobertura.xml"
+		step([$class: 'CoberturaPublisher', coberturaReportFile: 'Cobertura.xml'])
+	}
+	
+	stage('Cleaning SVN folders') {
+		withCredentials([usernamePassword(credentialsId: 'cencosudSvnCredentials', passwordVariable: 'SVNPass', usernameVariable: 'SVNUser')]) {
+			if (!params.HOT_FIX) {
+				bat """svn delete --username ${SVNUser} --password ${SVNPass} -m \"${SVNMessage}\" \"${SVNEntrega}${params.VERSION}${SVNFuentes}\" 
+					Exit 0 """
+			}
+			bat """svn delete --username ${SVNUser} --password ${SVNPass} -m \"${SVNMessage}\" \"${SVNEntrega}${params.VERSION}${SVNInstalables}\"
+				svn delete --username ${SVNUser} --password ${SVNPass} -m \"${SVNMessage}\" \"${SVNEntrega}${params.VERSION}${SVNManual}\"
+				svn delete --username ${SVNUser} --password ${SVNPass} -m \"${SVNMessage}\" \"${SVNEntrega}${params.VERSION}${SVNScripts}\"
+				Exit 0 """
+		}
+	}
+	
+	stage('Delivery SVN Folders') {
+		withCredentials([usernamePassword(credentialsId: 'cencosudSvnCredentials', passwordVariable: 'SVNPass', usernameVariable: 'SVNUser')]) {
+			bat """CD .\\Publish
+				svn mkdir --parents  -m \"${SVNMessage}\" \"${SVNEntrega}${params.VERSION}${SVNComponentes}\"
+				svn checkout \"${SVNEntrega}${params.VERSION}${SVNComponentes}\" .
+				svn resolve --accept=working  \"${SVNEntrega}${params.VERSION}${SVNComponentes}\"
+				svn add *
+				svn commit -m \"${SVNMessage}\" * """
+			String ScriptPath = "Sua.Accesos.DB\\${params.VERSION}"
+			if (fileExists(ScriptPath)) {
+				bat """CD .\\Sua.Accesos.DB\\${params.VERSION}
+				svn mkdir --parents  -m \"${SVNMessage}\" \"${SVNEntrega}${params.VERSION}${SVNScripts}\"
+				svn checkout \"${SVNEntrega}${params.VERSION}${SVNScripts}\" .
+				svn add *
+				svn commit -m \"${SVNMessage}\" * """
+			} else {
+				echo "No hay scripts en ${ScriptPath}"
+			}
+		}
+	}
+	
+	sonarScanner()
+	
+	stage('Release') {
+		build job: "SuperNet-SUA-Accesos-MB-Release",
+		parameters: [string(name: 'VERSION', value: params.VERSION),
+					string(name: 'AMBIENTE', value: params.AMBIENTE),
+					booleanParam(name: 'API', value: true),
+					booleanParam(name: 'WEBSITE', value: true)]
+
+	}
+	
+	stage('Sending Notifications') {
+		def mailBody = readFile("Automation\\MailEntregaTemplate.html")
+		String mailSubject = "Entrega version Release ${params.VERSION} - Accesos"
+		mailBody = mailBody.replace("%SCRIPTS%", "${SVNEntrega}${params.VERSION}${SVNScripts}")
+			.replace("%AMBIENTE%", "${params.AMBIENTE}")
+		emailext body: mailBody,
+			subject: mailSubject,
+			to:  env.SuperNet_SUA_Mails
+	}
+}
+
+	def sonarScanner() {
+	stage('Running Sonar') {
+    withSonarQubeEnv() {
+			def	Sonar= tool name: 'runer01', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
+			String sonarCmd = "\"${Sonar}\\bin\\sonar-scanner.bat\" "
+			sonarCmd = sonarCmd + "-Dsonar.host.url=${SONAR_HOST_URL} "
+			sonarCmd = sonarCmd + "-Dsonar.login=${SONAR_AUTH_TOKEN} "
+			sonarCmd = sonarCmd + "-Dproject.settings=${WORKSPACE} "
+			sonarCmd = sonarCmd + "-Dsonar.sources=. "
+			sonarCmd = sonarCmd + "-Dsonar.exclusions=**/xAsm/**,**/obj/**,**/bin/**,**/Reference.cs,**/*Test.cs,**/Reports/**,**/packages/**,**/Publish/**,**/**.Designer.cs,**/Sua.Accesos.Web/**,**/Sua.Accesos.Test/**,**/Sua.Accesos.Dal/** "
+			sonarCmd = sonarCmd + "-Dsonar.projectVersion=1 "
+			sonarCmd = sonarCmd + "-Dsonar.cs.opencover.reportsPaths=projectCoverageReport.xml "
+			sonarCmd = sonarCmd + "-Dsonar.cs.vstest.reportsPaths=TestResults/TestResults.trx "
+			sonarCmd = sonarCmd + "-Dsonar.projectKey=SuperNet-SUA-Accesos "
+			sonarCmd = sonarCmd + "-Dsonar.verbose=true "
+			sonarCmd = sonarCmd + "-Dsonar.scm.disabled=true "
+			sonarCmd = sonarCmd + "-Dsonar.projectName=SuperNet-SUA-Accesos "
+			sonarCmd = sonarCmd + "-Dsonar.projectBaseDir=${WORKSPACE}"
+			bat sonarCmd
+		}
+	}
+}
+
+def changeVersionInGlobalAssemblyInfo(){
+	stage('Changing version in GlobalAssemblyInfo') {
+		writeFile file: 'GlobalAssemblyInfo.cs', 
+			text: """using System.Reflection;
+	[assembly: AssemblyVersion(\"${params.VERSION}\")]
+	[assembly: AssemblyFileVersion(\"${params.VERSION}\")]
+	[assembly: AssemblyInformationalVersion(\"${params.VERSION}\")]"""
+	}
+}

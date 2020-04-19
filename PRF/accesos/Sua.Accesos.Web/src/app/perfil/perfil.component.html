@@ -1,0 +1,123 @@
+<div class="container padding-top"  >
+  <div class="row">
+      <div *ngIf="accion != undefined;then poraccion else principal"></div>
+      <ng-template #poraccion>
+        <div class="col-lg-1">
+            <div class="vertical-text">
+                {{titulo}}
+            </div>
+        </div>
+        <div class="col-lg-6 border-left">
+          <form [formGroup]="formulario" (ngSubmit)="onSubmit()">
+            <div class="h-80">
+
+              <div class="form-group form-group-sm">
+                  <div class="row" *ngIf="accion == 'alta' || accion == 'baja' || accion == 'asociar'">
+                    <div class="col-3">
+                      <label class="label">Aplicación </label>
+                    </div>
+                    <div class="col-5">
+                      <select class="input" id="aplicacionesOp" formControlName="aplicacionesOp" (change)="onSelectApp($event.target.value)">
+                        <option [value]="app.id" *ngFor="let app of aplicaciones">
+                            {{app.descripcion}}
+                        </option>
+                      </select>
+                      <div class="alert alert-danger font-lower" *ngIf="formulario.get('aplicacionesOp').invalid && formulario.get('aplicacionesOp').dirty">
+                          El campo <strong>aplicación</strong> es requerido.
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row" *ngIf="acciones && accion == 'alta'">
+                    <div class="col-3">
+                      <label class="label">Acción </label>
+                    </div>
+                    <div class="col-5">
+                      <ss-multiselect-dropdown formControlName="accionOp" [options]="acciones" [settings]="mySettings"
+                        [(ngModel)]="accionOp" [texts]="myTextsAcciones">
+                      </ss-multiselect-dropdown>
+                      <div class="alert alert-danger font-lower" *ngIf="formulario.get('accionOp').invalid && formulario.get('accionOp').dirty">
+                        El campo <strong>acción</strong> es requerido.
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row" *ngIf="accion != 'copiar'">
+                    <div class="col-3">
+                      <label class="label">Región </label>
+                    </div>
+                    <div class="col-5">
+                      <select id="regionesOp" class="input" formControlName="regionesOp" (change)="getPerfiles()">
+                        <option [value]="item.id" *ngFor="let item of regiones">
+                            {{item.descripcion}}
+                        </option>
+                      </select>
+                      <div class="alert alert-danger font-lower" *ngIf="formulario.get('regionesOp').invalid && formulario.get('regionesOp').dirty">
+                        El campo <strong>región</strong> es requerido.
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row" *ngIf="accion == 'baja' || accion == 'asociar'">
+                    <div class="col-3">
+                      <label class="label">Perfil </label>
+                    </div>
+                    <div class="col-5">
+                        <select id="perfilesOp" class="input" formControlName="perfilesOp">
+                            <option [value]="item.id" *ngFor="let item of perfiles">
+                                {{item.descripcion}}
+                            </option>
+                          </select>
+                          <div class="alert alert-danger font-lower" *ngIf="formulario.get('perfilesOp').invalid && formulario.get('perfilesOp').dirty">
+                            El campo <strong>perfil</strong> es requerido.
+                          </div>
+                    </div>
+                  </div>
+                  <div class="row" *ngIf="accion == 'alta' || accion == 'asociar' || accion == 'copiar'">
+                    <div class="col-3">
+                      <label class="label">{{legajo_descripcion}} </label>
+                    </div>
+                    <div class="col-5">
+                      <input class="input" id="legajo_descripcion" formControlName="legajo_descripcion" maxlength="30"/>
+                      <div class="alert alert-danger font-lower" *ngIf="formulario.get('legajo_descripcion').invalid && formulario.get('legajo_descripcion').dirty">
+                        El campo <strong>{{legajo_descripcion}}</strong> es requerido.
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row" *ngIf="accion == 'copiar'">
+                      <div class="col-3">
+                        <label class="label">Legajo destino </label>
+                      </div>
+                      <div class="col-5">
+                        <input class="input" id="legajoDestino" formControlName="legajoDestino" maxlength="30"/>
+                        <div class="alert alert-danger font-lower" *ngIf="formulario.get('legajoDestino').invalid && formulario.get('legajoDestino').dirty">
+                          El campo <strong>Legajo Destino</strong> es requerido.
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">&nbsp; </div>
+              </div>
+            </div>
+            <div class="h-20 text-center col-lg-6 bottom">
+              <button class="btn btn-secondary btn-sm margin-right-10"
+              routerLink="/Perfil">
+                <i class="fa fa-close"></i> Cancelar
+              </button>
+              <button class="btn btn-primary btn-sm">
+                  <i class="fa fa-save"></i> Guardar
+              </button>
+            </div>
+          </form>
+        </div>
+      </ng-template>
+      <ng-template #principal>
+        <div class="containerUser">
+          <div class="margin-top-40">
+                  <a routerLink="{{item.url}}" routerLinkActive="active" *ngFor="let item of subMenu" class="">
+                  <img src="{{item.imagen}}" class="jumping" alt={{item.tooltip}} title="{{item.tooltip}}"/></a>
+          </div>
+        </div>
+      </ng-template>
+  </div>
+</div>
+
+
+

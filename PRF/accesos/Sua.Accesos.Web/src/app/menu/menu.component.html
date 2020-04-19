@@ -1,0 +1,84 @@
+﻿<nav id="menu" class="navbar navbar-expand-md navbar-dark bg-blue sticky-top z-depth-2">
+  <a class="navbar-brand" href="javascript:void(0)"></a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+            <a class="nav-link" routerLink="/Inicio" routerLinkActive="active">
+                <i class="fa fa-home"></i> Inicio <span class="sr-only">(current)</span>
+            </a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle"
+             id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <i class="fa fa-user-circle"></i> Usuarios
+          </a>
+          <div class="dropdown-menu animated fadeIn" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" routerLink="/Usuario/alta" routerLinkActive="active"><i class="fa fa-user-plus"></i> Alta</a>
+            <a class="dropdown-item" routerLink="/Usuario/modif" routerLinkActive="active"><i class="fa fa-pencil"></i> Modificación</a>
+            <a class="dropdown-item" routerLink="/Usuario/baja" routerLinkActive="active"><i class="fa fa-user-times"></i> Baja</a>
+            <a class="dropdown-item" routerLink="/Usuario/consulta" routerLinkActive="active"><i class="fa fa-user"></i> Consulta</a>
+          </div>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle"
+             id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <i class="fa fa-address-card"></i> Perfiles
+          </a>
+          <div class="dropdown-menu animated fadeIn" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" routerLink="/Perfil/alta" routerLinkActive="active"><i class="fa fa-plus-circle"></i> Alta</a>
+            <a class="dropdown-item" routerLink="/Perfil/baja" routerLinkActive="active"><i class="fa fa-close"></i> Baja</a>
+            <a class="dropdown-item" routerLink="/Perfil/asociar" routerLinkActive="active"><i class="fa fa-edit"></i> Asociar Perfil a Usuario</a>
+            <a class="dropdown-item" routerLink="/Perfil/copiar" routerLinkActive="active"><i class="fa fa-clone"></i> Copiar Perfil entre Usuarios</a>
+          </div>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{urlDistribuidor}}" routerLinkActive="active">
+              <i class="fa fa-sign-out"></i> Distribuidor <span class="sr-only">(current)</span>
+          </a>
+        </li>
+    </ul>
+    <ul class="navbar-nav">
+        <li class="nav-item dropdown info">
+            <a class="nav-link dropdown-toggle" href="javascript:void(0)" id="info" data-toggle="dropdown"
+               aria-haspopup="true" aria-expanded="false">
+                <img height="32" class="rounded-circle" src="assets/images/accesos.png" alt="img" title="img">
+            </a>
+            <div class="dropdown-menu dropdown-menu-right z-depth-3 animated fadeIn" aria-labelledby="info">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-4 text-center">
+                            <div class="border border-warning photo">
+                                <img height="90" width="90" src="assets/images/accesos.png" alt="accesos" title="accesos">
+                                <!-- <span class="caption">
+                                    Cambiar
+                                </span> -->
+                            </div>
+                        </div>
+                        <div class="col-8 user">
+                            <b style="margin-bottom: 1px">{{appContext.usuario.nombre}} {{appContext.usuario.apellido}}</b>
+
+                            <div style="font-size: 12px !important">
+                                <div>Legajo: {{appContext.usuario.legajo}}</div>
+                                <div>Usuario: {{appContext.usuario.usuarioAD}}</div>
+                            </div>
+                            <!-- <a href="javascript:void(0)" class="btn btn-primary btn-sm white">
+                                <i class="fa fa-home"></i> Mi cuenta
+                            </a> -->
+                        </div>
+                    </div>
+                </div>
+                <!-- <div class="modal-footer" style="padding: 6px; background: #fafafa">
+                    <a href="javascript:void(0)" class="btn btn-danger btn-sm white">
+                        <i class="fa fa-close"></i> Salir
+                    </a>
+                </div> -->
+            </div>
+        </li>
+    </ul>
+</div>
+
+</nav>
+

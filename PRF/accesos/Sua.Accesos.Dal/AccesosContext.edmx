@@ -1,0 +1,968 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="AccesosSUAModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="ACC_dAcciones">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idAplicacion" Type="varchar" MaxLength="3" Nullable="false" />
+          <Property Name="descripcion" Type="varchar" MaxLength="60" Nullable="false" />
+          <Property Name="idEstado" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="usuario" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ts" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ACC_dAplicaciones">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="varchar" MaxLength="3" Nullable="false" />
+          <Property Name="descripcion" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="idEstado" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="accesos" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="ts" Type="datetime" Nullable="false" />
+          <Property Name="esPocket" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="tooltip" Type="varchar" MaxLength="100" />
+          <Property Name="imagen" Type="varchar" MaxLength="100" />
+          <Property Name="url" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="ACC_dMenu">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idAplicacion" Type="varchar" MaxLength="3" Nullable="false" />
+          <Property Name="idMenu_Precede" Type="smallint" />
+          <Property Name="orden" Type="smallint" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="tooltip" Type="varchar" MaxLength="254" />
+          <Property Name="descripcion" Type="varchar" MaxLength="254" Nullable="false" />
+          <Property Name="idEstado" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="imagen" Type="varchar" MaxLength="254" />
+          <Property Name="usuariosMaximos" Type="smallint" />
+          <Property Name="usuario" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ts" Type="datetime" Nullable="false" />
+          <Property Name="url" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="ACC_dPerfiles">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idRegion" Type="smallint" Nullable="false" />
+          <Property Name="idAplicacion" Type="varchar" MaxLength="3" Nullable="false" />
+          <Property Name="descripcion" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="idEstado" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="usuario" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ts" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ACC_dUsuarios">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="usuarioAD" Type="varchar" MaxLength="50" />
+          <Property Name="legajo" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="apellido" Type="varchar" MaxLength="50" />
+          <Property Name="nombre" Type="char" MaxLength="50" />
+          <Property Name="fhAlta" Type="datetime" Nullable="false" />
+          <Property Name="fhBaja" Type="datetime" />
+          <Property Name="idEstado" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="usuario" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ts" Type="datetime" Nullable="false" />
+          <Property Name="email" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="ACC_rdMenu_dAcciones">
+          <Key>
+            <PropertyRef Name="idMenu" />
+            <PropertyRef Name="idAccion" />
+          </Key>
+          <Property Name="idAplicacion" Type="varchar" MaxLength="3" Nullable="false" />
+          <Property Name="idMenu" Type="smallint" Nullable="false" />
+          <Property Name="idAccion" Type="smallint" Nullable="false" />
+          <Property Name="usuario" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ts" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ACC_rdPerfil_dAcciones">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="idPerfil" Type="smallint" Nullable="false" />
+          <Property Name="idAccion" Type="smallint" Nullable="false" />
+          <Property Name="usuario" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ts" Type="datetime" Nullable="false" />
+          <Property Name="id" Type="numeric" Precision="8" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ACC_rdUsuarios_dPerfiles_dAcciones">
+          <Key>
+            <PropertyRef Name="idUsuario" />
+            <PropertyRef Name="idPerfilAccion" />
+          </Key>
+          <Property Name="idUsuario" Type="smallint" Nullable="false" />
+          <Property Name="idPerfilAccion" Type="numeric" Precision="8" Scale="0" Nullable="false" />
+          <Property Name="usuario" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ts" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ACC_sEstados">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="descripcion" Type="varchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ACC_sRegiones">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="descripcion" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="descripcionCorta" Type="varchar" MaxLength="10" />
+        </EntityType>
+        <Association Name="FK_ACC_dAcciones_ACC_dAplicaciones">
+          <End Role="ACC_dAplicaciones" Type="Self.ACC_dAplicaciones" Multiplicity="1" />
+          <End Role="ACC_dAcciones" Type="Self.ACC_dAcciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ACC_dAplicaciones">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ACC_dAcciones">
+              <PropertyRef Name="idAplicacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ACC_dAcciones_ACC_sEstados">
+          <End Role="ACC_sEstados" Type="Self.ACC_sEstados" Multiplicity="1" />
+          <End Role="ACC_dAcciones" Type="Self.ACC_dAcciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ACC_sEstados">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ACC_dAcciones">
+              <PropertyRef Name="idEstado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ACC_dAplicaciones_ACC_sEstados">
+          <End Role="ACC_sEstados" Type="Self.ACC_sEstados" Multiplicity="1" />
+          <End Role="ACC_dAplicaciones" Type="Self.ACC_dAplicaciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ACC_sEstados">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ACC_dAplicaciones">
+              <PropertyRef Name="idEstado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ACC_dMenu_ACC_dAplicaciones">
+          <End Role="ACC_dAplicaciones" Type="Self.ACC_dAplicaciones" Multiplicity="1" />
+          <End Role="ACC_dMenu" Type="Self.ACC_dMenu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ACC_dAplicaciones">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ACC_dMenu">
+              <PropertyRef Name="idAplicacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ACC_dMenu_ACC_sEstados">
+          <End Role="ACC_sEstados" Type="Self.ACC_sEstados" Multiplicity="1" />
+          <End Role="ACC_dMenu" Type="Self.ACC_dMenu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ACC_sEstados">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ACC_dMenu">
+              <PropertyRef Name="idEstado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ACC_dPerfiles_ACC_dAplicaciones">
+          <End Role="ACC_dAplicaciones" Type="Self.ACC_dAplicaciones" Multiplicity="1" />
+          <End Role="ACC_dPerfiles" Type="Self.ACC_dPerfiles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ACC_dAplicaciones">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ACC_dPerfiles">
+              <PropertyRef Name="idAplicacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ACC_dPerfiles_ACC_sEstados">
+          <End Role="ACC_sEstados" Type="Self.ACC_sEstados" Multiplicity="1" />
+          <End Role="ACC_dPerfiles" Type="Self.ACC_dPerfiles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ACC_sEstados">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ACC_dPerfiles">
+              <PropertyRef Name="idEstado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ACC_dPerfiles_ACC_sRegiones">
+          <End Role="ACC_sRegiones" Type="Self.ACC_sRegiones" Multiplicity="1" />
+          <End Role="ACC_dPerfiles" Type="Self.ACC_dPerfiles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ACC_sRegiones">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ACC_dPerfiles">
+              <PropertyRef Name="idRegion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ACC_dUsuarios_ACC_sEstados">
+          <End Role="ACC_sEstados" Type="Self.ACC_sEstados" Multiplicity="1" />
+          <End Role="ACC_dUsuarios" Type="Self.ACC_dUsuarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ACC_sEstados">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ACC_dUsuarios">
+              <PropertyRef Name="idEstado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ACC_rdMenu_dAcciones_ACC_dAcciones">
+          <End Role="ACC_dAcciones" Type="Self.ACC_dAcciones" Multiplicity="1" />
+          <End Role="ACC_rdMenu_dAcciones" Type="Self.ACC_rdMenu_dAcciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ACC_dAcciones">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ACC_rdMenu_dAcciones">
+              <PropertyRef Name="idAccion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ACC_rdMenu_dAcciones_ACC_dAplicaciones">
+          <End Role="ACC_dAplicaciones" Type="Self.ACC_dAplicaciones" Multiplicity="1" />
+          <End Role="ACC_rdMenu_dAcciones" Type="Self.ACC_rdMenu_dAcciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ACC_dAplicaciones">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ACC_rdMenu_dAcciones">
+              <PropertyRef Name="idAplicacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ACC_rdMenu_dAcciones_ACC_dMenu">
+          <End Role="ACC_dMenu" Type="Self.ACC_dMenu" Multiplicity="1" />
+          <End Role="ACC_rdMenu_dAcciones" Type="Self.ACC_rdMenu_dAcciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ACC_dMenu">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ACC_rdMenu_dAcciones">
+              <PropertyRef Name="idMenu" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ACC_rdPerfil_dAcciones_ACC_dAcciones">
+          <End Role="ACC_dAcciones" Type="Self.ACC_dAcciones" Multiplicity="1" />
+          <End Role="ACC_rdPerfil_dAcciones" Type="Self.ACC_rdPerfil_dAcciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ACC_dAcciones">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ACC_rdPerfil_dAcciones">
+              <PropertyRef Name="idAccion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ACC_rdPerfil_dAcciones_ACC_dPerfiles">
+          <End Role="ACC_dPerfiles" Type="Self.ACC_dPerfiles" Multiplicity="1" />
+          <End Role="ACC_rdPerfil_dAcciones" Type="Self.ACC_rdPerfil_dAcciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ACC_dPerfiles">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ACC_rdPerfil_dAcciones">
+              <PropertyRef Name="idPerfil" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ACC_rdUsuarios_dPerfiles_dAcciones_ACC_dUsuarios">
+          <End Role="ACC_dUsuarios" Type="Self.ACC_dUsuarios" Multiplicity="1" />
+          <End Role="ACC_rdUsuarios_dPerfiles_dAcciones" Type="Self.ACC_rdUsuarios_dPerfiles_dAcciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ACC_dUsuarios">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ACC_rdUsuarios_dPerfiles_dAcciones">
+              <PropertyRef Name="idUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ACC_rdUsuarios_dPerfiles_dAcciones_ACC_rdPerfil_dAcciones">
+          <End Role="ACC_rdPerfil_dAcciones" Type="Self.ACC_rdPerfil_dAcciones" Multiplicity="1" />
+          <End Role="ACC_rdUsuarios_dPerfiles_dAcciones" Type="Self.ACC_rdUsuarios_dPerfiles_dAcciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ACC_rdPerfil_dAcciones">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ACC_rdUsuarios_dPerfiles_dAcciones">
+              <PropertyRef Name="idPerfilAccion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="AccesosSUAModelStoreContainer">
+          <EntitySet Name="ACC_dAcciones" EntityType="Self.ACC_dAcciones" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ACC_dAplicaciones" EntityType="Self.ACC_dAplicaciones" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ACC_dMenu" EntityType="Self.ACC_dMenu" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ACC_dPerfiles" EntityType="Self.ACC_dPerfiles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ACC_dUsuarios" EntityType="Self.ACC_dUsuarios" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ACC_rdMenu_dAcciones" EntityType="Self.ACC_rdMenu_dAcciones" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ACC_rdPerfil_dAcciones" EntityType="Self.ACC_rdPerfil_dAcciones" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ACC_rdUsuarios_dPerfiles_dAcciones" EntityType="Self.ACC_rdUsuarios_dPerfiles_dAcciones" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ACC_sEstados" EntityType="Self.ACC_sEstados" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ACC_sRegiones" EntityType="Self.ACC_sRegiones" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_ACC_dAcciones_ACC_dAplicaciones" Association="Self.FK_ACC_dAcciones_ACC_dAplicaciones">
+            <End Role="ACC_dAplicaciones" EntitySet="ACC_dAplicaciones" />
+            <End Role="ACC_dAcciones" EntitySet="ACC_dAcciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ACC_dAcciones_ACC_sEstados" Association="Self.FK_ACC_dAcciones_ACC_sEstados">
+            <End Role="ACC_sEstados" EntitySet="ACC_sEstados" />
+            <End Role="ACC_dAcciones" EntitySet="ACC_dAcciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ACC_dAplicaciones_ACC_sEstados" Association="Self.FK_ACC_dAplicaciones_ACC_sEstados">
+            <End Role="ACC_sEstados" EntitySet="ACC_sEstados" />
+            <End Role="ACC_dAplicaciones" EntitySet="ACC_dAplicaciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ACC_dMenu_ACC_dAplicaciones" Association="Self.FK_ACC_dMenu_ACC_dAplicaciones">
+            <End Role="ACC_dAplicaciones" EntitySet="ACC_dAplicaciones" />
+            <End Role="ACC_dMenu" EntitySet="ACC_dMenu" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ACC_dMenu_ACC_sEstados" Association="Self.FK_ACC_dMenu_ACC_sEstados">
+            <End Role="ACC_sEstados" EntitySet="ACC_sEstados" />
+            <End Role="ACC_dMenu" EntitySet="ACC_dMenu" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ACC_dPerfiles_ACC_dAplicaciones" Association="Self.FK_ACC_dPerfiles_ACC_dAplicaciones">
+            <End Role="ACC_dAplicaciones" EntitySet="ACC_dAplicaciones" />
+            <End Role="ACC_dPerfiles" EntitySet="ACC_dPerfiles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ACC_dPerfiles_ACC_sEstados" Association="Self.FK_ACC_dPerfiles_ACC_sEstados">
+            <End Role="ACC_sEstados" EntitySet="ACC_sEstados" />
+            <End Role="ACC_dPerfiles" EntitySet="ACC_dPerfiles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ACC_dPerfiles_ACC_sRegiones" Association="Self.FK_ACC_dPerfiles_ACC_sRegiones">
+            <End Role="ACC_sRegiones" EntitySet="ACC_sRegiones" />
+            <End Role="ACC_dPerfiles" EntitySet="ACC_dPerfiles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ACC_dUsuarios_ACC_sEstados" Association="Self.FK_ACC_dUsuarios_ACC_sEstados">
+            <End Role="ACC_sEstados" EntitySet="ACC_sEstados" />
+            <End Role="ACC_dUsuarios" EntitySet="ACC_dUsuarios" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ACC_rdMenu_dAcciones_ACC_dAcciones" Association="Self.FK_ACC_rdMenu_dAcciones_ACC_dAcciones">
+            <End Role="ACC_dAcciones" EntitySet="ACC_dAcciones" />
+            <End Role="ACC_rdMenu_dAcciones" EntitySet="ACC_rdMenu_dAcciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ACC_rdMenu_dAcciones_ACC_dAplicaciones" Association="Self.FK_ACC_rdMenu_dAcciones_ACC_dAplicaciones">
+            <End Role="ACC_dAplicaciones" EntitySet="ACC_dAplicaciones" />
+            <End Role="ACC_rdMenu_dAcciones" EntitySet="ACC_rdMenu_dAcciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ACC_rdMenu_dAcciones_ACC_dMenu" Association="Self.FK_ACC_rdMenu_dAcciones_ACC_dMenu">
+            <End Role="ACC_dMenu" EntitySet="ACC_dMenu" />
+            <End Role="ACC_rdMenu_dAcciones" EntitySet="ACC_rdMenu_dAcciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ACC_rdPerfil_dAcciones_ACC_dAcciones" Association="Self.FK_ACC_rdPerfil_dAcciones_ACC_dAcciones">
+            <End Role="ACC_dAcciones" EntitySet="ACC_dAcciones" />
+            <End Role="ACC_rdPerfil_dAcciones" EntitySet="ACC_rdPerfil_dAcciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ACC_rdPerfil_dAcciones_ACC_dPerfiles" Association="Self.FK_ACC_rdPerfil_dAcciones_ACC_dPerfiles">
+            <End Role="ACC_dPerfiles" EntitySet="ACC_dPerfiles" />
+            <End Role="ACC_rdPerfil_dAcciones" EntitySet="ACC_rdPerfil_dAcciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ACC_rdUsuarios_dPerfiles_dAcciones_ACC_dUsuarios" Association="Self.FK_ACC_rdUsuarios_dPerfiles_dAcciones_ACC_dUsuarios">
+            <End Role="ACC_dUsuarios" EntitySet="ACC_dUsuarios" />
+            <End Role="ACC_rdUsuarios_dPerfiles_dAcciones" EntitySet="ACC_rdUsuarios_dPerfiles_dAcciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ACC_rdUsuarios_dPerfiles_dAcciones_ACC_rdPerfil_dAcciones" Association="Self.FK_ACC_rdUsuarios_dPerfiles_dAcciones_ACC_rdPerfil_dAcciones">
+            <End Role="ACC_rdPerfil_dAcciones" EntitySet="ACC_rdPerfil_dAcciones" />
+            <End Role="ACC_rdUsuarios_dPerfiles_dAcciones" EntitySet="ACC_rdUsuarios_dPerfiles_dAcciones" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="AccesosSUAModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="AccesosSUAEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ACC_dAcciones" EntityType="AccesosSUAModel.ACC_dAcciones" />
+          <EntitySet Name="ACC_dAplicaciones" EntityType="AccesosSUAModel.ACC_dAplicaciones" />
+          <EntitySet Name="ACC_dMenu" EntityType="AccesosSUAModel.ACC_dMenu" />
+          <EntitySet Name="ACC_dPerfiles" EntityType="AccesosSUAModel.ACC_dPerfiles" />
+          <EntitySet Name="ACC_dUsuarios" EntityType="AccesosSUAModel.ACC_dUsuarios" />
+          <EntitySet Name="ACC_rdPerfil_dAcciones" EntityType="AccesosSUAModel.ACC_rdPerfil_dAcciones" />
+          <EntitySet Name="ACC_rdUsuarios_dPerfiles_dAcciones" EntityType="AccesosSUAModel.ACC_rdUsuarios_dPerfiles_dAcciones" />
+          <EntitySet Name="ACC_sEstados" EntityType="AccesosSUAModel.ACC_sEstados" />
+          <EntitySet Name="ACC_sRegiones" EntityType="AccesosSUAModel.ACC_sRegiones" />
+          <AssociationSet Name="FK_ACC_dAcciones_ACC_dAplicaciones" Association="AccesosSUAModel.FK_ACC_dAcciones_ACC_dAplicaciones">
+            <End Role="ACC_dAplicaciones" EntitySet="ACC_dAplicaciones" />
+            <End Role="ACC_dAcciones" EntitySet="ACC_dAcciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ACC_dAcciones_ACC_sEstados" Association="AccesosSUAModel.FK_ACC_dAcciones_ACC_sEstados">
+            <End Role="ACC_sEstados" EntitySet="ACC_sEstados" />
+            <End Role="ACC_dAcciones" EntitySet="ACC_dAcciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ACC_rdPerfil_dAcciones_ACC_dAcciones" Association="AccesosSUAModel.FK_ACC_rdPerfil_dAcciones_ACC_dAcciones">
+            <End Role="ACC_dAcciones" EntitySet="ACC_dAcciones" />
+            <End Role="ACC_rdPerfil_dAcciones" EntitySet="ACC_rdPerfil_dAcciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ACC_dAplicaciones_ACC_sEstados" Association="AccesosSUAModel.FK_ACC_dAplicaciones_ACC_sEstados">
+            <End Role="ACC_sEstados" EntitySet="ACC_sEstados" />
+            <End Role="ACC_dAplicaciones" EntitySet="ACC_dAplicaciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ACC_dMenu_ACC_dAplicaciones" Association="AccesosSUAModel.FK_ACC_dMenu_ACC_dAplicaciones">
+            <End Role="ACC_dAplicaciones" EntitySet="ACC_dAplicaciones" />
+            <End Role="ACC_dMenu" EntitySet="ACC_dMenu" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ACC_dPerfiles_ACC_dAplicaciones" Association="AccesosSUAModel.FK_ACC_dPerfiles_ACC_dAplicaciones">
+            <End Role="ACC_dAplicaciones" EntitySet="ACC_dAplicaciones" />
+            <End Role="ACC_dPerfiles" EntitySet="ACC_dPerfiles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ACC_dMenu_ACC_sEstados" Association="AccesosSUAModel.FK_ACC_dMenu_ACC_sEstados">
+            <End Role="ACC_sEstados" EntitySet="ACC_sEstados" />
+            <End Role="ACC_dMenu" EntitySet="ACC_dMenu" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ACC_dPerfiles_ACC_sEstados" Association="AccesosSUAModel.FK_ACC_dPerfiles_ACC_sEstados">
+            <End Role="ACC_sEstados" EntitySet="ACC_sEstados" />
+            <End Role="ACC_dPerfiles" EntitySet="ACC_dPerfiles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ACC_dPerfiles_ACC_sRegiones" Association="AccesosSUAModel.FK_ACC_dPerfiles_ACC_sRegiones">
+            <End Role="ACC_sRegiones" EntitySet="ACC_sRegiones" />
+            <End Role="ACC_dPerfiles" EntitySet="ACC_dPerfiles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ACC_rdPerfil_dAcciones_ACC_dPerfiles" Association="AccesosSUAModel.FK_ACC_rdPerfil_dAcciones_ACC_dPerfiles">
+            <End Role="ACC_dPerfiles" EntitySet="ACC_dPerfiles" />
+            <End Role="ACC_rdPerfil_dAcciones" EntitySet="ACC_rdPerfil_dAcciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ACC_dUsuarios_ACC_sEstados" Association="AccesosSUAModel.FK_ACC_dUsuarios_ACC_sEstados">
+            <End Role="ACC_sEstados" EntitySet="ACC_sEstados" />
+            <End Role="ACC_dUsuarios" EntitySet="ACC_dUsuarios" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ACC_rdUsuarios_dPerfiles_dAcciones_ACC_dUsuarios" Association="AccesosSUAModel.FK_ACC_rdUsuarios_dPerfiles_dAcciones_ACC_dUsuarios">
+            <End Role="ACC_dUsuarios" EntitySet="ACC_dUsuarios" />
+            <End Role="ACC_rdUsuarios_dPerfiles_dAcciones" EntitySet="ACC_rdUsuarios_dPerfiles_dAcciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ACC_rdUsuarios_dPerfiles_dAcciones_ACC_rdPerfil_dAcciones" Association="AccesosSUAModel.FK_ACC_rdUsuarios_dPerfiles_dAcciones_ACC_rdPerfil_dAcciones">
+            <End Role="ACC_rdPerfil_dAcciones" EntitySet="ACC_rdPerfil_dAcciones" />
+            <End Role="ACC_rdUsuarios_dPerfiles_dAcciones" EntitySet="ACC_rdUsuarios_dPerfiles_dAcciones" />
+          </AssociationSet>
+          <EntitySet Name="ACC_rdMenu_dAcciones" EntityType="AccesosSUAModel.ACC_rdMenu_dAcciones" />
+          <AssociationSet Name="FK_ACC_rdMenu_dAcciones_ACC_dAcciones" Association="AccesosSUAModel.FK_ACC_rdMenu_dAcciones_ACC_dAcciones">
+            <End Role="ACC_dAcciones" EntitySet="ACC_dAcciones" />
+            <End Role="ACC_rdMenu_dAcciones" EntitySet="ACC_rdMenu_dAcciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ACC_rdMenu_dAcciones_ACC_dAplicaciones" Association="AccesosSUAModel.FK_ACC_rdMenu_dAcciones_ACC_dAplicaciones">
+            <End Role="ACC_dAplicaciones" EntitySet="ACC_dAplicaciones" />
+            <End Role="ACC_rdMenu_dAcciones" EntitySet="ACC_rdMenu_dAcciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ACC_rdMenu_dAcciones_ACC_dMenu" Association="AccesosSUAModel.FK_ACC_rdMenu_dAcciones_ACC_dMenu">
+            <End Role="ACC_dMenu" EntitySet="ACC_dMenu" />
+            <End Role="ACC_rdMenu_dAcciones" EntitySet="ACC_rdMenu_dAcciones" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="ACC_dAcciones">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idAplicacion" Type="String" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="descripcion" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Name="idEstado" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="usuario" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ts" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="ACC_dAplicaciones" Relationship="AccesosSUAModel.FK_ACC_dAcciones_ACC_dAplicaciones" FromRole="ACC_dAcciones" ToRole="ACC_dAplicaciones" />
+          <NavigationProperty Name="ACC_sEstados" Relationship="AccesosSUAModel.FK_ACC_dAcciones_ACC_sEstados" FromRole="ACC_dAcciones" ToRole="ACC_sEstados" />
+          <NavigationProperty Name="ACC_rdPerfil_dAcciones" Relationship="AccesosSUAModel.FK_ACC_rdPerfil_dAcciones_ACC_dAcciones" FromRole="ACC_dAcciones" ToRole="ACC_rdPerfil_dAcciones" />
+          <NavigationProperty Name="ACC_rdMenu_dAcciones" Relationship="AccesosSUAModel.FK_ACC_rdMenu_dAcciones_ACC_dAcciones" FromRole="ACC_dAcciones" ToRole="ACC_rdMenu_dAcciones" />
+        </EntityType>
+        <EntityType Name="ACC_dAplicaciones">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="String" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="descripcion" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="idEstado" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="accesos" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="ts" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="esPocket" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="tooltip" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="imagen" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="url" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="ACC_dAcciones" Relationship="AccesosSUAModel.FK_ACC_dAcciones_ACC_dAplicaciones" FromRole="ACC_dAplicaciones" ToRole="ACC_dAcciones" />
+          <NavigationProperty Name="ACC_sEstados" Relationship="AccesosSUAModel.FK_ACC_dAplicaciones_ACC_sEstados" FromRole="ACC_dAplicaciones" ToRole="ACC_sEstados" />
+          <NavigationProperty Name="ACC_dMenu" Relationship="AccesosSUAModel.FK_ACC_dMenu_ACC_dAplicaciones" FromRole="ACC_dAplicaciones" ToRole="ACC_dMenu" />
+          <NavigationProperty Name="ACC_dPerfiles" Relationship="AccesosSUAModel.FK_ACC_dPerfiles_ACC_dAplicaciones" FromRole="ACC_dAplicaciones" ToRole="ACC_dPerfiles" />
+          <NavigationProperty Name="ACC_rdMenu_dAcciones" Relationship="AccesosSUAModel.FK_ACC_rdMenu_dAcciones_ACC_dAplicaciones" FromRole="ACC_dAplicaciones" ToRole="ACC_rdMenu_dAcciones" />
+        </EntityType>
+        <EntityType Name="ACC_dMenu">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idAplicacion" Type="String" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="idMenu_Precede" Type="Int16" />
+          <Property Name="orden" Type="Int16" Nullable="false" />
+          <Property Name="nombre" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="tooltip" Type="String" MaxLength="254" FixedLength="false" Unicode="false" />
+          <Property Name="descripcion" Type="String" Nullable="false" MaxLength="254" FixedLength="false" Unicode="false" />
+          <Property Name="idEstado" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="imagen" Type="String" MaxLength="254" FixedLength="false" Unicode="false" />
+          <Property Name="usuariosMaximos" Type="Int16" />
+          <Property Name="usuario" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ts" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="url" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="ACC_dAplicaciones" Relationship="AccesosSUAModel.FK_ACC_dMenu_ACC_dAplicaciones" FromRole="ACC_dMenu" ToRole="ACC_dAplicaciones" />
+          <NavigationProperty Name="ACC_sEstados" Relationship="AccesosSUAModel.FK_ACC_dMenu_ACC_sEstados" FromRole="ACC_dMenu" ToRole="ACC_sEstados" />
+          <NavigationProperty Name="ACC_rdMenu_dAcciones" Relationship="AccesosSUAModel.FK_ACC_rdMenu_dAcciones_ACC_dMenu" FromRole="ACC_dMenu" ToRole="ACC_rdMenu_dAcciones" />
+        </EntityType>
+        <EntityType Name="ACC_dPerfiles">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idRegion" Type="Int16" Nullable="false" />
+          <Property Name="idAplicacion" Type="String" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="descripcion" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="idEstado" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="usuario" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ts" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="ACC_dAplicaciones" Relationship="AccesosSUAModel.FK_ACC_dPerfiles_ACC_dAplicaciones" FromRole="ACC_dPerfiles" ToRole="ACC_dAplicaciones" />
+          <NavigationProperty Name="ACC_sEstados" Relationship="AccesosSUAModel.FK_ACC_dPerfiles_ACC_sEstados" FromRole="ACC_dPerfiles" ToRole="ACC_sEstados" />
+          <NavigationProperty Name="ACC_sRegiones" Relationship="AccesosSUAModel.FK_ACC_dPerfiles_ACC_sRegiones" FromRole="ACC_dPerfiles" ToRole="ACC_sRegiones" />
+          <NavigationProperty Name="ACC_rdPerfil_dAcciones" Relationship="AccesosSUAModel.FK_ACC_rdPerfil_dAcciones_ACC_dPerfiles" FromRole="ACC_dPerfiles" ToRole="ACC_rdPerfil_dAcciones" />
+        </EntityType>
+        <EntityType Name="ACC_dUsuarios">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="usuarioAD" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="legajo" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="apellido" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="nombre" Type="String" MaxLength="50" FixedLength="true" Unicode="false" />
+          <Property Name="fhAlta" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="fhBaja" Type="DateTime" Precision="3" />
+          <Property Name="idEstado" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="usuario" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ts" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="ACC_sEstados" Relationship="AccesosSUAModel.FK_ACC_dUsuarios_ACC_sEstados" FromRole="ACC_dUsuarios" ToRole="ACC_sEstados" />
+          <NavigationProperty Name="ACC_rdUsuarios_dPerfiles_dAcciones" Relationship="AccesosSUAModel.FK_ACC_rdUsuarios_dPerfiles_dAcciones_ACC_dUsuarios" FromRole="ACC_dUsuarios" ToRole="ACC_rdUsuarios_dPerfiles_dAcciones" />
+          <Property Name="email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="ACC_rdPerfil_dAcciones">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="idPerfil" Type="Int16" Nullable="false" />
+          <Property Name="idAccion" Type="Int16" Nullable="false" />
+          <Property Name="usuario" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ts" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="id" Type="Decimal" Nullable="false" Precision="8" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="ACC_dAcciones" Relationship="AccesosSUAModel.FK_ACC_rdPerfil_dAcciones_ACC_dAcciones" FromRole="ACC_rdPerfil_dAcciones" ToRole="ACC_dAcciones" />
+          <NavigationProperty Name="ACC_dPerfiles" Relationship="AccesosSUAModel.FK_ACC_rdPerfil_dAcciones_ACC_dPerfiles" FromRole="ACC_rdPerfil_dAcciones" ToRole="ACC_dPerfiles" />
+          <NavigationProperty Name="ACC_rdUsuarios_dPerfiles_dAcciones" Relationship="AccesosSUAModel.FK_ACC_rdUsuarios_dPerfiles_dAcciones_ACC_rdPerfil_dAcciones" FromRole="ACC_rdPerfil_dAcciones" ToRole="ACC_rdUsuarios_dPerfiles_dAcciones" />
+        </EntityType>
+        <EntityType Name="ACC_rdUsuarios_dPerfiles_dAcciones">
+          <Key>
+            <PropertyRef Name="idUsuario" />
+            <PropertyRef Name="idPerfilAccion" />
+          </Key>
+          <Property Name="idUsuario" Type="Int16" Nullable="false" />
+          <Property Name="idPerfilAccion" Type="Decimal" Nullable="false" Precision="8" Scale="0" />
+          <Property Name="usuario" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ts" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="ACC_dUsuarios" Relationship="AccesosSUAModel.FK_ACC_rdUsuarios_dPerfiles_dAcciones_ACC_dUsuarios" FromRole="ACC_rdUsuarios_dPerfiles_dAcciones" ToRole="ACC_dUsuarios" />
+          <NavigationProperty Name="ACC_rdPerfil_dAcciones" Relationship="AccesosSUAModel.FK_ACC_rdUsuarios_dPerfiles_dAcciones_ACC_rdPerfil_dAcciones" FromRole="ACC_rdUsuarios_dPerfiles_dAcciones" ToRole="ACC_rdPerfil_dAcciones" />
+        </EntityType>
+        <EntityType Name="ACC_sEstados">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="descripcion" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="ACC_dAcciones" Relationship="AccesosSUAModel.FK_ACC_dAcciones_ACC_sEstados" FromRole="ACC_sEstados" ToRole="ACC_dAcciones" />
+          <NavigationProperty Name="ACC_dAplicaciones" Relationship="AccesosSUAModel.FK_ACC_dAplicaciones_ACC_sEstados" FromRole="ACC_sEstados" ToRole="ACC_dAplicaciones" />
+          <NavigationProperty Name="ACC_dMenu" Relationship="AccesosSUAModel.FK_ACC_dMenu_ACC_sEstados" FromRole="ACC_sEstados" ToRole="ACC_dMenu" />
+          <NavigationProperty Name="ACC_dPerfiles" Relationship="AccesosSUAModel.FK_ACC_dPerfiles_ACC_sEstados" FromRole="ACC_sEstados" ToRole="ACC_dPerfiles" />
+          <NavigationProperty Name="ACC_dUsuarios" Relationship="AccesosSUAModel.FK_ACC_dUsuarios_ACC_sEstados" FromRole="ACC_sEstados" ToRole="ACC_dUsuarios" />
+        </EntityType>
+        <EntityType Name="ACC_sRegiones">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="descripcion" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="descripcionCorta" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="ACC_dPerfiles" Relationship="AccesosSUAModel.FK_ACC_dPerfiles_ACC_sRegiones" FromRole="ACC_sRegiones" ToRole="ACC_dPerfiles" />
+        </EntityType>
+        <Association Name="FK_ACC_dAcciones_ACC_dAplicaciones">
+          <End Type="AccesosSUAModel.ACC_dAplicaciones" Role="ACC_dAplicaciones" Multiplicity="1" />
+          <End Type="AccesosSUAModel.ACC_dAcciones" Role="ACC_dAcciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ACC_dAplicaciones">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ACC_dAcciones">
+              <PropertyRef Name="idAplicacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ACC_dAcciones_ACC_sEstados">
+          <End Type="AccesosSUAModel.ACC_sEstados" Role="ACC_sEstados" Multiplicity="1" />
+          <End Type="AccesosSUAModel.ACC_dAcciones" Role="ACC_dAcciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ACC_sEstados">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ACC_dAcciones">
+              <PropertyRef Name="idEstado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ACC_rdPerfil_dAcciones_ACC_dAcciones">
+          <End Type="AccesosSUAModel.ACC_dAcciones" Role="ACC_dAcciones" Multiplicity="1" />
+          <End Type="AccesosSUAModel.ACC_rdPerfil_dAcciones" Role="ACC_rdPerfil_dAcciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ACC_dAcciones">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ACC_rdPerfil_dAcciones">
+              <PropertyRef Name="idAccion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ACC_dAplicaciones_ACC_sEstados">
+          <End Type="AccesosSUAModel.ACC_sEstados" Role="ACC_sEstados" Multiplicity="1" />
+          <End Type="AccesosSUAModel.ACC_dAplicaciones" Role="ACC_dAplicaciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ACC_sEstados">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ACC_dAplicaciones">
+              <PropertyRef Name="idEstado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ACC_dMenu_ACC_dAplicaciones">
+          <End Type="AccesosSUAModel.ACC_dAplicaciones" Role="ACC_dAplicaciones" Multiplicity="1" />
+          <End Type="AccesosSUAModel.ACC_dMenu" Role="ACC_dMenu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ACC_dAplicaciones">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ACC_dMenu">
+              <PropertyRef Name="idAplicacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ACC_dPerfiles_ACC_dAplicaciones">
+          <End Type="AccesosSUAModel.ACC_dAplicaciones" Role="ACC_dAplicaciones" Multiplicity="1" />
+          <End Type="AccesosSUAModel.ACC_dPerfiles" Role="ACC_dPerfiles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ACC_dAplicaciones">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ACC_dPerfiles">
+              <PropertyRef Name="idAplicacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ACC_dMenu_ACC_sEstados">
+          <End Type="AccesosSUAModel.ACC_sEstados" Role="ACC_sEstados" Multiplicity="1" />
+          <End Type="AccesosSUAModel.ACC_dMenu" Role="ACC_dMenu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ACC_sEstados">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ACC_dMenu">
+              <PropertyRef Name="idEstado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ACC_dPerfiles_ACC_sEstados">
+          <End Type="AccesosSUAModel.ACC_sEstados" Role="ACC_sEstados" Multiplicity="1" />
+          <End Type="AccesosSUAModel.ACC_dPerfiles" Role="ACC_dPerfiles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ACC_sEstados">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ACC_dPerfiles">
+              <PropertyRef Name="idEstado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ACC_dPerfiles_ACC_sRegiones">
+          <End Type="AccesosSUAModel.ACC_sRegiones" Role="ACC_sRegiones" Multiplicity="1" />
+          <End Type="AccesosSUAModel.ACC_dPerfiles" Role="ACC_dPerfiles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ACC_sRegiones">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ACC_dPerfiles">
+              <PropertyRef Name="idRegion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ACC_rdPerfil_dAcciones_ACC_dPerfiles">
+          <End Type="AccesosSUAModel.ACC_dPerfiles" Role="ACC_dPerfiles" Multiplicity="1" />
+          <End Type="AccesosSUAModel.ACC_rdPerfil_dAcciones" Role="ACC_rdPerfil_dAcciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ACC_dPerfiles">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ACC_rdPerfil_dAcciones">
+              <PropertyRef Name="idPerfil" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ACC_dUsuarios_ACC_sEstados">
+          <End Type="AccesosSUAModel.ACC_sEstados" Role="ACC_sEstados" Multiplicity="1" />
+          <End Type="AccesosSUAModel.ACC_dUsuarios" Role="ACC_dUsuarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ACC_sEstados">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ACC_dUsuarios">
+              <PropertyRef Name="idEstado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ACC_rdUsuarios_dPerfiles_dAcciones_ACC_dUsuarios">
+          <End Type="AccesosSUAModel.ACC_dUsuarios" Role="ACC_dUsuarios" Multiplicity="1" />
+          <End Type="AccesosSUAModel.ACC_rdUsuarios_dPerfiles_dAcciones" Role="ACC_rdUsuarios_dPerfiles_dAcciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ACC_dUsuarios">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ACC_rdUsuarios_dPerfiles_dAcciones">
+              <PropertyRef Name="idUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ACC_rdUsuarios_dPerfiles_dAcciones_ACC_rdPerfil_dAcciones">
+          <End Type="AccesosSUAModel.ACC_rdPerfil_dAcciones" Role="ACC_rdPerfil_dAcciones" Multiplicity="1" />
+          <End Type="AccesosSUAModel.ACC_rdUsuarios_dPerfiles_dAcciones" Role="ACC_rdUsuarios_dPerfiles_dAcciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ACC_rdPerfil_dAcciones">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ACC_rdUsuarios_dPerfiles_dAcciones">
+              <PropertyRef Name="idPerfilAccion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="ACC_rdMenu_dAcciones">
+          <Key>
+            <PropertyRef Name="idMenu" />
+            <PropertyRef Name="idAccion" />
+          </Key>
+          <Property Name="idAplicacion" Type="String" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="idMenu" Type="Int16" Nullable="false" />
+          <Property Name="idAccion" Type="Int16" Nullable="false" />
+          <Property Name="usuario" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ts" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="ACC_dAcciones" Relationship="AccesosSUAModel.FK_ACC_rdMenu_dAcciones_ACC_dAcciones" FromRole="ACC_rdMenu_dAcciones" ToRole="ACC_dAcciones" />
+          <NavigationProperty Name="ACC_dAplicaciones" Relationship="AccesosSUAModel.FK_ACC_rdMenu_dAcciones_ACC_dAplicaciones" FromRole="ACC_rdMenu_dAcciones" ToRole="ACC_dAplicaciones" />
+          <NavigationProperty Name="ACC_dMenu" Relationship="AccesosSUAModel.FK_ACC_rdMenu_dAcciones_ACC_dMenu" FromRole="ACC_rdMenu_dAcciones" ToRole="ACC_dMenu" />
+        </EntityType>
+        <Association Name="FK_ACC_rdMenu_dAcciones_ACC_dAcciones">
+          <End Type="AccesosSUAModel.ACC_dAcciones" Role="ACC_dAcciones" Multiplicity="1" />
+          <End Type="AccesosSUAModel.ACC_rdMenu_dAcciones" Role="ACC_rdMenu_dAcciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ACC_dAcciones">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ACC_rdMenu_dAcciones">
+              <PropertyRef Name="idAccion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ACC_rdMenu_dAcciones_ACC_dAplicaciones">
+          <End Type="AccesosSUAModel.ACC_dAplicaciones" Role="ACC_dAplicaciones" Multiplicity="1" />
+          <End Type="AccesosSUAModel.ACC_rdMenu_dAcciones" Role="ACC_rdMenu_dAcciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ACC_dAplicaciones">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ACC_rdMenu_dAcciones">
+              <PropertyRef Name="idAplicacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ACC_rdMenu_dAcciones_ACC_dMenu">
+          <End Type="AccesosSUAModel.ACC_dMenu" Role="ACC_dMenu" Multiplicity="1" />
+          <End Type="AccesosSUAModel.ACC_rdMenu_dAcciones" Role="ACC_rdMenu_dAcciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ACC_dMenu">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ACC_rdMenu_dAcciones">
+              <PropertyRef Name="idMenu" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="AccesosSUAModelStoreContainer" CdmEntityContainer="AccesosSUAEntities">
+          <EntitySetMapping Name="ACC_dAcciones">
+            <EntityTypeMapping TypeName="AccesosSUAModel.ACC_dAcciones">
+              <MappingFragment StoreEntitySet="ACC_dAcciones">
+                <ScalarProperty Name="ts" ColumnName="ts" />
+                <ScalarProperty Name="usuario" ColumnName="usuario" />
+                <ScalarProperty Name="idEstado" ColumnName="idEstado" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="idAplicacion" ColumnName="idAplicacion" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ACC_dAplicaciones">
+            <EntityTypeMapping TypeName="AccesosSUAModel.ACC_dAplicaciones">
+              <MappingFragment StoreEntitySet="ACC_dAplicaciones">
+                <ScalarProperty Name="url" ColumnName="url" />
+                <ScalarProperty Name="imagen" ColumnName="imagen" />
+                <ScalarProperty Name="tooltip" ColumnName="tooltip" />
+                <ScalarProperty Name="esPocket" ColumnName="esPocket" />
+                <ScalarProperty Name="ts" ColumnName="ts" />
+                <ScalarProperty Name="accesos" ColumnName="accesos" />
+                <ScalarProperty Name="idEstado" ColumnName="idEstado" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ACC_dMenu">
+            <EntityTypeMapping TypeName="AccesosSUAModel.ACC_dMenu">
+              <MappingFragment StoreEntitySet="ACC_dMenu">
+                <ScalarProperty Name="url" ColumnName="url" />
+                <ScalarProperty Name="ts" ColumnName="ts" />
+                <ScalarProperty Name="usuario" ColumnName="usuario" />
+                <ScalarProperty Name="usuariosMaximos" ColumnName="usuariosMaximos" />
+                <ScalarProperty Name="imagen" ColumnName="imagen" />
+                <ScalarProperty Name="idEstado" ColumnName="idEstado" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="tooltip" ColumnName="tooltip" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="orden" ColumnName="orden" />
+                <ScalarProperty Name="idMenu_Precede" ColumnName="idMenu_Precede" />
+                <ScalarProperty Name="idAplicacion" ColumnName="idAplicacion" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ACC_dPerfiles">
+            <EntityTypeMapping TypeName="AccesosSUAModel.ACC_dPerfiles">
+              <MappingFragment StoreEntitySet="ACC_dPerfiles">
+                <ScalarProperty Name="ts" ColumnName="ts" />
+                <ScalarProperty Name="usuario" ColumnName="usuario" />
+                <ScalarProperty Name="idEstado" ColumnName="idEstado" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="idAplicacion" ColumnName="idAplicacion" />
+                <ScalarProperty Name="idRegion" ColumnName="idRegion" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ACC_dUsuarios">
+            <EntityTypeMapping TypeName="AccesosSUAModel.ACC_dUsuarios">
+              <MappingFragment StoreEntitySet="ACC_dUsuarios">
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="ts" ColumnName="ts" />
+                <ScalarProperty Name="usuario" ColumnName="usuario" />
+                <ScalarProperty Name="idEstado" ColumnName="idEstado" />
+                <ScalarProperty Name="fhBaja" ColumnName="fhBaja" />
+                <ScalarProperty Name="fhAlta" ColumnName="fhAlta" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="apellido" ColumnName="apellido" />
+                <ScalarProperty Name="legajo" ColumnName="legajo" />
+                <ScalarProperty Name="usuarioAD" ColumnName="usuarioAD" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ACC_rdPerfil_dAcciones">
+            <EntityTypeMapping TypeName="AccesosSUAModel.ACC_rdPerfil_dAcciones">
+              <MappingFragment StoreEntitySet="ACC_rdPerfil_dAcciones">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="ts" ColumnName="ts" />
+                <ScalarProperty Name="usuario" ColumnName="usuario" />
+                <ScalarProperty Name="idAccion" ColumnName="idAccion" />
+                <ScalarProperty Name="idPerfil" ColumnName="idPerfil" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ACC_rdUsuarios_dPerfiles_dAcciones">
+            <EntityTypeMapping TypeName="AccesosSUAModel.ACC_rdUsuarios_dPerfiles_dAcciones">
+              <MappingFragment StoreEntitySet="ACC_rdUsuarios_dPerfiles_dAcciones">
+                <ScalarProperty Name="ts" ColumnName="ts" />
+                <ScalarProperty Name="usuario" ColumnName="usuario" />
+                <ScalarProperty Name="idPerfilAccion" ColumnName="idPerfilAccion" />
+                <ScalarProperty Name="idUsuario" ColumnName="idUsuario" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ACC_sEstados">
+            <EntityTypeMapping TypeName="AccesosSUAModel.ACC_sEstados">
+              <MappingFragment StoreEntitySet="ACC_sEstados">
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ACC_sRegiones">
+            <EntityTypeMapping TypeName="AccesosSUAModel.ACC_sRegiones">
+              <MappingFragment StoreEntitySet="ACC_sRegiones">
+                <ScalarProperty Name="descripcionCorta" ColumnName="descripcionCorta" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ACC_rdMenu_dAcciones">
+            <EntityTypeMapping TypeName="AccesosSUAModel.ACC_rdMenu_dAcciones">
+              <MappingFragment StoreEntitySet="ACC_rdMenu_dAcciones">
+                <ScalarProperty Name="ts" ColumnName="ts" />
+                <ScalarProperty Name="usuario" ColumnName="usuario" />
+                <ScalarProperty Name="idAccion" ColumnName="idAccion" />
+                <ScalarProperty Name="idMenu" ColumnName="idMenu" />
+                <ScalarProperty Name="idAplicacion" ColumnName="idAplicacion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

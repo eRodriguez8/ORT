@@ -1,0 +1,6 @@
+﻿<div class="row margin-top-100">
+    <div class="col-lg-3 col-centered" *ngFor="let item of appContext.menu">
+        <a routerLink="{{item.url}}" routerLinkActive="active">
+        <img src="{{item.imagen}}" /></a>
+    </div>
+</div>

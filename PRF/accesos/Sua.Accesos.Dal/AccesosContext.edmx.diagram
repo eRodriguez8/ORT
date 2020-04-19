@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="1a353f622db64c3a8ec5798872eb4a73" Name="Diagram1">
+        <EntityTypeShape EntityType="AccesosSUAModel.ACC_dAcciones" Width="1.5" PointX="5.25" PointY="12.25" />
+        <EntityTypeShape EntityType="AccesosSUAModel.ACC_dAplicaciones" Width="1.5" PointX="3" PointY="7.25" />
+        <EntityTypeShape EntityType="AccesosSUAModel.ACC_dMenu" Width="1.5" PointX="8.25" PointY="7.75" />
+        <EntityTypeShape EntityType="AccesosSUAModel.ACC_dPerfiles" Width="1.5" PointX="5.25" PointY="8.125" />
+        <EntityTypeShape EntityType="AccesosSUAModel.ACC_dUsuarios" Width="1.5" PointX="3" PointY="11.625" />
+        <EntityTypeShape EntityType="AccesosSUAModel.ACC_rdPerfil_dAcciones" Width="1.5" PointX="7.5" PointY="13.375" />
+        <EntityTypeShape EntityType="AccesosSUAModel.ACC_rdUsuarios_dPerfiles_dAcciones" Width="1.5" PointX="9.75" PointY="13.75" />
+        <EntityTypeShape EntityType="AccesosSUAModel.ACC_sEstados" Width="1.5" PointX="0.75" PointY="9.875" />
+        <EntityTypeShape EntityType="AccesosSUAModel.ACC_sRegiones" Width="1.5" PointX="3" PointY="3.875" />
+        <AssociationConnector Association="AccesosSUAModel.FK_ACC_dAcciones_ACC_dAplicaciones" />
+        <AssociationConnector Association="AccesosSUAModel.FK_ACC_dAcciones_ACC_sEstados" />
+        <AssociationConnector Association="AccesosSUAModel.FK_ACC_rdPerfil_dAcciones_ACC_dAcciones" />
+        <AssociationConnector Association="AccesosSUAModel.FK_ACC_dAplicaciones_ACC_sEstados" />
+        <AssociationConnector Association="AccesosSUAModel.FK_ACC_dMenu_ACC_dAplicaciones" />
+        <AssociationConnector Association="AccesosSUAModel.FK_ACC_dPerfiles_ACC_dAplicaciones" />
+        <AssociationConnector Association="AccesosSUAModel.FK_ACC_dMenu_ACC_sEstados" />
+        <AssociationConnector Association="AccesosSUAModel.FK_ACC_dPerfiles_ACC_sEstados" />
+        <AssociationConnector Association="AccesosSUAModel.FK_ACC_dPerfiles_ACC_sRegiones" />
+        <AssociationConnector Association="AccesosSUAModel.FK_ACC_rdPerfil_dAcciones_ACC_dPerfiles" />
+        <AssociationConnector Association="AccesosSUAModel.FK_ACC_dUsuarios_ACC_sEstados" />
+        <AssociationConnector Association="AccesosSUAModel.FK_ACC_rdUsuarios_dPerfiles_dAcciones_ACC_dUsuarios" />
+        <AssociationConnector Association="AccesosSUAModel.FK_ACC_rdUsuarios_dPerfiles_dAcciones_ACC_rdPerfil_dAcciones" />
+        <EntityTypeShape EntityType="AccesosSUAModel.ACC_rdMenu_dAcciones" Width="1.5" PointX="10.5" PointY="10" />
+        <AssociationConnector Association="AccesosSUAModel.FK_ACC_rdMenu_dAcciones_ACC_dAcciones" />
+        <AssociationConnector Association="AccesosSUAModel.FK_ACC_rdMenu_dAcciones_ACC_dAplicaciones" />
+        <AssociationConnector Association="AccesosSUAModel.FK_ACC_rdMenu_dAcciones_ACC_dMenu" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

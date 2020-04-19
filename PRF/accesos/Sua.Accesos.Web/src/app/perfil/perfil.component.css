@@ -1,0 +1,55 @@
+.containerUser{
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  position: relative;
+  text-align: center;
+}
+
+/* ALL BUTTONS */
+
+.button{
+display: inline-block;
+padding: 20px 50px;
+margin: 20px 0;
+position: relative;
+color: #ecf0f1;
+}
+
+.jumping{
+-webkit-font-smoothing: antialiased;
+}
+
+.jumping:hover{
+animation: wobbleud 0.5s linear infinite;
+}
+
+@keyframes wobbleud{
+0%{
+  -webkit-transform: translateY(0);
+  -ms-transform: translateY(0);
+  -o-transform: translateY(0);
+  transform: translateY(0);
+}
+
+25%{
+  -webkit-transform: translateY(-5px);
+  -ms-transform: translateY(-5px);
+  -o-transform: translateY(-5px);
+  transform: translateY(-5px);
+}
+
+75%{
+  -webkit-transform: translateY(5px);
+  -ms-transform: translateY(5px);
+  -o-transform: translateY(5px);
+  transform: translateY(5px);
+}
+
+100%{
+  -webkit-transform: translateX(0);
+  -ms-transform: translateX(0);
+  -o-transform: translateX(0);
+  transform: translateX(0);
+}
+}

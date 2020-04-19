@@ -1,0 +1,8 @@
+<div>
+    <app-header [context]="appContext" *ngIf="appContext"></app-header>
+    <app-menu [context]="appContext" *ngIf="appContext"></app-menu>
+    <!-- <message-display></message-display> -->
+    <div id="main" *ngIf="appContext" class="container mt-3 mb-2">
+        <router-outlet></router-outlet>
+    </div>
+</div>

@@ -1,0 +1,130 @@
+.purple {
+    color: #893da0 !important;
+}
+
+.blue {
+    color: #0061A8 !important;
+}
+
+.info {
+    color: #5bc0de !important;
+}
+
+.white {
+    color: #FFFFFF !important;
+}
+
+.black {
+    color: #000 !important;
+}
+
+.yellow {
+    color: #ffce55 !important;
+}
+
+.success {
+    color: #5cb85c !important;
+}
+
+.green {
+    color: #009688 !important;
+}
+
+.red {
+    color: #ff1f00 !important;
+}
+
+.gray {
+    color: #6c757d!important;
+}
+
+.darkorange {
+    color: #ed4e2a !important;
+}
+
+.text-border {
+    text-shadow: 1px 0 0 #000, -1px 0 0 #000, 0 1px 0 #000, 0 -1px 0 #000, 1px 1px #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000;
+}
+
+.bordered-bottom {
+    border-bottom: 3px solid #fff !important;
+}
+
+.bordered-top {
+    border-top: 3px solid #fff !important;
+}
+
+.bordered-sky {
+    border-color: #11a9cc !important;
+}
+
+.bordered {
+    border-bottom: 3px solid #FFF;
+}
+
+.bordered-darkorange {
+    border-color: #ed4e2a !important;
+}
+
+.bordered-yellow {
+    border-color: #ffce55 !important;
+}
+
+.bordered-blue {
+    border-color: #0061A8 !important;
+}
+
+.bordered-info {
+    border-color: #5bc0de !important;
+}
+
+.bg-blue {
+    background-color: #0d47a1;
+}
+
+.bg-gray {
+    background: #f5f5f5 !important;
+}
+
+.bg-purple {
+    background-color: #893da0 !important;
+}
+
+.bg-turquoise {
+    background-color: #B3E5FC !important;
+}
+
+.bg-yellow {
+    background-color: #ffce55 !important;
+}
+
+.bg-white {
+    background-color: #fff !important;
+}
+
+.bg-black {
+    background-color: #000000 !important;
+}
+
+.bg-menu {
+    background-color: rgba(0, 0, 0, 0.8) !important;
+    -webkit-transition: all 1s ease-in;
+    -moz-transition: all 1s ease-in;
+    transition: all 1s ease-in;
+}
+
+.shadow-turquoise {
+    box-shadow: 0 0 0 0 rgba(73, 207, 246, 0.7) !important;
+}
+
+.shadow-green {
+    box-shadow: 0 0 0 0 rgba(5, 174, 158, 0.7) !important;
+}
+
+.shadow-yellow {
+    box-shadow: 0 0 0 0 rgba(247, 249, 86, 0.7) !important;
+}
+
+.shadow-blue {
+    box-shadow: 2px -1px 50px rgba(13, 71, 161, 0.7) !important;
+}
