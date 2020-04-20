@@ -33,7 +33,258 @@ namespace Corp.Cencosud.Supermercados.Sua.IWMS.Web.Controllers
         {
             try
             {
-                var cookie = Request.Cookies["user"]["usuario"];
+#if DEBUG
+                var cookie = @"{
+  'id': 23,
+  'usuarioAD': 'LAPTOP-JGKUEF1C\\JOAN',
+  'legajo': '6221',
+  'apellido': 'Rotbard',
+  'nombre': 'Joan                                              ',
+  'fhAlta': '2020-04-19T21:10:24.693',
+  'fhBaja': null,
+  'usuario': '6221',
+  'ts': '2020-04-19T21:10:24.693',
+  'email': null,
+  'estado': 'A',
+  'perfiles': [
+    {
+      'id': 32,
+      'idRegion': 1,
+      'idAplicacion': 'INV',
+      'descripcion': 'Inventario Adm BA',
+      'idEstado': 'A',
+      'usuario': 'Cencosud\\EA0344',
+      'ts': '2019-05-15T16:11:31.527',
+      'aplicacion': {
+        'id': 'INV',
+        'descripcion': 'Inventario',
+        'accesos': 'S',
+        'ts': '2019-05-15T00:00:00',
+        'esPocket': false,
+        'tooltip': null,
+        'imagen': null,
+        'url': null,
+        'acciones': [
+          {
+            'id': 11,
+            'idAplicacion': 'INV',
+            'descripcion': 'INV_ADM',
+            'idEstado': 'A',
+            'usuario': 'Cencosud\\EA0344',
+            'ts': '2019-05-15T16:10:19.927',
+            'estado': 0
+          },
+          {
+            'id': 12,
+            'idAplicacion': 'INV',
+            'descripcion': 'INV_USR',
+            'idEstado': 'A',
+            'usuario': 'Cencosud\\EA0344',
+            'ts': '2019-05-15T16:10:36.283',
+            'estado': 0
+          }
+        ],
+        'estado': 0,
+        'menus': null,
+        'perfiles': null
+      },
+      'estado': 0,
+      'region': {
+        'id': 1,
+        'descripcion': 'Buenos Aires',
+        'descripcionCorta': 'BA'
+      },
+      'acciones': [
+        {
+          'id': 11,
+          'idAplicacion': 'INV',
+          'descripcion': 'INV_ADM',
+          'idEstado': 'A',
+          'usuario': 'Cencosud\\EA0344',
+          'ts': '2019-05-15T16:10:19.927',
+          'aplicacion': {
+            'id': 'INV',
+            'descripcion': 'Inventario',
+            'accesos': 'S',
+            'ts': '2019-05-15T00:00:00',
+            'esPocket': false,
+            'tooltip': null,
+            'imagen': null,
+            'url': null,
+            'acciones': [
+              {
+                'id': 12,
+                'idAplicacion': 'INV',
+                'descripcion': 'INV_USR',
+                'idEstado': 'A',
+                'usuario': 'Cencosud\\EA0344',
+                'ts': '2019-05-15T16:10:36.283',
+                'estado': 0
+              }
+            ],
+            'estado': 0,
+            'menus': null,
+            'perfiles': null
+          },
+          'estado': 0
+        }
+      ]
+    },
+    {
+      'id': 33,
+      'idRegion': 1,
+      'idAplicacion': 'INV',
+      'descripcion': 'Inventario Usuario BA',
+      'idEstado': 'A',
+      'usuario': 'Cencosud\\EA0344',
+      'ts': '2019-05-15T16:12:01.457',
+      'aplicacion': {
+        'id': 'INV',
+        'descripcion': 'Inventario',
+        'accesos': 'S',
+        'ts': '2019-05-15T00:00:00',
+        'esPocket': false,
+        'tooltip': null,
+        'imagen': null,
+        'url': null,
+        'acciones': [
+          {
+            'id': 11,
+            'idAplicacion': 'INV',
+            'descripcion': 'INV_ADM',
+            'idEstado': 'A',
+            'usuario': 'Cencosud\\EA0344',
+            'ts': '2019-05-15T16:10:19.927',
+            'estado': 0
+          },
+          {
+            'id': 12,
+            'idAplicacion': 'INV',
+            'descripcion': 'INV_USR',
+            'idEstado': 'A',
+            'usuario': 'Cencosud\\EA0344',
+            'ts': '2019-05-15T16:10:36.283',
+            'estado': 0
+          }
+        ],
+        'estado': 0,
+        'menus': null,
+        'perfiles': null
+      },
+      'estado': 0,
+      'region': {
+        'id': 1,
+        'descripcion': 'Buenos Aires',
+        'descripcionCorta': 'BA'
+      },
+      'acciones': [
+        {
+          'id': 12,
+          'idAplicacion': 'INV',
+          'descripcion': 'INV_USR',
+          'idEstado': 'A',
+          'usuario': 'Cencosud\\EA0344',
+          'ts': '2019-05-15T16:10:36.283',
+          'aplicacion': {
+            'id': 'INV',
+            'descripcion': 'Inventario',
+            'accesos': 'S',
+            'ts': '2019-05-15T00:00:00',
+            'esPocket': false,
+            'tooltip': null,
+            'imagen': null,
+            'url': null,
+            'acciones': [
+              {
+                'id': 11,
+                'idAplicacion': 'INV',
+                'descripcion': 'INV_ADM',
+                'idEstado': 'A',
+                'usuario': 'Cencosud\\EA0344',
+                'ts': '2019-05-15T16:10:19.927',
+                'estado': 0
+              }
+            ],
+            'estado': 0,
+            'menus': null,
+            'perfiles': null
+          },
+          'estado': 0
+        }
+      ]
+    }
+  ],
+  'aplicaciones': [
+    {
+      'id': 'INV',
+      'descripcion': 'Inventario',
+      'accesos': 'S',
+      'ts': '2019-05-15T00:00:00',
+      'esPocket': false,
+      'tooltip': null,
+      'imagen': null,
+      'url': null,
+      'acciones': [
+        {
+          'id': 11,
+          'idAplicacion': 'INV',
+          'descripcion': 'INV_ADM',
+          'idEstado': 'A',
+          'usuario': 'Cencosud\\EA0344',
+          'ts': '2019-05-15T16:10:19.927',
+          'estado': 0
+        },
+        {
+          'id': 12,
+          'idAplicacion': 'INV',
+          'descripcion': 'INV_USR',
+          'idEstado': 'A',
+          'usuario': 'Cencosud\\EA0344',
+          'ts': '2019-05-15T16:10:36.283',
+          'estado': 0
+        }
+      ],
+      'estado': 0,
+      'menus': null,
+      'perfiles': null
+    },
+    {
+      'id': 'INV',
+      'descripcion': 'Inventario',
+      'accesos': 'S',
+      'ts': '2019-05-15T00:00:00',
+      'esPocket': false,
+      'tooltip': null,
+      'imagen': null,
+      'url': null,
+      'acciones': [
+        {
+          'id': 11,
+          'idAplicacion': 'INV',
+          'descripcion': 'INV_ADM',
+          'idEstado': 'A',
+          'usuario': 'Cencosud\\EA0344',
+          'ts': '2019-05-15T16:10:19.927',
+          'estado': 0
+        },
+        {
+          'id': 12,
+          'idAplicacion': 'INV',
+          'descripcion': 'INV_USR',
+          'idEstado': 'A',
+          'usuario': 'Cencosud\\EA0344',
+          'ts': '2019-05-15T16:10:36.283',
+          'estado': 0
+        }
+      ],
+      'estado': 0,
+      'menus': null,
+      'perfiles': null
+    }
+  ]
+}";
+#endif
+                //var cookie = Request.Cookies["user"]["usuario"];
 
                 var user = JsonConvert.DeserializeObject<UsuarioVM>(cookie);
 
