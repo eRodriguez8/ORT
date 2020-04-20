@@ -10,7 +10,7 @@ using System.Web.Http.Description;
 namespace Corp.Cencosud.Supermercados.Sua.Accesos.Api.Controllers
 {
     [RoutePrefix("api/v1/AppContext")]
-    [Authorize]
+    
     public class AppContextController : ApiController
     {
         private readonly IAppContextBiz _appContextBiz;

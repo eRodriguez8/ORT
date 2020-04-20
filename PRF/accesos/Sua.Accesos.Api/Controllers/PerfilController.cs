@@ -13,7 +13,6 @@ using System.Web.Http.Description;
 namespace Corp.Cencosud.Supermercados.Sua.Accesos.Api.Controllers
 {
     [RoutePrefix("api/v1/Perfiles")]
-    [Authorize]
     public class PerfilController : ApiController
     {
         private readonly IPerfilBiz _perfilBiz;

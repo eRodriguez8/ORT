@@ -12,7 +12,6 @@ using System.Web.Http;
 namespace Corp.Cencosud.Supermercados.Sua.Accesos.Api.Controllers
 {
     [RoutePrefix("api/v1/Acciones")]
-    [Authorize]
     public class AccionesController : ApiController
     {
         private readonly IAccionBiz _accionesBiz;
