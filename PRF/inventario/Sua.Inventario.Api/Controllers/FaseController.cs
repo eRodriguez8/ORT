@@ -10,7 +10,6 @@ using System.Web.Http;
 namespace Corp.Cencosud.Supermercados.Sua.Inventario.Api.Controllers
 {
     [RoutePrefix("api/v1/Fase")]
-    [Authorize]
     public class FaseController : ApiController
     {
         [HttpGet, Route("", Name = "Get")]

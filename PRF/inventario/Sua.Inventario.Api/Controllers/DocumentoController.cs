@@ -9,7 +9,6 @@ using System.Web.Http;
 namespace Corp.Cencosud.Supermercados.Sua.Inventario.Api.Controllers
 {
     [RoutePrefix("api/v1/Documento")]
-    [Authorize]
     public class DocumentoController : ApiController
     {
         private readonly IDocumentoBiz _documentoBiz;

@@ -15,7 +15,6 @@ using System.Transactions;
 namespace Corp.Cencosud.Supermercados.Sua.Inventario.Api.Controllers
 {
     [RoutePrefix("api/v1/Posicion")]
-    [Authorize]
     public class PosicionesController : ApiController
     {
         private readonly IPosicionesBiz _posBiz;

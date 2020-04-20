@@ -7,7 +7,6 @@ using System.Web.Http;
 namespace Corp.Cencosud.Supermercados.Sua.Inventario.Api.Controllers
 {
     [RoutePrefix("api/v1/CC")]
-    [Authorize]
     public class CCController : ApiController
     {
         private readonly ICCBiz _ccBiz;

@@ -22,4 +22,8 @@ const appRoutes: Routes = [
 })
 export class AppRoutingModule {
 
+    ngOnInit() {
+        console.log('a')
+    }
+
 }

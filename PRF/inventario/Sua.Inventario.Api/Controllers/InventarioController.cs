@@ -13,7 +13,6 @@ using Corp.Cencosud.Supermercados.Sua.Inventario.Biz;
 namespace Corp.Cencosud.Supermercados.Sua.Inventario.Api.Controllers
 {
     [RoutePrefix("api/v1/Inventario")]
-    [Authorize]
     public class InventarioController : ApiController
     {
         private readonly IInventarioBiz _invBiz;
