@@ -17,5 +17,6 @@ namespace Corp.Cencosud.Supermercados.Sua.Inventario.Biz.Interfaces
         string CancelarDocumentoxId(int idDoc);
         string ControlForzado(int idDoc);
         string UpdateEstadoSega(int idDoc);
+        Documento GetByLegajo(string legajo);
     }
 }

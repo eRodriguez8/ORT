@@ -200,5 +200,17 @@ namespace Corp.Cencosud.Supermercados.Sua.Inventario.Biz
 
             return "OK";
         }
+
+        public Documento GetByLegajo(string legajo)
+        {
+            var documento = _unitOfWorkOfCDsDB.INV_dDocumentosRepository.Get(x => x.LegajoAsignado == legajo,
+                includeProperties: "INV_dPosiciones").SingleOrDefault();
+            if (documento == null)
+                return null;
+            var docModel = documento.ToModel();
+            docModel.lTotales = docModel.posiciones.Where(x => String.IsNullOrEmpty(x.usuario)).Count();
+            docModel.lContadas = docModel.posiciones.Where(x => !String.IsNullOrEmpty(x.usuario)).Count();
+            return docModel;
+        }
     }
 }

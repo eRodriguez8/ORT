@@ -24,6 +24,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -209,18 +210,22 @@
     <Compile Include="Controllers\DocumentoController.cs" />
     <Compile Include="Controllers\CCController.cs" />
     <Compile Include="Controllers\FaseController.cs" />
+    <Compile Include="Controllers\ConteoSegaController.cs" />
     <Compile Include="Controllers\PosicionesController.cs" />
     <Compile Include="Controllers\InventarioController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\LogException.cs" />
+    <Compile Include="Helpers\Mapper.cs" />
     <Compile Include="Helpers\ValidateModelAttribute.cs" />
+    <Compile Include="Models\DocumentoAM.cs" />
     <Compile Include="Models\DocFiltroAM.cs" />
     <Compile Include="Models\FiltroEA.cs" />
     <Compile Include="Models\FaseAM.cs" />
     <Compile Include="Models\ImportarAM.cs" />
     <Compile Include="Models\InventarioAM.cs" />
+    <Compile Include="Models\PosicionAM.cs" />
     <Compile Include="Security.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
