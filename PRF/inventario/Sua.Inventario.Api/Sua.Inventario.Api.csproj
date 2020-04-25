@@ -225,6 +225,7 @@
     <Compile Include="Models\FaseAM.cs" />
     <Compile Include="Models\ImportarAM.cs" />
     <Compile Include="Models\InventarioAM.cs" />
+    <Compile Include="Models\ConteoAM.cs" />
     <Compile Include="Models\PosicionAM.cs" />
     <Compile Include="Security.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

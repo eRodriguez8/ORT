@@ -8,20 +8,18 @@ namespace Corp.Cencosud.Supermercados.Sua.Inventario.Api.Models
 {
     public class PosicionAM
     {
-        public int id { get; set; }
-        public string sector { get; set; }
-        public string pasillo { get; set; }
-        public string columna { get; set; }
-        public string nivel { get; set; }
-        public string compart { get; set; }
-        public string etiqueta { get; set; }
+        public int? Id { get; set; }
+        public int CajasSueltas { get; set; }
+        public string Tipoinventario { get; set; }
+        public int idDocumento { get; set; }
+        public string UsuarioInventario { get; set; }
+        public string Usuario { get; set; }
+        public string Ubicacion { get; set; }
+        public string Articulo { get; set; }
+        public string Observaciones { get; set; }
+        public string Digito { get; set; }
+        public double Camadas { get; set; }
+        public double? iCxHActual { get; set; }
 
-        public string dun14 { get; set; } // TODO: ver si va
-        public string ean13 { get; set; }
-        public string descripcion { get; set; } 
-
-        public string cxh { get; set; }
-        public string bultos { get; set; }
-        public string tipoinventario { get; set; }
     }
 }

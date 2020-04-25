@@ -7,7 +7,7 @@ using System;
 
 namespace Corp.Cencosud.Supermercados.Sua.Inventario.Biz
 {
-    public class PosicionesBiz : BaseBiz, IPosicionesBiz
+    public partial class PosicionesBiz : BaseBiz, IPosicionesBiz
     {
         protected IUOW_CDsDB _unitOfWorkOfCDsDB { get; }
 
@@ -31,6 +31,38 @@ namespace Corp.Cencosud.Supermercados.Sua.Inventario.Biz
         public void ImpactarSega(int idDoc)
         {
             _unitOfWorkOfCDsDB.sp_ImpactarSega(idDoc);
+        }
+
+        public string UpdatePosicion(PosicionUpdate posicion)
+        {
+            posicion.codigoArticulo = posicion.digito.Equals(".") ? posicion.codigoArticulo = "(-.-)" : posicion.codigoArticulo;
+            if (posicion.tipoInventario.ToUpper() == TipoInventarios.Camadas.ToString().ToUpper())
+            {
+                posicion.bultosInv = (posicion.camadas * posicion.iCxHActual) + posicion.cajasSueltas;
+                posicion.cajasSueltasInv = posicion.cajasSueltas;
+                posicion.hxPInv = (int)posicion.camadas;
+            }
+            else
+            {
+                posicion.bultosInv = posicion.camadas;
+                posicion.cajasSueltasInv = 0;
+                posicion.hxPInv = 0;
+            }
+            try
+            {
+                var resUpdate = _unitOfWorkOfCDsDB.Sp_Update_Posicion(posicion.id, posicion.usuario, posicion.digito, posicion.bultosInv, posicion.usuarioInventario,
+                    posicion.hxPInv, posicion.cajasSueltasInv, posicion.observaciones, posicion.codigoArticulo);
+            
+                if ( resUpdate && posicion.registroCargado == posicion.registroTotal)
+                {
+                    return _unitOfWorkOfCDsDB.sp_ControlAutomatico(posicion.idDocumento);
+                }
+                return "";
+            }
+            catch(Exception ex)
+            {
+                return ex.Message;
+            }
         }
     }
 }

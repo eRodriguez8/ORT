@@ -13,15 +13,12 @@ namespace Corp.Cencosud.Supermercados.Sua_Inventario.Dal
         IGenericRepository<INV_dInventario, CDsEntities> INV_dInventarioRepository { get; }
         IGenericRepository<INV_dDocumentos, CDsEntities> INV_dDocumentosRepository { get; }
         IGenericRepository<INV_dCCsActivos, CDsEntities> INV_dCCsActivosRepository { get; }
-
         string Sp_ControlForzado(int iddoc);
-
         List<INV_EstadoActual_Result> Sp_ReporteInventario(int id, int? fase);
         void sp_ImpactarSega(int idDoc);
-
-
+        bool Sp_Update_Posicion(Nullable<int> id, string usuario, string digito, Nullable<double> bultosInv, string usuarioInventario, Nullable<int> hxPInv, Nullable<int> cajasSueltasInv, string observaciones, string codigoArticulo);
         void Dispose();
-
+        string sp_ControlAutomatico(int idDoc);
         void Save();
     }
 }

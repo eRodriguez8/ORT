@@ -93,6 +93,7 @@
     <Compile Include="InventarioBiz.cs" />
     <Compile Include="SeguridadBiz.cs" />
     <Compile Include="DocumentoBiz.cs" />
+    <Compile Include="TipoInventarios.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

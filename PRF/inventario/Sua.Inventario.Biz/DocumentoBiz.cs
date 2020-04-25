@@ -203,7 +203,7 @@ namespace Corp.Cencosud.Supermercados.Sua.Inventario.Biz
 
         public Documento GetByLegajo(string legajo)
         {
-            var documento = _unitOfWorkOfCDsDB.INV_dDocumentosRepository.Get(x => x.LegajoAsignado == legajo,
+            var documento = _unitOfWorkOfCDsDB.INV_dDocumentosRepository.Get(x => x.LegajoAsignado == legajo && x.Estado == (int)Estado.Iniciado,
                 includeProperties: "INV_dPosiciones").SingleOrDefault();
             if (documento == null)
                 return null;

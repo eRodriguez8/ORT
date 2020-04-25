@@ -80,6 +80,10 @@ namespace Corp.Cencosud.Supermercados.Sua_Inventario.Dal
             }
         }
 
+        public bool Sp_Update_Posicion(Nullable<int> id, string usuario, string digito, Nullable<double> bultosInv, string usuarioInventario, Nullable<int> hxPInv, Nullable<int> cajasSueltasInv, string observaciones, string codigoArticulo)
+        {
+            return _CDsDBContext.INV_dPosiciones_Update(id, usuario, digito, bultosInv, usuarioInventario, hxPInv, cajasSueltasInv, observaciones, codigoArticulo).SingleOrDefault().Value;
+        }
 
         public string Sp_ControlForzado(int iddoc)
         {
@@ -117,5 +121,11 @@ namespace Corp.Cencosud.Supermercados.Sua_Inventario.Dal
         {
             _CDsDBContext.INV_dPosiciones_AjusteSega(idDoc);
         }
+
+        public string sp_ControlAutomatico(int idDoc)
+        {
+            return _CDsDBContext.INV_dPosiciones_ValidarYCrearControles(idDoc).SingleOrDefault();
+        }
+        
     }
 }

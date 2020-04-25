@@ -67,6 +67,7 @@
     <Compile Include="Enums\Fase.cs" />
     <Compile Include="Inventario.cs" />
     <Compile Include="Documento.cs" />
+    <Compile Include="PosicionUpdate.cs" />
     <Compile Include="Posicion.cs" />
     <Compile Include="EntityMapper\AutoMapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
