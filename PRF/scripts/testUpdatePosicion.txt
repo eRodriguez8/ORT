@@ -1,0 +1,63 @@
+{
+  "id": 10416,
+  "idDocumento": 1752,
+  "usuario": "swagger",
+  "usuarioInventario": "ema",
+  "digito": ".",
+  "cajasSueltas": 5,
+  "tipoinventario": "Bultos",
+  "observaciones": "string",
+  "camadas": 2,
+  "iCxHActual": 2,
+  "registroCargado": 1,
+  "registroTotal": 4,
+  "articulo": "1234566789"
+}
+
+{
+  "id": 10417,
+  "idDocumento": 1752,
+  "usuario": "swagger",
+  "usuarioInventario": "ema",
+  "digito": "ESTANTE53533",
+  "cajasSueltas": 5,
+  "tipoinventario": "Bultos",
+  "observaciones": "string",
+  "camadas": 2,
+  "iCxHActual": 2,
+  "registroCargado": 2,
+  "registroTotal": 4,
+  "articulo": "07793440000220"
+}
+
+{
+  "id": 10418,
+  "idDocumento": 1752,
+  "usuario": "swagger",
+  "usuarioInventario": "ema",
+  "digito": "ESTANTE44073",
+  "cajasSueltas": 5,
+  "tipoinventario": "Bultos",
+  "observaciones": "string",
+  "camadas": 2,
+  "iCxHActual": 2,
+  "registroCargado": 3,
+  "registroTotal": 4,
+  "articulo": "07793440000220"
+}
+
+{
+  "id": 10419,
+  "idDocumento": 1752,
+  "usuario": "swagger",
+  "usuarioInventario": "ema",
+  "digito": "ESTANTE44073",
+  "cajasSueltas": 5,
+  "tipoinventario": "Bultos",
+  "observaciones": "string",
+  "camadas": 2,
+  "iCxHActual": 2,
+  "registroCargado": 4,
+  "registroTotal": 4,
+  "articulo": "07793440000220"
+}
