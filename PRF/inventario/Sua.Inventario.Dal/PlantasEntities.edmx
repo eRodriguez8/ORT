@@ -5,8 +5,8 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="CDsContext.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'CDs.dbo.INV_dCCsActivos' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'CDs.dbo.INV_dCCsActivos' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
         <EntityType Name="INV_dCCsActivos">
           <Key>
             <PropertyRef Name="id" />
@@ -131,6 +131,9 @@ warning 6002: The table/view 'CDs.dbo.INV_dCCsActivos' does not have a primary k
         <Function Name="INV_dPosiciones_CrearControlForzado" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="idDoc" Type="int" Mode="In" />
         </Function>
+        <Function Name="INV_dPosiciones_ReiniciarDocumento" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idDoc" Type="int" Mode="In" />
+        </Function>
         <Function Name="INV_dPosiciones_Update" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
           <Parameter Name="Usuario" Type="nvarchar" Mode="In" />
@@ -214,6 +217,9 @@ warning 6002: The table/view 'CDs.dbo.INV_dCCsActivos' does not have a primary k
             <Parameter Name="CajasSueltasInv" Mode="In" Type="Int32" />
             <Parameter Name="Observaciones" Mode="In" Type="String" />
             <Parameter Name="CodigoArticulo" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="INV_dPosiciones_ReiniciarDocumento" ReturnType="Collection(Boolean)">
+            <Parameter Name="idDoc" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
         <EntityType Name="INV_dInventario">
@@ -479,6 +485,7 @@ warning 6002: The table/view 'CDs.dbo.INV_dCCsActivos' does not have a primary k
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="INV_dPosiciones_AjusteSega" FunctionName="CDsContext.Store.INV_dPosiciones_AjusteSega" />
           <FunctionImportMapping FunctionImportName="INV_dPosiciones_Update" FunctionName="CDsContext.Store.INV_dPosiciones_Update" />
+          <FunctionImportMapping FunctionImportName="INV_dPosiciones_ReiniciarDocumento" FunctionName="CDsContext.Store.INV_dPosiciones_ReiniciarDocumento" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

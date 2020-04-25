@@ -25,7 +25,6 @@ namespace Corp.Cencosud.Supermercados.Sua.Inventario.Api.Controllers
             _posBiz = posBiz;
         }
 
-
         [HttpGet, Route("{legajo}", Name = "xLegajo")]
         [SwaggerResponse(HttpStatusCode.OK, Type = typeof(Documento))]
         [SwaggerResponse(HttpStatusCode.BadRequest)]
@@ -44,10 +43,10 @@ namespace Corp.Cencosud.Supermercados.Sua.Inventario.Api.Controllers
             return Ok(docAm);
         }
 
-        [HttpPut, Route("{posicion}", Name = "xPosicion")]
-        [SwaggerResponse(HttpStatusCode.OK, Type = typeof(Documento))]
+        [HttpPut, Route("xPosicion", Name = "xPosicion")]
+        [SwaggerResponse(HttpStatusCode.OK, Type = typeof(PosicionAM))]
         [SwaggerResponse(HttpStatusCode.BadRequest)]
-        public IHttpActionResult UpdatePosicion(PosicionAM posAm)
+        public IHttpActionResult UpdatePosicion([FromBody]PosicionAM posAm)
         {
             if (!ModelState.IsValid)
                 return BadRequest("posicion invalida");
@@ -55,6 +54,14 @@ namespace Corp.Cencosud.Supermercados.Sua.Inventario.Api.Controllers
             var posicion = Mapper.GetBindedModel<PosicionUpdate>(posAm);
 
             return Ok(_posBiz.UpdatePosicion(posicion));
+        }
+
+        [HttpPut, Route("{idDoc}", Name = "xIdDoc")]
+        [SwaggerResponse(HttpStatusCode.OK)]
+        [SwaggerResponse(HttpStatusCode.BadRequest)]
+        public IHttpActionResult ResetDocumento(int idDoc)
+        {
+            return Ok(_posBiz.ResetPosicion(idDoc));
         }
     }
 }

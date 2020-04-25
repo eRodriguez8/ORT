@@ -126,6 +126,10 @@ namespace Corp.Cencosud.Supermercados.Sua_Inventario.Dal
         {
             return _CDsDBContext.INV_dPosiciones_ValidarYCrearControles(idDoc).SingleOrDefault();
         }
-        
+
+        public bool sp_ResetDocumento(int idDoc)
+        {
+            return _CDsDBContext.INV_dPosiciones_ReiniciarDocumento(idDoc).SingleOrDefault().Value;
+        }
     }
 }

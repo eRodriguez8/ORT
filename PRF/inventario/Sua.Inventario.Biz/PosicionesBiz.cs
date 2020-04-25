@@ -20,6 +20,7 @@ namespace Corp.Cencosud.Supermercados.Sua.Inventario.Biz
         {
             return _unitOfWorkOfCDsDB.INV_dPosicionesRepository.Get(x => x.idDocumento == idDoc).ToList().ToModel();
         }
+
         public List<Posicion> GetAllxFiltros(string pasillo, double? columna, double? nivel,int idDoc)
         {
             return _unitOfWorkOfCDsDB.INV_dPosicionesRepository.Get(x => x.idDocumento == idDoc && 
@@ -35,7 +36,7 @@ namespace Corp.Cencosud.Supermercados.Sua.Inventario.Biz
 
         public string UpdatePosicion(PosicionUpdate posicion)
         {
-            posicion.codigoArticulo = posicion.digito.Equals(".") ? posicion.codigoArticulo = "(-.-)" : posicion.codigoArticulo;
+            posicion.codigoArticulo = posicion.digito.Equals(".") ? posicion.codigoArticulo = "(-.-)" : posicion.articulo;
             if (posicion.tipoInventario.ToUpper() == TipoInventarios.Camadas.ToString().ToUpper())
             {
                 posicion.bultosInv = (posicion.camadas * posicion.iCxHActual) + posicion.cajasSueltas;
@@ -63,6 +64,11 @@ namespace Corp.Cencosud.Supermercados.Sua.Inventario.Biz
             {
                 return ex.Message;
             }
+        }
+
+        public bool ResetPosicion(int idDoc)
+        {
+            return _unitOfWorkOfCDsDB.sp_ResetDocumento(idDoc);
         }
     }
 }

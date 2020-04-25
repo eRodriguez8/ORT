@@ -87,5 +87,20 @@ namespace Sua.Inventario.Test.Biz.Fakes
         public void sp_ImpactarSega(int idDoc)
         {
         }
+
+        public bool Sp_Update_Posicion(int? id, string usuario, string digito, double? bultosInv, string usuarioInventario, int? hxPInv, int? cajasSueltasInv, string observaciones, string codigoArticulo)
+        {
+            throw new NotImplementedException();
+        }
+
+        public string sp_ControlAutomatico(int idDoc)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool sp_ResetDocumento(int idDoc)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

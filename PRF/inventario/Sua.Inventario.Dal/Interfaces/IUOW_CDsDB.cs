@@ -19,6 +19,7 @@ namespace Corp.Cencosud.Supermercados.Sua_Inventario.Dal
         bool Sp_Update_Posicion(Nullable<int> id, string usuario, string digito, Nullable<double> bultosInv, string usuarioInventario, Nullable<int> hxPInv, Nullable<int> cajasSueltasInv, string observaciones, string codigoArticulo);
         void Dispose();
         string sp_ControlAutomatico(int idDoc);
+        bool sp_ResetDocumento(int idDoc);
         void Save();
     }
 }
