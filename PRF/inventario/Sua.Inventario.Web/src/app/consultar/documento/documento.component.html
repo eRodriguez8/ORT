@@ -1,12 +1,14 @@
 <div *ngIf="!documentoId">
   <div class="row">
-    <div class="col-sm-9 col-12 padding-10"><i class="fa fa-file"></i> <span> Documentos del Inventario
-        {{idInventario}}</span></div>
-    <div class="col-sm-3 col-12">
-      <button type="submit" class="btn btn-outline-primary btn-sm" (click)="volver()">
-        <i class="fa fa-close"></i> Volver
-      </button>
-    </div>
+      <div class="col-sm-12 col-12 padding-10">
+        <button type="submit" class="btn btn-outline-primary btn-sm" (click)="volver()">
+          <i class="fa fa-arrow-left"></i> Volver
+        </button>
+      </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12 col-12 padding-10"><i class="fa fa-file"></i> <span> Documentos del Inventario
+        {{idInventario}}</span></div>    
   </div>
   <app-filtrosDocumentos [padre]="componente" (filtroDataDoc)="obtenerFiltrosDoc($event)"></app-filtrosDocumentos>
   <div class="widget-header bordered-bottom bordered-blue">
@@ -15,7 +17,7 @@
     </span>
     <a class='widget-caption ml-4' (click)='descargarInventario(idInventario)'>
       <i class='widget-icon fa fa-download'></i>
-      Descargar
+      Descargar Inventario
     </a>
     <div class="widget-buttons">
       <a data-toggle="collapse" href="#widegetDetalle" role="button" aria-expanded="false"
@@ -54,7 +56,7 @@
       <tbody>
         <tr *ngFor="let doc of documentos">
           <td>
-            <img src="assets/images/documento.png" title="Consultar" alt="Consultar" (click)="consultarDoc(doc.id, doc.impactadoSega, doc.fase)" />
+            <img class="clickeable" src="assets/images/documento.png" title="Consultar" alt="Consultar" (click)="consultarDoc(doc.id, doc.impactadoSega, doc.fase)" />
           </td>
           <td>
             <a class='widget-caption' (click)='descargarPosicion(doc.id)'>

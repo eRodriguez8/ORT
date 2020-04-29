@@ -17,7 +17,7 @@ namespace Corp.Cencosud.Supermercados.Sua.Inventario.Api.Controllers
         [SwaggerResponse(HttpStatusCode.BadRequest)]
         public IHttpActionResult Get()
         {
-            var result = Enum.GetValues(typeof(Fase)).Cast<Fase>().Select(x => new FaseAM()
+            var result = Enum.GetValues(typeof(Fase)).Cast<Fase>().Where(x => (int)x != 2).Select(x => new FaseAM()
             {
                 id = (int)x,
                 descripcion = x.ToString()

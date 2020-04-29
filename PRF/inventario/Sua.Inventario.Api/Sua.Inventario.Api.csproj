@@ -16,7 +16,7 @@
     <RootNamespace>Corp.Cencosud.Supermercados.Sua.Inventario.Api</RootNamespace>
     <AssemblyName>Corp.Cencosud.Supermercados.Sua.Inventario.Api</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
-    <UseIISExpress>false</UseIISExpress>
+    <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />

@@ -129,6 +129,9 @@
     color: #ffffff !important;
 }
 
+.clickeable{
+    cursor: pointer;
+}
 
 .btn-ripple {
     position: relative;
