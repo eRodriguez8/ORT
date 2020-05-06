@@ -40,8 +40,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3.Test", "3.Test", "{019059
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sua.Inventario.Test", "Sua.Inventario.Test\Sua.Inventario.Test.csproj", "{5F404B36-E44F-483A-9213-07CF53CAB94D}"
 EndProject
-Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "Sua.Inventario.DB", "Sua.Inventario.DB\Sua.Inventario.DB.sqlproj", "{4968E4BA-ECD1-4C99-9101-7604CFF84B99}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -106,11 +104,6 @@ Global
 		{5F404B36-E44F-483A-9213-07CF53CAB94D}.PROD|Any CPU.Build.0 = Release|Any CPU
 		{5F404B36-E44F-483A-9213-07CF53CAB94D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5F404B36-E44F-483A-9213-07CF53CAB94D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4968E4BA-ECD1-4C99-9101-7604CFF84B99}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4968E4BA-ECD1-4C99-9101-7604CFF84B99}.DESA|Any CPU.ActiveCfg = Debug|Any CPU
-		{4968E4BA-ECD1-4C99-9101-7604CFF84B99}.IDE|Any CPU.ActiveCfg = Debug|Any CPU
-		{4968E4BA-ECD1-4C99-9101-7604CFF84B99}.PROD|Any CPU.ActiveCfg = Debug|Any CPU
-		{4968E4BA-ECD1-4C99-9101-7604CFF84B99}.Release|Any CPU.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -122,7 +115,6 @@ Global
 		{6482B889-7F85-4139-A7AD-177F4DEE826D} = {B562F372-E175-42A3-A7BF-5330788447E6}
 		{FC12250E-1476-4597-9DBE-B65A0E399011} = {92159B45-C45A-4F23-8D44-F0BE749CDBD1}
 		{5F404B36-E44F-483A-9213-07CF53CAB94D} = {01905970-2BD9-4031-85BB-A03A1DDDD3AA}
-		{4968E4BA-ECD1-4C99-9101-7604CFF84B99} = {B562F372-E175-42A3-A7BF-5330788447E6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {FBC7F0C1-B6F7-4F4B-80D5-0EBB6AB7F5CE}
