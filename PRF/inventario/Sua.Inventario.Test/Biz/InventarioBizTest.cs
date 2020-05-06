@@ -27,7 +27,6 @@ namespace Corp.Cencosud.Supermercados.Inventario.Test.Biz
             _FakeUOW_CDsDB = new FakeUOW_CDsDB();
             _FakeUOW_CDsDB.INV_dPosiciones = new List<INV_dPosiciones>();
             _FakeUOW_CDsDB.INV_dInventario = Inventarios();
-            _FakeUOW_CDsDB.INV_dDocumentos = DocumentoBizTest.documentos();
             _servicio = new InventarioBiz(_FakeUOW_CDsDB);
         }
 

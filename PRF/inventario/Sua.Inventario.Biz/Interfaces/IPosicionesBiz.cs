@@ -9,7 +9,6 @@ namespace Corp.Cencosud.Supermercados.Sua.Inventario.Biz.Interfaces
         List<Posicion> GetxDocumentoId(int idDoc);
         List<Posicion> GetAllxFiltros(string pasillo, double? columna, double? nivel,int idDoc);
         void ImpactarSega(int idDoc);
-        string UpdatePosicion(PosicionUpdate posicion);
         bool ResetPosicion(int idDoc);
     }
 }

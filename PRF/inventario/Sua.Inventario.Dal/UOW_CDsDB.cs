@@ -12,7 +12,6 @@ namespace Corp.Cencosud.Supermercados.Sua_Inventario.Dal
     /// </summary>
     public class UOW_CDsDB : IDisposable, IUOW_CDsDB
     {
-
         private readonly CDsEntities _CDsDBContext;
         private readonly ILog Logger;
 
@@ -28,8 +27,6 @@ namespace Corp.Cencosud.Supermercados.Sua_Inventario.Dal
         {
             get
             {
-
-
                 if (_INV_dPosicionesRepository == null)
                 {
                     _INV_dPosicionesRepository = new GenericRepository<INV_dPosiciones, CDsEntities>(_CDsDBContext);
@@ -43,8 +40,6 @@ namespace Corp.Cencosud.Supermercados.Sua_Inventario.Dal
         {
             get
             {
-
-
                 if (_INV_dInventarioRepository == null)
                 {
                     _INV_dInventarioRepository = new GenericRepository<INV_dInventario, CDsEntities>(_CDsDBContext);

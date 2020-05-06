@@ -80,14 +80,6 @@ namespace Corp.Cencosud.Supermercados.Sua.Inventario.Api.Controllers
             return Ok(result);
         }
 
-        [HttpPost, Route("Estado/", Name = "GetEstado")]
-        [SwaggerResponse(HttpStatusCode.OK, Type = typeof(List<Entities.ReporteInventario>))]
-        [SwaggerResponse(HttpStatusCode.BadRequest)]
-        public IHttpActionResult GetReporteInventario([FromBody] FiltroEA filtro)
-        {
-            var result = _invBiz.GetReporteInventario(filtro.id, filtro.fase);
-            return Ok(result);
-        }
         [HttpGet, Route("EstadoExcel/{id}", Name = "GetEstadoExcel")]
         [SwaggerResponse(HttpStatusCode.OK, Type = typeof(Json))]
         [SwaggerResponse(HttpStatusCode.BadRequest)]

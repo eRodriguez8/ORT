@@ -34,38 +34,6 @@ namespace Corp.Cencosud.Supermercados.Sua.Inventario.Biz
             _unitOfWorkOfCDsDB.sp_ImpactarSega(idDoc);
         }
 
-        public string UpdatePosicion(PosicionUpdate posicion)
-        {
-            posicion.codigoArticulo = posicion.digito.Equals(".") ? posicion.codigoArticulo = "(-.-)" : posicion.articulo;
-            if (posicion.tipoInventario.ToUpper() == TipoInventarios.Camadas.ToString().ToUpper())
-            {
-                posicion.bultosInv = (posicion.camadas * posicion.iCxHActual) + posicion.cajasSueltas;
-                posicion.cajasSueltasInv = posicion.cajasSueltas;
-                posicion.hxPInv = (int)posicion.camadas;
-            }
-            else
-            {
-                posicion.bultosInv = posicion.camadas;
-                posicion.cajasSueltasInv = 0;
-                posicion.hxPInv = 0;
-            }
-            try
-            {
-                var resUpdate = _unitOfWorkOfCDsDB.Sp_Update_Posicion(posicion.id, posicion.usuario, posicion.digito, posicion.bultosInv, posicion.usuarioInventario,
-                    posicion.hxPInv, posicion.cajasSueltasInv, posicion.observaciones, posicion.codigoArticulo);
-            
-                if ( resUpdate && posicion.registroCargado == posicion.registroTotal)
-                {
-                    return _unitOfWorkOfCDsDB.sp_ControlAutomatico(posicion.idDocumento);
-                }
-                return "";
-            }
-            catch(Exception ex)
-            {
-                return ex.Message;
-            }
-        }
-
         public bool ResetPosicion(int idDoc)
         {
             return _unitOfWorkOfCDsDB.sp_ResetDocumento(idDoc);
