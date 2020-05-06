@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.1022
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sua.Inventario.Api", "Sua.Inventario.Api\Sua.Inventario.Api.csproj", "{B55700C3-98AB-477E-88A8-94562B04CF29}"
 EndProject
@@ -39,12 +39,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3.Test", "3.Test", "{01905970-2BD9-4031-85BB-A03A1DDDD3AA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sua.Inventario.Test", "Sua.Inventario.Test\Sua.Inventario.Test.csproj", "{5F404B36-E44F-483A-9213-07CF53CAB94D}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4.Automation", "4.Automation", "{51593588-18BF-4BEA-B718-ACD407943FE9}"
-	ProjectSection(SolutionItems) = preProject
-		Automation\MailEntregaTemplate.html = Automation\MailEntregaTemplate.html
-		nuget\nuget.exe = nuget\nuget.exe
-	EndProjectSection
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "Sua.Inventario.DB", "Sua.Inventario.DB\Sua.Inventario.DB.sqlproj", "{4968E4BA-ECD1-4C99-9101-7604CFF84B99}"
 EndProject
@@ -129,5 +123,8 @@ Global
 		{FC12250E-1476-4597-9DBE-B65A0E399011} = {92159B45-C45A-4F23-8D44-F0BE749CDBD1}
 		{5F404B36-E44F-483A-9213-07CF53CAB94D} = {01905970-2BD9-4031-85BB-A03A1DDDD3AA}
 		{4968E4BA-ECD1-4C99-9101-7604CFF84B99} = {B562F372-E175-42A3-A7BF-5330788447E6}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FBC7F0C1-B6F7-4F4B-80D5-0EBB6AB7F5CE}
 	EndGlobalSection
 EndGlobal
