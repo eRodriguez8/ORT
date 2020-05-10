@@ -22,8 +22,16 @@ namespace Corp.Cencosud.Supermercados.Sua.Inventario.Biz
 
         public List<Documento> GetByIdInventario(int idInventario)
         {
-            var documentos = _unitOfWorkOfCDsDB.INV_dDocumentosRepository.Get(x => x.idInventario == idInventario).ToList();
-            return documentos.ToModel();
+            try
+            {
+                var documentos = _unitOfWorkOfCDsDB.INV_dDocumentosRepository.Get(x => x.idInventario == idInventario);
+                return documentos != null ? documentos.ToList().ToModel() : new List<Documento>();
+            }
+            catch (Exception ex)
+            {
+                var a = ex;
+                return new List<Documento>();
+            }
         }
 
         private INV_dDocumentos Get(int id)
@@ -55,9 +63,11 @@ namespace Corp.Cencosud.Supermercados.Sua.Inventario.Biz
 
         public void CancelarDocumentosxIdInventario(int idInventario)
         {
-            var docs = GetByIdInventario(idInventario).Where(x => x.estado == EstadoDocumento.Creado ||
+            var docs = GetByIdInventario(idInventario);
+            if(docs.Any()){
+                docs = docs.Where(x => x.estado == EstadoDocumento.Creado ||
                     x.estado == EstadoDocumento.Asignado).ToList();
-
+            }
             foreach (Documento doc in docs)
             {
                 doc.estado = EstadoDocumento.Cancelado;
