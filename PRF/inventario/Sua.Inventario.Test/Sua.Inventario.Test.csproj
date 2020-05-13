@@ -90,7 +90,6 @@
     <Compile Include="Biz\Fakes\FakeUOW_CDsDB.cs" />
     <Compile Include="Biz\AppContextBizTest.cs" />
     <Compile Include="Biz\DocumentoBizTest.cs" />
-    <Compile Include="Biz\PosicionesBizTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -211,7 +211,6 @@
     <Compile Include="Controllers\CCController.cs" />
     <Compile Include="Controllers\FaseController.cs" />
     <Compile Include="Controllers\ConteoSegaController.cs" />
-    <Compile Include="Controllers\PosicionesController.cs" />
     <Compile Include="Controllers\InventarioController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

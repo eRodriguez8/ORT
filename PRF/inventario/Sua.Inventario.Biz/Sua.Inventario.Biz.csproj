@@ -83,12 +83,10 @@
     <Compile Include="Interfaces\ICCBiz.cs" />
     <Compile Include="Interfaces\IExcelBiz.cs" />
     <Compile Include="Interfaces\IInventarioBiz.cs" />
-    <Compile Include="Interfaces\IPosicionesBiz.cs" />
     <Compile Include="Interfaces\ISeguridadBiz.cs" />
     <Compile Include="Exceptions\NotAllowedException.cs" />
     <Compile Include="Exceptions\NotFoundException.cs" />
     <Compile Include="Interfaces\IDocumentoBiz.cs" />
-    <Compile Include="PosicionesBiz.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="InventarioBiz.cs" />
     <Compile Include="DocumentoBiz.cs" />

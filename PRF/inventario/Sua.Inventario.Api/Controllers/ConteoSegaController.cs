@@ -17,12 +17,10 @@ namespace Corp.Cencosud.Supermercados.Sua.Inventario.Api.Controllers
     public class ConteoSegaController : ApiController
     {
         private readonly IDocumentoBiz _docBiz;
-        private readonly IPosicionesBiz _posBiz;
 
-        public ConteoSegaController(IDocumentoBiz docBiz, IPosicionesBiz posBiz)
+        public ConteoSegaController(IDocumentoBiz docBiz)
         {
             _docBiz = docBiz;
-            _posBiz = posBiz;
         }
 
         [HttpGet, Route("{legajo}", Name = "xLegajo")]
@@ -52,8 +50,8 @@ namespace Corp.Cencosud.Supermercados.Sua.Inventario.Api.Controllers
                 return BadRequest("posicion invalida");
 
             var posicion = Mapper.GetBindedModel<PosicionUpdate>(posAm);
-
-            return Ok(_posBiz.UpdatePosicion(posicion));
+            //_posBiz.UpdatePosicion(posicion) TODO
+            return Ok();
         }
 
         [HttpPut, Route("{idDoc}", Name = "xIdDoc")]
@@ -61,7 +59,8 @@ namespace Corp.Cencosud.Supermercados.Sua.Inventario.Api.Controllers
         [SwaggerResponse(HttpStatusCode.BadRequest)]
         public IHttpActionResult ResetDocumento(int idDoc)
         {
-            return Ok(_posBiz.ResetPosicion(idDoc));
+            //_posBiz.ResetPosicion(idDoc) TODO
+            return Ok();
         }
     }
 }

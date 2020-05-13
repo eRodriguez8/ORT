@@ -68,7 +68,6 @@ namespace Corp.Cencosud.Supermercados.Sua.Inventario.Api.App_Start
         {
             kernel.Bind<IInventarioBiz>().To<InventarioBiz>();
             kernel.Bind<ICCBiz>().To<CCBiz>();
-            kernel.Bind<IPosicionesBiz>().To<PosicionesBiz>();
             kernel.Bind<IDocumentoBiz>().To<DocumentoBiz>();
             kernel.Bind<IExcelBiz>().To<ExcelBiz>();
             kernel.Bind<IUOW_CDsDB>().To<UOW_CDsDB>().InRequestScope();
