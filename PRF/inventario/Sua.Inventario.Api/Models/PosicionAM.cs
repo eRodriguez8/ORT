@@ -21,6 +21,6 @@ namespace Corp.Cencosud.Supermercados.Sua.Inventario.Api.Models
         public int registroCargado { get; set; }
         public int registroTotal { get; set; }
         public string articulo { get; set; }
-
+        public string ubicacion { get; set; }
     }
 }

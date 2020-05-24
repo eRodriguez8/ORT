@@ -36,8 +36,11 @@ namespace Corp.Cencosud.Supermercados.Sua.Inventario.Api.Controllers
 
             var docAm = Mapper.GetBindedModel<DocumentoAM>(documento);
             docAm.posiciones = new List<PosicionAM>();
-            foreach (var pos in documento.posiciones) {
-                docAm.posiciones.Add(Mapper.GetBindedModel<PosicionAM>(pos));
+            foreach (var pos in documento.posiciones)
+            {
+                var posAm = Mapper.GetBindedModel<PosicionAM>(pos);
+                posAm.ubicacion = $"{pos.sector} - {pos.pasillo} - {pos.columna} -  {pos.compart}";
+                docAm.posiciones.Add(posAm);
             }
             
             return Ok(docAm);
