@@ -40,6 +40,8 @@ namespace Corp.Cencosud.Supermercados.Sua.Inventario.Api.Controllers
             {
                 var posAm = Mapper.GetBindedModel<PosicionAM>(pos);
                 posAm.ubicacion = $"{pos.sector} - {pos.pasillo} - {pos.columna} -  {pos.compart}";
+                posAm.tipoInventario = pos.tipoinventario;
+                posAm.articulo = pos.ean13;
                 docAm.posiciones.Add(posAm);
             }
             
