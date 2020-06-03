@@ -34,8 +34,6 @@ namespace Corp.Cencosud.Supermercados.Sua.Inventario.Api
                 HttpContext.Current.Response.AddHeader("Access-Control-Max-Age", "1728000");
                 HttpContext.Current.Response.End();
             }
-
         }
-
     }
 }

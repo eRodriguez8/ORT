@@ -192,6 +192,7 @@ namespace Corp.Cencosud.Supermercados.Sua.Inventario.Biz
                 return "error";
             }
         }
+
         public string UpdateEstadoSega(int idDoc)
         {
             var doc = Get(idDoc);

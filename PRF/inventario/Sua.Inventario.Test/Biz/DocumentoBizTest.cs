@@ -190,7 +190,7 @@ namespace Corp.Cencosud.Supermercados.Inventario.Test.Biz
             Assert.AreEqual(1, _FakeUOW_CDsDB.AccessCounterSave, "FakeUOW_CDsDB.AccessCounterSave");
             Assert.AreEqual(0, _FakeUOW_CDsDB.AccessCounterDispose, "FakeUOW_CDsDB.AccessCounterDispose");
             Assert.AreEqual(0, _FakeUOW_CDsDB.FakeINV_dDocumentosRepository.AccessCounterInsert, "FakeINV_dDocumentosRepository.AccessCounterInsert");
-            Assert.AreEqual(2, _FakeUOW_CDsDB.FakeINV_dDocumentosRepository.AccessCounterGet, "FakeINV_dDocumentosRepository.AccessCounterGet");
+            Assert.AreEqual(3, _FakeUOW_CDsDB.FakeINV_dDocumentosRepository.AccessCounterGet, "FakeINV_dDocumentosRepository.AccessCounterGet");
             Assert.AreEqual(0, _FakeUOW_CDsDB.FakeINV_dDocumentosRepository.AccessCounterQuery, "FakeINV_dDocumentosRepository.AccessCounterQuery");
             Assert.AreEqual(1, _FakeUOW_CDsDB.FakeINV_dDocumentosRepository.AccessCounterUpdate, "FakeINV_dDocumentosRepository.AccessCounterUpdate");
             Assert.AreEqual(0, _FakeUOW_CDsDB.FakeINV_dDocumentosRepository.AccessCounterDelete, "FakeINV_dDocumentosRepository.AccessCounterDelete");
