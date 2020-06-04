@@ -22,3 +22,7 @@ Publish/
 /Sua.Inventario.DB/Sua.Inventario.DB.dbmdl
 *.dbmdl
 *.jfm
+
+connectionStrings.config
+
+App.cofig
