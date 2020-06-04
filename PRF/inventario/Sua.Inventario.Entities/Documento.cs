@@ -17,6 +17,7 @@ namespace Corp.Cencosud.Supermercados.Sua.Inventario.Entities
         public EstadoDocumento estado { get; set; }
         public System.DateTime fecha { get; set; }
         public string usuario { get; set; }
+        public string usuarioinventario { get; set; }
 
         public int idInventario { get; set; }
         [JsonConverter(typeof(StringEnumConverter))]

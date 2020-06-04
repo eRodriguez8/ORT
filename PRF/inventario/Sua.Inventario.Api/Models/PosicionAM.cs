@@ -10,7 +10,7 @@ namespace Corp.Cencosud.Supermercados.Sua.Inventario.Api.Models
     {
         public int? id { get; set; }
         public int idDocumento { get; set; }
-        public string usuarioInventario { get; set; }
+        public string usuarioinventario { get; set; }
         public string digito { get; set; }
         public int cajas { get; set; }
         public int cajasSueltas { get; set; }

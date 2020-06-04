@@ -3,6 +3,7 @@ using Corp.Cencosud.Supermercados.Sua.Inventario.Entities;
 using Corp.Cencosud.Supermercados.Sua_Inventario.Dal;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web;
 using System;
 
 namespace Corp.Cencosud.Supermercados.Sua.Inventario.Biz
@@ -36,6 +37,7 @@ namespace Corp.Cencosud.Supermercados.Sua.Inventario.Biz
 
         public string UpdatePosicion(PosicionUpdate posicion)
         {
+            posicion.usuario = "Mobile";
             posicion.codigoArticulo = posicion.digito.Equals(".") ? posicion.codigoArticulo = "(-.-)" : posicion.articulo;
             if (posicion.tipoInventario.ToUpper() == TipoInventarios.Camadas.ToString().ToUpper())
             {

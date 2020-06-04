@@ -209,7 +209,7 @@ namespace Corp.Cencosud.Supermercados.Sua.Inventario.Biz
             if (documento == null)
                 return null;
             var docModel = documento.ToModel();
-            docModel.lTotales = docModel.posiciones.Where(x => String.IsNullOrEmpty(x.usuario)).Count();
+            docModel.lTotales = docModel.posiciones.Count();
             docModel.lContadas = docModel.posiciones.Where(x => !String.IsNullOrEmpty(x.usuario)).Count();
             return docModel;
         }
