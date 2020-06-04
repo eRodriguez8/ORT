@@ -60,7 +60,7 @@ namespace Corp.Cencosud.Supermercados.Sua.Inventario.Biz
                 {
                     return _unitOfWorkOfCDsDB.sp_ControlAutomatico(posicion.idDocumento);
                 }
-                return "";
+                return "Ok";
             }
             catch(Exception ex)
             {
