@@ -41,20 +41,20 @@ namespace Corp.Cencosud.Supermercados.Sua.Inventario.Biz
             posicion.codigoArticulo = posicion.digito.Equals(".") ? posicion.codigoArticulo = "(-.-)" : posicion.articulo;
             if (posicion.tipoInventario.ToUpper() == TipoInventarios.Camadas.ToString().ToUpper())
             {
-                posicion.bultosInv = (posicion.camadas * posicion.iCxHActual) + posicion.cajasSueltas;
-                posicion.cajasSueltasInv = posicion.cajasSueltas;
+                posicion.bultosInv = posicion.camadas + posicion.cajasSueltas;
+                posicion.cajasSueltas= posicion.cajasSueltas;
                 posicion.hxPInv = (int)posicion.camadas;
             }
             else
             {
                 posicion.bultosInv = posicion.camadas;
-                posicion.cajasSueltasInv = 0;
+                posicion.cajasSueltas = 0;
                 posicion.hxPInv = 0;
             }
             try
             {
-                var resUpdate = _unitOfWorkOfCDsDB.Sp_Update_Posicion(posicion.id, posicion.usuario, posicion.digito, posicion.bultosInv, posicion.usuarioInventario,
-                    posicion.hxPInv, posicion.cajasSueltasInv, posicion.observaciones, posicion.codigoArticulo);
+                var resUpdate = _unitOfWorkOfCDsDB.Sp_Update_Posicion(posicion.id, posicion.usuario, posicion.digito, posicion.bultosInv, posicion.usuarioinventario,
+                    posicion.hxPInv, posicion.cajasSueltas, posicion.observaciones, posicion.codigoArticulo);
             
                 if ( resUpdate && posicion.registroCargado == posicion.registroTotal)
                 {

@@ -43,6 +43,9 @@ namespace Corp.Cencosud.Supermercados.Sua.Inventario.Api.Controllers
                 posAm.tipoInventario = pos.tipoinventario;
                 posAm.ean13 = pos.ean13;
                 posAm.etiqueta = pos.etiqueta;
+                posAm.articulo = pos.codigoarticulo;
+                posAm.cajasSueltas = pos.cajassueltasinv;
+                posAm.camadas = pos.bultosinv.HasValue ? pos.bultosinv.Value : 0;
                 docAm.posiciones.Add(posAm);
             }
             

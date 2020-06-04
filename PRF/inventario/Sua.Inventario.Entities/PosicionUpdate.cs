@@ -11,9 +11,9 @@ namespace Corp.Cencosud.Supermercados.Sua.Inventario.Entities
         public int? id { get; set; }
         public int idDocumento { get; set; }
         public string usuario { get; set; }
-        public string usuarioInventario { get; set; }
+        public string usuarioinventario { get; set; }
         public string digito { get; set; }
-        public int cajasSueltas { get; set; }
+        public int? cajasSueltas { get; set; }
         public string tipoInventario { get; set; }
         public string observaciones { get; set; }
         public double camadas { get; set; }
@@ -22,7 +22,7 @@ namespace Corp.Cencosud.Supermercados.Sua.Inventario.Entities
         public int registroTotal { get; set; }
         public double? bultosInv { get; set; }
         public int hxPInv { get; set; }
-        public int cajasSueltasInv { get; set; }
+        public int? cajas { get; set; }
         public string articulo { get; set; }
         public string codigoArticulo { get; set; }
 
