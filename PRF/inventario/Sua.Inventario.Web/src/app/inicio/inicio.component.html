@@ -4,7 +4,7 @@
 <div class="container margin-top-80">
   <div *ngIf="!bussy" class="center">
     <div *ngFor="let item of menu " class="d-inline p-2">
-      <a routerLink="{{item.url}}" class="{{item.clase}}">
+      <a routerLink="{{item.url !== '/Estado' ? item.url : ''}}" class="{{item.clase}}">
         <img src="{{item.imagen}}" class="{{item.clase}}"/>
       </a>
     </div>

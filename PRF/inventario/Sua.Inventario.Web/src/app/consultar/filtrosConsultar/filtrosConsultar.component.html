@@ -32,7 +32,7 @@
         </div>
         <div class="col-md-3 col-12">
           <label class="label blue padding-10">Fecha</label>
-          <input type="text" name="daterangeCInput" class="text center" daterangepicker [options]="options"
+          <input type="text" name="daterangeCInput" class="text center" autocomplete="off" daterangepicker [options]="options"
             (selected)="selectedDate($event,'C')" [value]="filtro.fecha" />
           <img class="clickeable" src="assets/images/icono-clearDate.png" (click)="selectedDate(null, 'C')" />
         </div>

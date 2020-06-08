@@ -30,7 +30,7 @@
     <img src="assets/images/loader.gif" alt="img" title="cargando...">
   </div>
   <div *ngIf="cargoGrilla" id="widegetDetalle" class="widget-body collapse show padding-10">
-    <table datatable [dtOptions]="dtdocumentos" class="row-border hover text center">
+    <table datatable [dtOptions]="dtdocumentos" class="row-border hover text center ml-0">
       <thead>
         <tr>
           <th> </th>
@@ -56,7 +56,7 @@
       <tbody>
         <tr *ngFor="let doc of documentos">
           <td>
-            <img class="clickeable" src="assets/images/documento.png" title="Consultar" alt="Consultar" (click)="consultarDoc(doc.id, doc.impactadoSega, doc.fase)" />
+            <img class="clickeable" src="assets/images/lupa.png" title="Ver detalle" alt="Ver detalle" (click)="consultarDoc(doc.id, doc.impactadoSega, doc.fase)" />
           </td>
           <td>
             <a class='widget-caption' (click)='descargarPosicion(doc.id)'>
@@ -65,13 +65,13 @@
           </td>
           <td>
             <div *ngIf="!doc.legajoAsignado && statusInv == 'Iniciado' && doc.estado != 'Cancelado' && doc.estado != 'Finalizado'">
-                <img src="assets/images/asignarIcon.png" title="Asignar" alt="Asignar" (click)="asignarDoc(doc.id, doc.documento)" />
+                <img class="clickeable" src="assets/images/asignarIcon.png" title="Asignar" alt="Asignar" (click)="asignarDoc(doc.id, doc.documento)" />
             </div>
             <div *ngIf="doc.legajoAsignado && statusInv == 'Iniciado' && doc.estado != 'Cancelado' && doc.estado != 'Finalizado'">
-              <img src="assets/images/desasignarIcon.png" title="Desasignar" alt="Desasignar" (click)="desasignarDoc(doc.id)" />
+              <img class="clickeable" src="assets/images/desasignarIcon.png" title="Desasignar" alt="Desasignar" (click)="desasignarDoc(doc.id)" />
             </div>
             <div *ngIf="!doc.legajoAsignado && statusInv == 'Iniciado' && doc.estado != 'Cancelado' && doc.estado != 'Finalizado'">
-              <img src="assets/images/cancelarIcon.png" title="Cancelar" alt="Cancelar" (click)="cancelarDoc(doc.id)"/>
+              <img class="clickeable" src="assets/images/close.png" title="Cancelar" alt="Cancelar" (click)="cancelarDoc(doc.id)"/>
             </div>
           </td>
           <td>{{ doc.documento }}</td>

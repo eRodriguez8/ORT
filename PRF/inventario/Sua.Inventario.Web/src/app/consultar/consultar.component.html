@@ -34,9 +34,9 @@
       <tbody>
         <tr *ngFor="let inv of inventarios">
           <td>
-            <img class="clickeable" src="assets/images/lupa.png" (click)="consultar(inv.id, inv.estado)" />
+            <img class="clickeable" src="assets/images/lupa.png" title="Ver detalle" (click)="consultar(inv.id, inv.estado)" />
             <div class="inline" *ngIf="inv.estado == 'Iniciado'">
-              <img class="clickeable" src="assets/images/close.png" (click)="cerrar(inv.id, inv.nombre)" />
+              <img class="clickeable" src="assets/images/close.png" title="Cerrar" (click)="cerrar(inv.id, inv.nombre)" />
             </div>
           </td>
           <td>{{ inv.cc }}</td>
