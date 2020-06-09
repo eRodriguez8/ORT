@@ -1,12 +1,12 @@
 <div class="widget" id="filtros">
   <div class="widget-header bordered-bottom bordered-blue">
     <span class="widget-caption">
-      <i class="widget-icon fa fa-filter"></i> Filtros
+      <i class="widget-icon fas fa-filter"></i> Filtros
     </span>
 
     <div class="widget-buttons">
       <a data-toggle="collapse" href="#widegetFiltro" role="button" aria-expanded="false" aria-controls="widegetFiltro">
-        <i class="widget-icon fa fa-chevron-up"></i>
+        <i class="widget-icon fas fa-chevron-up"></i>
       </a>
     </div>
   </div>
@@ -34,11 +34,12 @@
           <label class="label blue padding-10">Fecha</label>
           <input type="text" name="daterangeCInput" class="text center" autocomplete="off" daterangepicker [options]="options"
             (selected)="selectedDate($event,'C')" [value]="filtro.fecha" />
-          <img class="clickeable" src="assets/images/icono-clearDate.png" (click)="selectedDate(null, 'C')" />
+          <a class="clickeable ml-1" (click)="selectedDate(null, 'C')" >
+          <i class="fas fa-times"></i></a>
         </div>
         <div class="col-md-3 col-12">
           <button type="submit" class="btn btn-outline-primary btn-sm">
-            <i class="fa fa-search"></i> Buscar
+            <i class="fas fa-search"></i> Buscar
           </button>
         </div>
       </div>
