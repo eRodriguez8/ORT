@@ -38,11 +38,20 @@ namespace Corp.Cencosud.Supermercados.Sua.Inventario.Biz
         public string UpdatePosicion(PosicionUpdate posicion)
         {
             posicion.usuario = "Mobile";
-            posicion.codigoArticulo = posicion.digito.Equals(".") ? posicion.codigoArticulo = "(-.-)" : posicion.articulo;
+            var sArticulo = posicion.articulo.Split('-');
+            if(sArticulo.Any())
+            {
+                posicion.codigoArticulo = sArticulo[1];
+            }
+            else
+            {
+                posicion.codigoArticulo = posicion.digito.Equals(".") ? posicion.codigoArticulo = "(-.-)" : posicion.articulo;
+            }
+            
             if (posicion.tipoInventario.ToUpper() == TipoInventarios.Camadas.ToString().ToUpper())
             {
                 posicion.bultosInv = posicion.camadas + posicion.cajasSueltas;
-                posicion.cajasSueltas= posicion.cajasSueltas;
+                posicion.cajasSueltas = posicion.cajas;
                 posicion.hxPInv = (int)posicion.camadas;
             }
             else

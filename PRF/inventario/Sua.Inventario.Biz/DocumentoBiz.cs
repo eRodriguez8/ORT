@@ -65,6 +65,7 @@ namespace Corp.Cencosud.Supermercados.Sua.Inventario.Biz
             }
             _unitOfWorkOfCDsDB.Save();
         }
+
         public string CancelarDocumentoxId(int idDoc)
         {
             var doc = Get(idDoc);
