@@ -1,8 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
-<!-- En este archivo se definen carpetas de assemblies
-     que sean específicas para el proyecto actual -->
-<config>
-  <updateFolders>
-    <!--<folder name="ComInterop" />-->
-  </updateFolders>
-</config>

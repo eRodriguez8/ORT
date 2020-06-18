@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   prefix: 'Sua.Inventario.Api/api/',
-  server: 'http://localhost/',
+  server: 'http://localhost:58949/',
   version: 'v1/'
 };
 

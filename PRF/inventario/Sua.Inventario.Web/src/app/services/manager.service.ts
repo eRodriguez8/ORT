@@ -14,8 +14,8 @@ export class HttpManagerService {
   public urlExtAcc: string;
 
   constructor(private http: HttpClient, private modalService: NgbModal) {
-    this.url = `${environment.server}${environment.prefix}${environment.version}`;
-    this.urlExtAcc = `${environment.server}Sua.Accesos.Api/api/${environment.version}`;
+    this.url = `http://localhost:80/${environment.prefix}${environment.version}`;
+    this.urlExtAcc = `${environment.server}/api/${environment.version}`;
   }
 
   public get<T>(route: string): Observable<T> {
