@@ -39,9 +39,9 @@ namespace Corp.Cencosud.Supermercados.Sua.Inventario.Biz
         {
             posicion.usuario = "Mobile";
             var sArticulo = posicion.articulo.Split('-');
-            if(sArticulo.Length == 2)
+            if(sArticulo.Any())
             {
-                posicion.codigoArticulo = sArticulo[1];
+                posicion.codigoArticulo = sArticulo[0];
             }
             else
             {
